@@ -15,7 +15,7 @@ def login():
 
     """ Control: existen y coincide el usuario en la BD?"""
     cur = mysql.connection.cursor()
-    cur.execute('SELECT * FROM users WHERE username = %s AND password = %s', (auth.username, auth.password))
+    cur.execute("SELECT * FROM users WHERE username = %s AND password = %s", (auth.username, auth.password))
     # Esperamos recibir una fila: devuelve 1ero en fila osea 1.
     row = cur.fetchone()
 

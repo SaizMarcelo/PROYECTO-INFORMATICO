@@ -13,4 +13,6 @@ app.config['SECRET_KEY'] = 'app_123'
 import api.routes.usuario
 # Conectamos las rutas de clientes
 import api.routes.cliente
+# Conectamos las rutas de datos_usuarios
+import api.routes.datos_usuario
 
