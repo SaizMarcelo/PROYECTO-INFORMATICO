@@ -12,4 +12,4 @@ if len(sys.argv)>1 and sys.argv[1] == "list":
 
 # SINO si el __name__ coincide con __main__: que se ejecute la app por el puerto:
 elif __name__ == '__main__':
-    app.run(debug=True, port=4500)
+    app.run(debug=True, port=4000)
