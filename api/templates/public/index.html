@@ -23,40 +23,16 @@
 
             <!-- Boton de Ejecucion -->
             <input type="button" onclick="iniciarSesion()" value="Iniciar Sesion">
+
+            <!-- Si no hay Token la respuesta del Script0001.js se recibe por aca: -->
+            <span id="message">♠</span>
+
         </form>
 
-        <script>
-            // Primero se requiere recuperar la informacion, luego realizar un Fetch() a la ruta que corresponda.
-            function iniciarSesion(){
-                // Recuperamos el username: lo consultaremos al documento por su Id del elemento.
-                const username = document.getElementById('in-username').value;
-                // Recuperamos la contraseña lo consultaremos al documento por su Id del elemento.
-                const password = document.getElementById('in-password').value;
-                // Creamos la estructura del Request: Consulta:
-                const requestOption = {
-                    // Metodo a utilizar:
-                    method: "POST",
-                    // Creamos la misma estructura que debe estar estructurado el HEADER de la reuquest:
-                    headers: {
-                        'Content-Type' : 'aplicattion/json',
-                        // btoa codifica en base64 para que el backend la identifique.
-                        'Authorization' : 'Basic ' + btoa(username + ":" + password)
-                    }
-                }
-                // Realizamos el Fetch()
-                fetch('http://127.0.0.1:4500/login', requestOption)
-                // Como es una promesa vamos a trabajarlo con el then - cach:
-                .then(
-                    res => { return res.json()}
-                    )
-                .then(
-                    // Si llegamos a este punto hacemos un control.log
-                    resp => {console.log(resp)}
-                )
-            }
-        </script>
+        <!-- Conectamos el script0001.js con el HTML -->
+        <script src="{{ url_for('static', filename='script0001.js') }}"></script>
+
 
     </body>
     
-
 </html>
