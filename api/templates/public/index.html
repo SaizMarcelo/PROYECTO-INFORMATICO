@@ -4,20 +4,57 @@
         <meta charset='utf-8'>
         <!--DISEÑO RESPONSIVE / RESPONSIVO-->
         <meta name="viewport" content = "width=device-width, initial-scale=1.0">
-        <link rel ="stylesheet" href="css/breakpoints.css">
-        <title> DashBoard  </title>
+        <link rel ="stylesheet" href="">
+        <title> LOGIN </title>
     </head>
     
     <body>
-        <header>
-            <h1> PAGINA PRINCIPAL DE LOGIN </h1>
-            <p>Usuario</p>
-            <input type="text" name="nombre" placeholder="Ingrese su USUARIO">
-            <p>Clave</p>
-            <input type="text" name="nombre" placeholder="Ingrese SU CLAVE">
-            <a href ="">Registrarse</a>
+        <!-- Creamos el formulario para ingresar los datos del Usuario -->
+        <form>
+            <!-- Etiqueta -->
+            <label for="in-username"> Usuario </label>
+            <!-- Ingreso Datos -->
+            <input type="text" id="in-username">
 
-        </header>
+            <!-- Etiqueta -->
+            <label for="in-password"> Contraseña </label>
+            <!-- Ingreso Datos -->
+            <input type="password" id="in-password">
+
+            <!-- Boton de Ejecucion -->
+            <input type="button" onclick="iniciarSesion()" value="Iniciar Sesion">
+        </form>
+
+        <script>
+            // Primero se requiere recuperar la informacion, luego realizar un Fetch() a la ruta que corresponda.
+            function iniciarSesion(){
+                // Recuperamos el username: lo consultaremos al documento por su Id del elemento.
+                const username = document.getElementById('in-username').value;
+                // Recuperamos la contraseña lo consultaremos al documento por su Id del elemento.
+                const password = document.getElementById('in-password').value;
+                // Creamos la estructura del Request: Consulta:
+                const requestOption = {
+                    // Metodo a utilizar:
+                    method: "POST",
+                    // Creamos la misma estructura que debe estar estructurado el HEADER de la reuquest:
+                    headers: {
+                        'Content-Type' : 'aplicattion/json',
+                        // btoa codifica en base64 para que el backend la identifique.
+                        'Authorization' : 'Basic ' + btoa(username + ":" + password)
+                    }
+                }
+                // Realizamos el Fetch()
+                fetch('http://127.0.0.1:4500/login', requestOption)
+                // Como es una promesa vamos a trabajarlo con el then - cach:
+                .then(
+                    res => { return res.json()}
+                    )
+                .then(
+                    // Si llegamos a este punto hacemos un control.log
+                    resp => {console.log(resp)}
+                )
+            }
+        </script>
 
     </body>
     

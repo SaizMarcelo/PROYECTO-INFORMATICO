@@ -4,15 +4,17 @@ from flask_cors import CORS
 from api import app
 
 
-# DATOS USUARIO
+# Redireccionamiento: DATOS USUARIO
 @app.route('/usuarioForm0001')
 def usuarioForm0001():
     return render_template('public/usuarioForm0001.html')
 
-# DASHBOARD
+# Redireccionamiento: INICIO
 @app.route('/inicioForm0001')
 def inicioForm0001():
     return render_template('public/inicioForm0001.html')
+
+
 
 # Conectamos las rutas de usuario
 import api.routes.usuario
