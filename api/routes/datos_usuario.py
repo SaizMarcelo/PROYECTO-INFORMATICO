@@ -27,3 +27,4 @@ def get_all_datosUsuarios_by_user_id(id_user):
         clientList.append(objClient.to_json())
     # Retornamos la lista de elementos json:
     return jsonify(clientList)
+
