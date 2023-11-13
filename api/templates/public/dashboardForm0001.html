@@ -4,7 +4,7 @@
         <meta charset='utf-8'>
         <!--DISEÑO RESPONSIVE / RESPONSIVO-->
         <meta name="viewport" content = "width=device-width, initial-scale=1.0">
-        <link rel ="stylesheet" href="css/breakpoints.css">
+        <link rel ="stylesheet" href="">
         <title> Form: Datos Usuario  </title>
     </head>
         
@@ -18,29 +18,10 @@
         <h3> Token !!! <span id="token"></span></h3>
         <h3> ID !!! <span id="id"></span></h3>
     
+        <button onclick="cargarClientes()"> Cargar Cliente </button>
+
     </body>
 
-    <script>
-        // Recuperamos informacion del LOCALSTORAGE:
-        window.onload = function(){
-            const token = localStorage.getItem("token");
-            // luego de obtener el TOKEN todo lo que hagamos vamos a estar limitados por ese token:
-            if(token){
-                const username = localStorage.getItem('username');
-                const id = localStorage.getItem('id');
-                // Mensaje bienvenida:
-                document.getElementById("username").innerHTML = username
-                // Mensaje token:
-                document.getElementById("token").innerHTML = token
-                // Mensaje id:
-                document.getElementById("id").innerHTML = id
-            }
-            // Si el token no es correcto tenemos que limitar la permanencia en la pagina:
-            else{
-                // Hacemos referencia para que vuelva a la ventana anterior:
-                window.location.href = "/";
-            }
-        }
-    </script>
+    <script src="{{ url_for('static', filename='script0002.js') }}"></script>
     
 </html>
