@@ -15,16 +15,16 @@ def crate_product(user_id):
     name = request.get_json()["name"]
     unitary_price = request.get_json()["unitary_price"]
     units_stored = request.get_json()["units_stored"]
-    units_selled = request.get_json()["units_selled"]
+    iva = request.get_json()["iva"]
     
     cur = mysql.connection.cursor()
-    cur.execute('INSERT INTO product (user_id, name, unitary_price, units_stored, units_selled, visibility) VALUES (%s, %s, %s, %s, %s, %s)', (user_id, name, unitary_price, units_stored, units_selled, True))
+    cur.execute('INSERT INTO product (user_id, name, unitary_price, units_stored, iva, visibility) VALUES (%s, %s, %s, %s, %s, %s)', (user_id, name, unitary_price, units_stored, iva, True))
     mysql.connection.commit()
     cur.execute('SELECT LAST_INSERT_ID()')
     row = cur.fetchone()
  
     id = row[0]
-    return jsonify({"id": id, "user_id": user_id, "name": name, "unitary_price": unitary_price, "units_stored": units_stored, "units_selled": units_selled})
+    return jsonify({"id": id, "user_id": user_id, "name": name, "unitary_price": unitary_price, "units_stored": units_stored, "iva": iva})
 
 
 
@@ -85,16 +85,16 @@ def update_product(user_id, product_id):
     name = request.get_json()["name"]
     unitary_price = request.get_json()["unitary_price"]
     units_stored = request.get_json()["units_stored"]
-    units_selled = request.get_json()["units_selled"]
+    iva = request.get_json()["iva"]
 
     cur = mysql.connection.cursor()
     cur.execute('SELECT * FROM product WHERE id=%s AND user_id=%s AND visibility = %s', (product_id, user_id, True))
 
     if cur.rowcount > 0:
-        cur.execute('UPDATE product SET name = %s, unitary_price = %s, units_stored = %s, units_selled = %s WHERE id=%s', (name, unitary_price, units_stored, units_selled, product_id))
+        cur.execute('UPDATE product SET name = %s, unitary_price = %s, units_stored = %s, iva = %s WHERE id=%s', (name, unitary_price, units_stored, iva, product_id))
     
         mysql.connection.commit()
-        return jsonify({"id": product_id, "name": name, "unitary_price": unitary_price, "units_stored": units_stored, "units_selled": units_selled})
+        return jsonify({"id": product_id, "name": name, "unitary_price": unitary_price, "units_stored": units_stored, "iva": iva})
     
     return jsonify( {"messege": "id not found"}), 404
 

@@ -2,6 +2,7 @@ from api import app
 from flask import request, jsonify
 from api.db.db import mysql
 from api.models.usuario import User
+from api.utils import token_required, user_resource
 import jwt
 import datetime as dt
 
@@ -10,7 +11,6 @@ import datetime as dt
 @app.route('/login', methods = ['POST'] )
 def login():
     auth = request.authorization
-    print(auth)
 
     """ Control: existen valores para la autenticacion?"""
     if not auth or not auth.username or not auth.password:
@@ -85,6 +85,8 @@ def get_all_user():
 
 # UPDATE
 @app.route('/users/<int:id>', methods = ['PUT'] )
+@token_required
+@user_resource
 def update_user(id):
     
     username = request.get_json()["username"]
@@ -106,6 +108,8 @@ def update_user(id):
 
 # DELETE
 @app.route('/users/<int:id>', methods = ['DELETE'] )
+@token_required
+@user_resource
 def remove_user(id):
     cur = mysql.connection.cursor()
     cur.execute('SELECT * FROM users WHERE id=%s AND visibility =%s', (id, True))

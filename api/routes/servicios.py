@@ -12,17 +12,17 @@ def crate_service(user_id):
 
     name = request.get_json()["name"]
     hour_price = request.get_json()["hour_price"]
-    services_contracted = request.get_json()["services_contracted"]
+    iva = request.get_json()["iva"]
     
     
     cur = mysql.connection.cursor()
-    cur.execute('INSERT INTO service (user_id, name, hour_price, services_contracted, visibility) VALUES (%s, %s, %s, %s, %s)', (user_id, name, hour_price, services_contracted, True))
+    cur.execute('INSERT INTO service (user_id, name, hour_price, iva, visibility) VALUES (%s, %s, %s, %s, %s)', (user_id, name, hour_price, iva, True))
     mysql.connection.commit()
     cur.execute('SELECT LAST_INSERT_ID()')
     row = cur.fetchone()
  
     id = row[0]
-    return jsonify({"id": id, "user_id": user_id, "name": name, "hour_price": hour_price, "services_contracted": services_contracted})
+    return jsonify({"id": id, "user_id": user_id, "name": name, "hour_price": hour_price, "iva": iva})
 
 
 
@@ -80,17 +80,17 @@ def update_service(user_id, service_id):
     
     name = request.get_json()["name"]
     hour_price = request.get_json()["hour_price"]
-    services_contracted = request.get_json()["services_contracted"]
+    iva = request.get_json()["iva"]
     
 
     cur = mysql.connection.cursor()
     cur.execute('SELECT * FROM service WHERE id=%s AND user_id=%s AND visibility = %s', (service_id, user_id, True))
 
     if cur.rowcount > 0:
-        cur.execute('UPDATE service SET name = %s, hour_price = %s, services_contracted = %s WHERE id=%s', (name, hour_price, services_contracted, service_id))
+        cur.execute('UPDATE service SET name = %s, hour_price = %s, iva = %s WHERE id=%s', (name, hour_price, iva, service_id))
     
         mysql.connection.commit()
-        return jsonify({"id": service_id, "name": name, "hour_price": hour_price, "services_contracted": services_contracted})
+        return jsonify({"id": service_id, "name": name, "hour_price": hour_price, "iva": iva})
     
     return jsonify( {"messege": "id not found"}), 404
 
