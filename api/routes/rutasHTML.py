@@ -20,19 +20,3 @@ def inicioForm0001():
 @app.route('/dashboardForm0001')
 def dashboardForm0001():
     return render_template('public/dashboardForm0001.html')
-
-
-
-
-# Conectamos las rutas de usuario
-import api.routes.usuario
-# Conectamos las rutas de clientes
-import api.routes.cliente
-# Conectamos las rutas de datos_usuarios
-import api.routes.datos_usuario
-# Conectamos las rutas a la api raiz.
-import api.routes.rutasHTML
-
-
-
-

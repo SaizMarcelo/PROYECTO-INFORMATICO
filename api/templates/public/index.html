@@ -1,38 +1,28 @@
-<!DOCTYPE html>
-<html lang='es-AR'>
-    <head>
-        <meta charset='utf-8'>
-        <!--DISEÑO RESPONSIVE / RESPONSIVO-->
-        <meta name="viewport" content = "width=device-width, initial-scale=1.0">
-        <link rel ="stylesheet" href="">
-        <title> LOGIN </title>
-    </head>
-    
-    <body>
-        <!-- Creamos el formulario para ingresar los datos del Usuario -->
-        <form>
-            <!-- Etiqueta -->
-            <label for="in-username"> Usuario </label>
-            <!-- Ingreso Datos -->
-            <input type="text" id="in-username">
+{% extends 'public//base.html' %}
+{% block title %} LOGIN {% endblock %}
+{% block content %}
+<!-- Creamos el formulario para ingresar los datos del Usuario -->
+<form>
+    <!-- Etiqueta -->
+    <label for="in-username"> Usuario </label>
+    <!-- Ingreso Datos -->
+    <input type="text" id="in-username">
 
-            <!-- Etiqueta -->
-            <label for="in-password"> Contraseña </label>
-            <!-- Ingreso Datos -->
-            <input type="password" id="in-password">
+    <!-- Etiqueta -->
+    <label for="in-password"> Contraseña </label>
+    <!-- Ingreso Datos -->
+    <input type="password" id="in-password">
 
-            <!-- Boton de Ejecucion -->
-            <input type="button" onclick="iniciarSesion()" value="Iniciar Sesion">
+    <!-- Boton de Ejecucion -->
+    <input type="button" onclick="iniciarSesion()" value="Iniciar Sesion">
 
-            <!-- Si no hay Token la respuesta del Script0001.js se recibe por aca: -->
-            <span id="message">♠</span>
+    <!-- Si no hay Token la respuesta del Script0001.js se recibe por aca: -->
+    <span id="message">♠</span>
 
-        </form>
+</form>
 
-        <!-- Conectamos el script0001.js con el HTML -->
-        <script src="{{ url_for('static', filename='script0001.js') }}"></script>
+<!-- Conectamos el script0001.js con el HTML -->
+<script src="{{ url_for('static', filename='script0001.js') }}"></script>
 
 
-    </body>
-    
-</html>
+{% endblock %}

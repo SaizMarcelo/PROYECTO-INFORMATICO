@@ -1,27 +1,17 @@
-<!DOCTYPE html>
-<html lang='es-AR'>
-    <head>
-        <meta charset='utf-8'>
-        <!--DISEÑO RESPONSIVE / RESPONSIVO-->
-        <meta name="viewport" content = "width=device-width, initial-scale=1.0">
-        <link rel ="stylesheet" href="">
-        <title> Form: Datos Usuario  </title>
-    </head>
-        
-    <body>
-        <h1> DASHBOARD - AQUI YA DEBERIA ESTAR CON CONTROL DE USUARIO: AUN ES INSEGURO AUI </h1>
-        <p> Hay que ver como ingresar de forma segura aqui deasde aqui todo deberia ser seguro siempre: </p>
-        <p> Tenemos token, usuarios habilitados hay que buscar la manreda de poder utilizar la informacion para ingresar de forma segura </p>
-        
-        <!-- Abrimos una nueva pagina y recuparamos la informacion del LOCALSTORAGE-->
-        <h3> Bienvenido !!! <span id="username"></span></h3>
-        <h3> Token !!! <span id="token"></span></h3>
-        <h3> ID !!! <span id="id"></span></h3>
+{% extends 'public//base.html' %}
+{% block title %} DASHBOARD {% endblock %}
+{% block content %}
+    <h1> DASHBOARD - AQUI YA DEBERIA ESTAR CON CONTROL DE USUARIO: AUN ES INSEGURO AUI </h1>
+    <p> Hay que ver como ingresar de forma segura aqui deasde aqui todo deberia ser seguro siempre: </p>
+    <p> Tenemos token, usuarios habilitados hay que buscar la manreda de poder utilizar la informacion para ingresar de forma segura </p>
     
-        <button onclick="cargarClientes()"> Cargar Cliente </button>
+    <!-- Abrimos una nueva pagina y recuparamos la informacion del LOCALSTORAGE-->
+    <h3> Bienvenido !!! <span id="username"></span></h3>
+    <h3> Token !!! <span id="token"></span></h3>
+    <h3> ID !!! <span id="id"></span></h3>
 
-    </body>
+    <button onclick="cargarClientes()"> Cargar Cliente </button>
 
     <script src="{{ url_for('static', filename='script0002.js') }}"></script>
     
-</html>
+{% endblock %}
