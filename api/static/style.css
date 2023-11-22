@@ -1,0 +1,19 @@
+/* Estilos para el modal */
+.modal {
+    display: none; /* Ocultar el modal de forma predeterminada */
+    position: fixed; /* Posición fija para cubrir toda la pantalla */
+    z-index: 1; /* Colocar el modal encima de todo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Permitir desplazamiento si el contenido es demasiado grande */
+    background-color: rgba(0,0,0,0.4); /* Fondo oscuro semitransparente */
+  }
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* Centrar el modal en la pantalla */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }

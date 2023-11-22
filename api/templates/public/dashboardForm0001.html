@@ -10,7 +10,59 @@
     <h3> Token !!! <span id="token"></span></h3>
     <h3> ID !!! <span id="id"></span></h3>
 
-    <button onclick="cargarClientes()"> Cargar Cliente </button>
+
+    <button onclick="cargarClientes()"> Lista de Clientes </button>
+    <br></br>
+
+    <br/>
+        <!-- Salto de Linea -->   
+    <br/>
+
+    
+    <div id="contenedorDinamico">
+        <!-- Contenido dinamico de JavaScript-->
+    </div>
+    
+    <!-- El modal Clientes -->
+    <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h3>FORMULARIO: DATOS CLIENTES:</h3>
+      <p>Controle que los datos sean correctos antes de realizar cualquier modificacion y editarlos.</p>
+      <label for="address">Adress:</label>
+      <input type="text" id="address" onkeyup="" placeholder="address">
+      <br></br>
+      <label for="email">Email:</label>
+      <input type="text" id="email" onkeyup="" placeholder="email">
+      <br></br>
+      <label for="id">Id Cliente:</label>
+      <input type="number" id="idCliente" onkeyup="" placeholder="id">
+      <br></br>
+      <label for="name">Name:</label>
+      <input type="text" id="name" onkeyup="" placeholder="name">
+      <br></br>
+      <label for="phone_number">Phone Number:</label>
+      <input type="text" id="phone_number" onkeyup="" placeholder="phone_number">
+      <br></br>
+      <label for="surname">Surname:</label>
+      <input type="text" id="surname" onkeyup="" placeholder="surname">
+      <br></br>
+      <label for="user_id">User_id:</label>
+      <input type="number" id="user_id" onkeyup="" placeholder="user_id">
+      <br></br>
+      <label for="visibility">Visibility:</label>
+      <input type="number" id="visibility" onkeyup="" placeholder="visibility">
+      <span id="clienteEliminado">♠</span>
+      <br></br>
+
+      <button onclick="closeModal()"> Salir  </button>
+      <button id= "botonEditarCliente" onclick="botonEditarCliente()"> Editar </button>
+      <button id= "guardarCambios" onclick="botonGuardarCambios(), modificarDatosClient()"> Agregar Cambios </button>
+      <button id= "nuevoCliente" onclick=""> Nuevo Cliente  </button>
+      <button id= "borrarCliente" onclick="borradoLogicoCliente()"> Borrar  </button>
+    </div>
+    </div>
+  
 
     <script src="{{ url_for('static', filename='script0002.js') }}"></script>
     
