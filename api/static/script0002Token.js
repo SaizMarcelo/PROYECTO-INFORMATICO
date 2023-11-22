@@ -6,11 +6,11 @@ window.onload = function(){
         const username = localStorage.getItem('username');
         const id = localStorage.getItem('id');
         // Mensaje bienvenida:
-        document.getElementById("username").innerHTML = username
+        //document.getElementById("username").innerHTML = username
         // Mensaje token:
-        document.getElementById("token").innerHTML = token
+        //document.getElementById("token").innerHTML = token
         // Mensaje id:
-        document.getElementById("id").innerHTML = id
+        //document.getElementById("id").innerHTML = id
 
     }
     // Si el token no es correcto tenemos que limitar la permanencia en la pagina:
