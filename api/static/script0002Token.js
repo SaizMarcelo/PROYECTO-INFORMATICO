@@ -26,7 +26,6 @@ function cargarClientes(){
     const id = localStorage.getItem('id');
     const token = localStorage.getItem('token');
 
-
     // Creamos el objeto Request para crear el cliente: JSON
     const requestOption = {
         method : 'GET',
@@ -49,9 +48,6 @@ function cargarClientes(){
         resp => {
             // De la consulta vamos a conulstar cuantos registros tiene la cunsulta realizada:
             localStorage.setItem('consultaPuente', resp)
-            console.log(resp)
-            console.log(id)
-            console.log(token)
             var contador = 0
             var contenedorDinamico = document.getElementById("contenedorDinamico");
             contenedorDinamico.innerHTML="";
@@ -60,12 +56,7 @@ function cargarClientes(){
             var tabla = buscador+'<table id="myTable" class="myTable">';
             tabla += `<tr><td>ID</td><td>DNI</td><td>APELLIDO</td><td>NOMBRE</td><td></td></tr>`
             for (let key in resp){
-                console.log(key)
-                console.log(resp[contador]["name"])
-                console.log(resp[contador]["surname"])
-                
                 tabla += `<tr><td>${resp[contador]["id"]}</td><td>NunDni</td><td>${resp[contador]["surname"]}</td><td>${resp[contador]["name"]}</td><td><button onclick="consultarIdBotonVer(this),buscarDatosCliente(),openModal()">Ver</button></td></tr>`
-
                 contador += 1
             }
             tabla += "</table>";
@@ -110,10 +101,6 @@ function buscarDatosCliente(){
     )
     .then(
         resp => {
-            // De la consulta vamos a conulstar cuantos registros tiene la cunsulta realizada:
-            console.log(resp)
-            console.log(id)
-            console.log(token)
             // Enviamos los datos para cargar el fomulario:
             deshabilitarInput("address")
             document.getElementById("address").value = resp["address"]
@@ -161,10 +148,6 @@ function modificarDatosClient(){
     fetch(`http://127.0.0.1:4500/users/${id}/client/${idClienteVer}`, requestOption)
     .then(resp => resp.json())
     .then(resp => {
-        // Manejar la respuesta de la consulta
-        console.log(resp);
-        console.log(id);
-        console.log(token);
         // Actualizamos la lista de clientes:
         cargarClientes();
     })
@@ -209,6 +192,44 @@ function borradoLogicoCliente(){
     });
 }
 
+// Funcion POST: Crear un nuevo cliente.
+function crearCliente(){
+    // Obtenemos la ID del Usuario:
+    const id = localStorage.getItem('id');
+    const token = localStorage.getItem('token');
+    const idClienteVer = localStorage.getItem('idClienteVer');
+    
+    // Creamos el objeto Request para modificar los datos del cliente: JSON
+    const requestOption = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-access-token': token,
+            'user-id': id,
+        },
+        body: JSON.stringify({
+            "name": document.getElementById("name_0001").value,
+            "surname": document.getElementById("surname_0001").value,
+            "email": document.getElementById("email_0001").value,
+            "address": document.getElementById("address_0001").value,
+            "phone_number": document.getElementById("phone_number_0001").value
+        })
+    }
+    
+    fetch(`http://127.0.0.1:4500/users/${id}/client`, requestOption)
+    .then(resp => resp.json())
+    .then(resp => {
+        // Actualizamos la lista de clientes:
+        cargarClientes();
+        closeModal_0001();
+    })
+    .catch(error => {
+        // Manejar cualquier error que pueda ocurrir durante la solicitud
+        console.error('Error:', error);
+    });
+}
+
+
  // Buscar apellido en tabla.
 function buscarEnTabla() {
     // Declara variables
@@ -240,10 +261,27 @@ function openModal() {
     habilitarBoton("borrarCliente")
     document.getElementById("clienteEliminado").innerHTML = '♠'
 }
+// Función para mostrar el modal_0001
+function openModal_0001() {
+    document.getElementById('myModal_0001').style.display = 'block';
+    document.getElementById("address_0001").value = ""
+    document.getElementById("email_0001").value = ""
+    document.getElementById("name_0001").value = ""
+    document.getElementById("phone_number_0001").value = ""
+    document.getElementById("surname_0001").value = ""
+    deshabilitarInput("user_id_0001")
+    document.getElementById("user_id_0001").value = ""
+    deshabilitarInput("visibility_0001")
+    document.getElementById("visibility_0001").value = ""
+}
 
 // Función para cerrar el modal
 function closeModal() {
     document.getElementById('myModal').style.display = 'none';
+}
+// Función para cerrar el modal_0001
+function closeModal_0001() {
+    document.getElementById('myModal_0001').style.display = 'none';
 }
 
 // Deshabilitar Input
@@ -289,3 +327,7 @@ function deshabilitarBoton(nombre) {
 function habilitarBoton(nombre) {
     document.getElementById(nombre).disabled = false; // Habilita el botón
   }
+
+
+
+
