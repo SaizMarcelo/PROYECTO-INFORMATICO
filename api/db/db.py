@@ -11,3 +11,6 @@ app.config['MYSQL_DB'] ='db_api_test'
 
 # Vinculamos la cofiguracion al objeto MySQL con la app:
 mysql = MySQL(app)
+
+class DBError(Exception):
+    pass
