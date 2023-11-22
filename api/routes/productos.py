@@ -2,7 +2,6 @@ from api import app # importamos el objeto app
 from api.models.productos import Product # importamos clase producto
 from flask import jsonify, request
 from api.utils import token_required, user_resource, product_resource
-from api.db.db import mysql
 
 
 
@@ -11,22 +10,14 @@ from api.db.db import mysql
 @token_required
 @user_resource
 def crate_product(user_id):
-
-    name = request.get_json()["name"]
-    unitary_price = request.get_json()["unitary_price"]
-    units_stored = request.get_json()["units_stored"]
-    iva = request.get_json()["iva"]
+    data = request.get_json()
+    data["user_id"] = user_id
+    try:
+        product = Product.create_product(data)
+        return jsonify (product)
+    except Exception as e:
+        return jsonify( {"messege": e.args[0]}), 404
     
-    cur = mysql.connection.cursor()
-    cur.execute('INSERT INTO product (user_id, name, unitary_price, units_stored, iva, visibility) VALUES (%s, %s, %s, %s, %s, %s)', (user_id, name, unitary_price, units_stored, iva, True))
-    mysql.connection.commit()
-    cur.execute('SELECT LAST_INSERT_ID()')
-    row = cur.fetchone()
- 
-    id = row[0]
-    return jsonify({"id": id, "user_id": user_id, "name": name, "unitary_price": unitary_price, "units_stored": units_stored, "iva": iva})
-
-
 
 # READ
 
@@ -35,44 +26,22 @@ def crate_product(user_id):
 @token_required
 @user_resource
 @product_resource
-def get_product_by_id(user_id, product_id):
-    """ Acceso a BBDD"""
-    cur = mysql.connection.cursor()
-    cur.execute('SELECT * FROM product WHERE id=%s AND user_id=%s AND visibility = %s', (product_id, user_id, True))
-    data = cur.fetchall()
+def get_product_by_id(product_id, user_id):
+    try:
+        prodcut = Product.get_product_by_id(product_id)
+        return jsonify(prodcut)
+    except Exception as e:
+        return jsonify( {"messege": e.args[0]}), 404
     
-    if cur.rowcount > 0:
-        objProduct = Product(data[0])
-        return jsonify( objProduct.to_json() )
     
-    return jsonify( {"messege": "id not found"}), 404
 
 # Consultar todos los productos
 @app.route('/users/<int:user_id>/product', methods = ['GET'] )
 @token_required
 @user_resource
 def get_all_products_by_user_id(user_id):
-    # Creamos un cursor:
-    cur = mysql.connection.cursor()
-
-    # Realizamos una consulta SQL:
-    cur.execute('SELECT * FROM product WHERE user_id = %s AND visibility = %s', (user_id, True))
-
-    # Esperamos mas de un registro:
-    data = cur.fetchall()
-
-    # Creamos una lista vacia:
-    productList = []
-   
-    # Creamos un bucle for: por cada fila: 
-    for row in data:
-        # Creamos un objeto producto:
-        objProduct = Product(row)
-
-        # Agregamos un elemento json a la lista:
-        productList.append(objProduct.to_json())
-    # Retornamos la lista de elementos json:
-    return jsonify(productList)
+    products = Product.get_all_products_by_user_id(user_id)
+    return jsonify (products)
 
 
 # UPDATE
@@ -81,22 +50,14 @@ def get_all_products_by_user_id(user_id):
 @user_resource
 @product_resource
 def update_product(user_id, product_id):
+    data = request.get_json()
+    data["user_id"] = user_id
+    try:
+        update = Product.update_product(product_id, data)
+        return jsonify(update)
+    except Exception as e:
+        return jsonify( {"message": e.args[0]} ), 400
     
-    name = request.get_json()["name"]
-    unitary_price = request.get_json()["unitary_price"]
-    units_stored = request.get_json()["units_stored"]
-    iva = request.get_json()["iva"]
-
-    cur = mysql.connection.cursor()
-    cur.execute('SELECT * FROM product WHERE id=%s AND user_id=%s AND visibility = %s', (product_id, user_id, True))
-
-    if cur.rowcount > 0:
-        cur.execute('UPDATE product SET name = %s, unitary_price = %s, units_stored = %s, iva = %s WHERE id=%s', (name, unitary_price, units_stored, iva, product_id))
-    
-        mysql.connection.commit()
-        return jsonify({"id": product_id, "name": name, "unitary_price": unitary_price, "units_stored": units_stored, "iva": iva})
-    
-    return jsonify( {"messege": "id not found"}), 404
 
 
 
@@ -106,18 +67,9 @@ def update_product(user_id, product_id):
 @user_resource
 @product_resource
 def remove_product(product_id, user_id):
-    # Conectamos el cursor
-    cur = mysql.connection.cursor()
-
-    # Consultamos si esta visible el producto
-    cur.execute('SELECT * FROM product WHERE id=%s AND user_id = %s AND visibility =%s', (product_id, user_id, True))
-    
-    # Si existe el producto lo "ELIMINAMOS" (cambio de visibilidad)
-    if cur.rowcount > 0:
-        cur.execute('UPDATE product SET visibility=%s WHERE id=%s', (False, product_id))
-        mysql.connection.commit()
-        return jsonify({"message": "deleted", "id": product_id})
-
-    
-    return jsonify( {"messege": "id not found"}), 404
+    try:
+        remove = Product.remove_product_by_id(product_id)
+        return jsonify( remove ), 201
+    except Exception as e:
+        return jsonify( {"message": e.args[0]} ), 400
 
