@@ -2,29 +2,20 @@ from api import app # importamos el objeto app
 from api.models.servicios import Service # importamos clase service
 from flask import jsonify, request
 from api.utils import token_required, user_resource, service_resource
-from api.db.db import mysql
+
 
 # CREATE
 @app.route('/users/<int:user_id>/service', methods = ['POST'] )
 @token_required
 @user_resource
-def crate_service(user_id):
-
-    name = request.get_json()["name"]
-    hour_price = request.get_json()["hour_price"]
-    iva = request.get_json()["iva"]
-    
-    
-    cur = mysql.connection.cursor()
-    cur.execute('INSERT INTO service (user_id, name, hour_price, iva, visibility) VALUES (%s, %s, %s, %s, %s)', (user_id, name, hour_price, iva, True))
-    mysql.connection.commit()
-    cur.execute('SELECT LAST_INSERT_ID()')
-    row = cur.fetchone()
- 
-    id = row[0]
-    return jsonify({"id": id, "user_id": user_id, "name": name, "hour_price": hour_price, "iva": iva})
-
-
+def create_service(user_id):
+    data = request.get_json()
+    data["user_id"] = user_id
+    try:
+        new_service = Service.create_service(data)
+        return jsonify( new_service ), 201
+    except Exception as e:
+        return jsonify( {"message": e.args[0]} ), 400
 
 # READ
 
@@ -33,42 +24,25 @@ def crate_service(user_id):
 @token_required
 @user_resource
 @service_resource
-def get_service_by_id(user_id, service_id):
-    """ Acceso a BBDD"""
-    cur = mysql.connection.cursor()
-    cur.execute('SELECT * FROM service WHERE id=%s AND user_id=%s AND visibility = %s', (service_id, user_id, True))
-    data = cur.fetchall()
+def get_service_by_id(service_id, user_id):
     
-    if cur.rowcount > 0:
-        objtservice = Service(data[0])
-        return jsonify( objtservice.to_json() )
-    return jsonify( {"messege": "id not found"}), 404
+    try:
+        service = Service.get_service_by_id(service_id)
+        return jsonify( service ), 201
+    except Exception as e:
+        return jsonify( {"message": e.args[0]} ), 400
 
 # Consultar todos los serviceos
 @app.route('/users/<int:user_id>/service', methods = ['GET'] )
 @token_required
 @user_resource
 def get_all_services_by_user_id(user_id):
-    # Creamos un cursor:
-    cur = mysql.connection.cursor()
-
-    # Realizamos una consulta SQL:
-    cur.execute('SELECT * FROM service WHERE user_id = %s AND visibility = %s', (user_id, True))
-
-    # Esperamos mas de un registro:
-    data = cur.fetchall()
-
-    # Creamos una lista vacia:
-    serviceList = []
-   
-    # Creamos un bucle for: por cada fila: 
-    for row in data:
-        # Creamos un objeto servicee:
-        objservice = Service(row)
-        # Agregamos un elemento json a la lista:
-        serviceList.append(objservice.to_json())
-    # Retornamos la lista de elementos json:
-    return jsonify(serviceList)
+    
+    try:
+        services = Service.get_all_services_by_user_id(user_id)
+        return jsonify( services ), 201
+    except Exception as e:
+        return jsonify( {"message": e.args[0]} ), 400
 
 
 # UPDATE
@@ -77,22 +51,13 @@ def get_all_services_by_user_id(user_id):
 @user_resource
 @service_resource
 def update_service(user_id, service_id):
-    
-    name = request.get_json()["name"]
-    hour_price = request.get_json()["hour_price"]
-    iva = request.get_json()["iva"]
-    
-
-    cur = mysql.connection.cursor()
-    cur.execute('SELECT * FROM service WHERE id=%s AND user_id=%s AND visibility = %s', (service_id, user_id, True))
-
-    if cur.rowcount > 0:
-        cur.execute('UPDATE service SET name = %s, hour_price = %s, iva = %s WHERE id=%s', (name, hour_price, iva, service_id))
-    
-        mysql.connection.commit()
-        return jsonify({"id": service_id, "name": name, "hour_price": hour_price, "iva": iva})
-    
-    return jsonify( {"messege": "id not found"}), 404
+    data = request.get_json()
+    data["user_id"] = user_id
+    try:
+        service = Service.update_service(data, service_id)
+        return jsonify( service ), 201
+    except Exception as e:
+        return jsonify( {"message": e.args[0]} ), 400
 
 
 
@@ -103,15 +68,9 @@ def update_service(user_id, service_id):
 @user_resource
 @service_resource
 def remove_service(service_id, user_id):
-    cur = mysql.connection.cursor()
-    # Consultamos si esta visible el servicio y existe
-    cur.execute('SELECT * FROM service WHERE id=%s AND user_id = %s AND visibility =%s', (service_id, user_id, True))
     
-    # Si existe el servicio lo "ELIMINAMOS" (cambio de visibilidad)
-    if cur.rowcount > 0:
-        cur.execute('UPDATE service SET visibility=%s WHERE id=%s', (False, service_id))
-        mysql.connection.commit()
-        return jsonify({"message": "deleted", "id": service_id})
-
-    
-    return jsonify( {"messege": "id not found"}), 404
+    try:
+        remove = Service.remove_service(service_id)
+        return jsonify( remove ), 201
+    except Exception as e:
+        return jsonify( {"message": e.args[0]} ), 400
