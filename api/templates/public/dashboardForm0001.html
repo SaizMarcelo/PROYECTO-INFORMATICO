@@ -12,7 +12,7 @@
 
 
     <br></br>
-    <button onclick=""> Editar Perfil </button>
+    <button onclick="openModal_0003(), cargarDatosUsuarios()"> Editar Perfil </button>
     <br></br>
     <button onclick="cargarClientes()"> Lista de Clientes </button>
     <br></br>
@@ -40,6 +40,9 @@
             <span class="close" onclick="closeModal()">&times;</span>
             <h3>FORMULARIO: DATOS CLIENTES:</h3>
             <p>Controle que los datos sean correctos antes de realizar cualquier modificacion y editarlos.</p>
+            <label for="cuil_cuit">Cuil_Cuit:</label>
+            <input type="text" id="cuil_cuit" onkeyup="" placeholder="cuil_cuit">
+            <br></br>
             <label for="address">Adress:</label>
             <input type="text" id="address" onkeyup="" placeholder="address">
             <br></br>
@@ -54,9 +57,6 @@
             <br></br>
             <label for="phone_number">Phone Number:</label>
             <input type="text" id="phone_number" onkeyup="" placeholder="phone_number">
-            <br></br>
-            <label for="surname">Surname:</label>
-            <input type="text" id="surname" onkeyup="" placeholder="surname">
             <br></br>
             <label for="user_id">User_id:</label>
             <input type="number" id="user_id" onkeyup="" placeholder="user_id">
@@ -79,30 +79,30 @@
             <span class="close" onclick="closeModal_0001()">&times;</span>
             <h3>FORMULARIO: DATOS NUEVO CLIENTE:</h3>
             <p>Controle que los datos sean correctos antes de realizar cualquier modificacion y editarlos.</p>
-            <label for="address">Adress:</label>
+            <label for="cuil_cuit_0001">Cuil_Cuit:</label>
+            <input type="text" id="cuil_cuit_0001" onkeyup="" placeholder="cuil_cuit">
+            <br></br>
+            <label for="address_0001">Adress:</label>
             <input type="text" id="address_0001" onkeyup="" placeholder="address">
             <br></br>
-            <label for="email">Email:</label>
+            <label for="email_0001">Email:</label>
             <input type="text" id="email_0001" onkeyup="" placeholder="email">
             <br></br>
             <!-- <label for="id">Id Cliente:</label> -->
             <!-- <input type="number" id="idCliente" onkeyup="" placeholder="id"> -->
             <!-- <br></br> -->
-            <label for="name">Name:</label>
+            <label for="name_0001">Name:</label>
             <input type="text" id="name_0001" onkeyup="" placeholder="name">
             <br></br>
-            <label for="phone_number">Phone Number:</label>
+            <label for="phone_number_0001">Phone Number:</label>
             <input type="text" id="phone_number_0001" onkeyup="" placeholder="phone_number">
             <br></br>
-            <label for="surname">Surname:</label>
-            <input type="text" id="surname_0001" onkeyup="" placeholder="surname">
-            <br></br>
-            <label for="user_id">User_id:</label>
+            <label for="user_id_0001">User_id:</label>
             <input type="number" id="user_id_0001" onkeyup="" placeholder="user_id">
             <br></br>
-            <label for="visibility">Visibility:</label>
+            <label for="visibility_0001">Visibility:</label>
             <input type="number" id="visibility_0001" onkeyup="" placeholder="visibility">
-            <span id="clienteEliminado">♠</span>
+            <span id="clienteEliminado_0001">♠</span>
             <br></br>
 
             <button onclick="closeModal_0001()"> Salir  </button>
@@ -111,7 +111,48 @@
         </div>
     </div>
 
-    <script src="{{ url_for('static', filename='script0002Token.js') }}"></script>
-    <script src="{{ url_for('static', filename='script0003NoToken.js') }}"></script>
+    <!-- MODAL DATOS PERFIL -->
+    <div id="myModal_0003" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal_0003()">&times;</span>
+            <h3>FORMULARIO: DATOS DEL USUARIO:</h3>
+            <p>Controle que los datos sean correctos antes de realizar cualquier modificacion y editarlos.</p>
+            <label for="username_0002">Username:</label>
+            <input type="text" id="username_0002" onkeyup="" placeholder="username">
+            <br></br>
+            <label for="password_0002">Password:</label>
+            <input type="password" id="password_0002" onkeyup="" placeholder="password">
+            <br></br>
+            <label for="cuil_cuit_0003">Cuil_Cuit:</label>
+            <input type="text" id="cuil_cuit_0003" onkeyup="" placeholder="cuil_cuit">
+            <br></br>
+            <label for="address_0003">Adress:</label>
+            <input type="text" id="address_0003" onkeyup="" placeholder="address">
+            <br></br>
+            <label for="email_0003">Email:</label>
+            <input type="text" id="email_0003" onkeyup="" placeholder="email">
+            <br></br>
+            <!-- <label for="id">Id Cliente:</label> -->
+            <!-- <input type="number" id="idCliente" onkeyup="" placeholder="id"> -->
+            <!-- <br></br> -->
+            <label for="name_0003">Name:</label>
+            <input type="text" id="name_0003" onkeyup="" placeholder="name">
+            <br></br>
+            <label for="phone_number_0003">Phone Number:</label>
+            <input type="text" id="phone_number_0003" onkeyup="" placeholder="phone_number">
+            <br></br>
+
+            <button onclick="closeModal_0003()"> Salir  </button>
+            <button id= "guardarCambios_0003" onclick=""> Modificar Datos </button>
+
+        </div>
+    </div>
+
+
+    <script src="{{ url_for('static', filename='script0002LocalStorage.js') }}"></script>
+    <script src="{{ url_for('static', filename='script0003Cliente.js') }}"></script>
+    <script src="{{ url_for('static', filename='script0004Usuario.js') }}"></script>
+
+
     
 {% endblock %}
