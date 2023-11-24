@@ -46,13 +46,13 @@ def get_all_user():
         return jsonify( {"message": e.args[0]} ), 400
 
 # UPDATE
-@app.route('/users/<int:id>', methods = ['PUT'] )
+@app.route('/users/<int:user_id>', methods = ['PUT'] )
 @token_required
 @user_resource
-def update_user(id):
+def update_user(user_id):
     
     data = request.get_json()
-    data["user_id"] = id
+    data["user_id"] = user_id
     try:
         user = User.update_user(data)
         return jsonify( user ), 201

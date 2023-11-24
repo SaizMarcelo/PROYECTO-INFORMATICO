@@ -132,6 +132,7 @@ class User():
 
     ### UPDATE
     def update_user(data):
+        
         if User.check_data_schema(data):
             cur = mysql.connection.cursor()
             cur.execute('UPDATE user SET username = %s, password = %s, name = %s,  email= %s , address= %s , phone_number = %s, cuil_cuit = %s WHERE id = %s',
