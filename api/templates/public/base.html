@@ -9,8 +9,12 @@
    
 </head>
 <body>
-    <header> PROYECTO </header>
-    <nav>
+    <header class="main-header"> 
+        <h1> Sistema de Facturación </h1>
+        <img id="logo" src="static\img\logo.PNG" alt="Logo de la empresa">
+    </header>
+
+    <nav class="main-menu">
         <ul>
             <li><a href="">Inicio</a></li>
             <li><a href="">Dashboard</li>
@@ -18,13 +22,24 @@
             <li>Extra</li>
         </ul>
     </nav>
-    
-    {% block content %}
 
-    {% endblock %}
+    <main>
+        <p> Sistema de gestión y facturación online </p>
+        <p> Automatiza tus tareas administrativas: Facturación electrónica integrada, Control de stock, Rankings, Reportes automáticos </p>
+        <img src="static\img\imgppal.PNG" alt="Descripción de las tareas que se pueden ejecutar en el software">
+    
+        {% block content %}
+
+        {% endblock %}
+    
+    
+    </main>
+    
+       
+          
     <footer>
         <ul>
-            <li>Cositas</li>
+            <li>Poyecto Informático - T.U. Tecnologías de la Programación (UPSO)</li>
         </ul>
     </footer>
 

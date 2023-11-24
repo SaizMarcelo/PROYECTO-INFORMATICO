@@ -19,130 +19,115 @@
   }
 
 
- /* ESTILOS PARA EL HTML BASE */ 
-/* Estilos generales */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-}
-
-/* Estilos específicos para elementos del HTML */
-header {
-  background-color: #2c3e50;
-  color: white;
-  text-align: center;
-  padding: 20px;
-}
-
-nav ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-nav li {
-  display: inline-block;
-  margin-right: 20px;
-}
-
-nav a {
-  text-decoration: none;
-  color: black;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-
-/* Estilos para el contenido y el pie de página */
-.content {
-  margin-top: 40px;
-  margin-bottom: 20px;
-  padding: 20px;
-  background-color: #ffffff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-footer {
-  margin-top: 40px;
-  padding: 20px;
-  background-color: #2c3e50;
-  color: white;
-  text-align: center;
-}
-
-
-
-/* Estilos para el DASHBOARD */
-
-/* Estilos generales */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-}
-
 /* Estilos para el encabezado */
 header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
   background-color: #2c3e50;
   color: white;
-  text-align: center;
-  padding: 20px;
 }
 
-/* Estilos para la navegación */
-nav ul {
-  list-style-type: none;
+  /* Estilos para el título */
+  header h1 {
+    text-align: center;
+    margin: 0;
+  }
+  
+  /* Estilos para la imagen */
+  #logo {
+    max-width: 100px; 
+    height: auto;
+    order: -1; /* Cambia el orden para que aparezca a la derecha */
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  
+  p:first-of-type {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  p:last-of-type {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  
+  img {
+    margin-left: auto;
+  }
+
+footer {
+    display:block;
+    height: 50px;
+    background-color: violet;
+    color: white;
+    padding: 30px 0;
+    justify-content: center;
+    text-align: center;
+    font-size: 18px;
+}
+
+
+
+
+/* Estilos CSS para el dashboard */
+body {
+  font-family: Arial, Helvetica, Verdana, Times New Roman, sans-serif;
+  background-color: #f0f0f0;
   margin: 0;
   padding: 0;
 }
 
-nav li {
-  display: inline-block;
-  margin-right: 20px;
-}
-
-nav a {
-  text-decoration: none;
-  color: black;
-}
-
-nav a:hover {
-  text-decoration: underline;
-}
-
-/* Estilos para los botones */
-button {
-  background-color: #2c3e50;
+.main-header {
+  background-color: #262626;
   color: white;
-  border: none;
-  padding: 10px 20px;
-  margin: 10px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #1c2e40;
-}
-
-/* Estilos para el contenido */
-.content {
-  margin-top: 40px;
-  margin-bottom: 20px;
-  padding: 20px;
-  background-color: #ffffff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Estilos para el pie de página */
-footer {
-  margin-top: 40px;
-  padding: 20px;
-  background-color: #2c3e50;
-  color: white;
+  padding: 10px;
   text-align: center;
 }
 
-/* Estilos para los modales */
+.main-menu {
+  background-color: #2c2c2c;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+.main-menu ul {
+  list-style-type: none;
+  display: inline-block;
+}
+
+.main-menu ul li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.main-menu ul li a {
+  color: white;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.main-menu ul li a:hover {
+  background-color: #007bff;
+}
+
+.contenedorDinamico {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
 .modal {
   display: none;
   position: fixed;
@@ -157,22 +142,23 @@ footer {
 
 .modal-content {
   background-color: #fefefe;
-  margin: 10% auto;
+  margin: auto;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
+  max-width: 600px;
 }
 
 .close {
   color: #aaaaaa;
   float: right;
   font-size: 28px;
-  font-weight: bold;
+  margin-top: -10px;
 }
 
 .close:hover,
 .close:focus {
-  color: #000;
+  color: #007bff;
   text-decoration: none;
   cursor: pointer;
 }
