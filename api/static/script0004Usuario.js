@@ -134,4 +134,4 @@ function modificarDatosUsuario(){
         // Manejar cualquier error que pueda ocurrir durante la solicitud
         console.error('Error:', error);
     });
-    }
+}
