@@ -33,12 +33,12 @@
   
     <br></br>
     <div class="section">
-    <button onclick=""> Lista de Productos: Stock </button>
+    <button onclick="cargarProductos()"> Lista de Productos: Stock </button>
     <img src="static\img\stockProducto.png" alt="Stock de los productos">
 </div>
     <br></br>
     <div class="section">
-    <button id= "nuevoProducto" onclick=""> Nuevo Productos  </button>
+    <button id= "nuevoProducto" onclick="openModalCrearProducto()"> Nuevo Productos  </button>
     <img src="static\img\nuevoProducto.jpg" alt="Dar de alta nuevo producto">
 </div>
     <br></br>
@@ -173,11 +173,77 @@
         </div>
     </div>
 
+     <!-- MODAL DATOS PRODUCTOS -->
+    <div id="myModalProducto" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModalProducto()">&times;</span>
+            <h3>FORMULARIO: PRODUCTOS</h3>
+            <p>Controle que los datos sean correctos antes de realizar cualquier modificacion y editarlos.</p>
+            <label for="nameProduct">Name:</label>
+            <input type="text" id="nameProduct" onkeyup="" placeholder="name">
+            <br></br>
+            <label for="unitary_price">Unitary Price:</label>
+            <input type="number" id="unitary_price" onkeyup="" placeholder="unitary_price">
+            <br></br>
+            <label for="units_stored">Uniits Stored:</label>
+            <input type="number" id="units_stored" onkeyup="" placeholder="units_stored">
+            <br></br>
+            <label for="iva">Iva:</label>
+            <input type="number" id="iva" onkeyup="" placeholder="iva">
+            <br></br>
+            <label for="description">Description:</label>
+            <input type="text" id="description" onkeyup="" placeholder="description">
+            <br></br>
+
+            <button onclick="closeModalProducto()"> Salir  </button>
+            <button id= "modificarDatosProducto" onclick="modificarDatosProducto()"> Modificar Datos </button>
+            <button id= "botonEditarProducto" onclick="botonEditarProducto()"> Editar </button>
+            <button id= "guardarCambiosProducto" onclick="botonGuardarCambiosProducto()"> Agregar Cambios </button>
+            <button id= "borrarProducto" onclick="borradoLogicoProducto()"> Borrar  </button>
+
+        </div>
+    </div>
+
+    <!-- MODAL CREAR PRODUCTOS -->
+    <div id="myModalCrearProducto" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModalProducto()">&times;</span>
+            <h3>FORMULARIO: PRODUCTOS</h3>
+            <p>Controle que los datos sean correctos antes de realizar cualquier modificacion y editarlos.</p>
+            <label for="nameCrearProducto">Name:</label>
+            <input type="text" id="nameCrearProducto" onkeyup="" placeholder="name">
+            <br></br>
+            <label for="unitary_priceCrearProducto">Unitary Price:</label>
+            <input type="number" id="unitary_priceCrearProducto" onkeyup="" placeholder="unitary_price">
+            <br></br>
+            <label for="units_storedCrearProducto">Uniits Stored:</label>
+            <input type="number" id="units_storedCrearProducto" onkeyup="" placeholder="units_stored">
+            <br></br>
+            <label for="ivaCrearProducto">Iva:</label>
+            <input type="number" id="ivaCrearProducto" onkeyup="" placeholder="iva">
+            <br></br>
+            <label for="descriptionCrearProducto">Description:</label>
+            <input type="text" id="descriptionCrearProducto" onkeyup="" placeholder="description">
+            <br></br>
+
+            <button onclick="closeModalProducto()"> Salir  </button>
+            <button id= "crearProducto" onclick="crearProducto()"> Crear Producto </button>
+            <button id= "botonEditarCrearProducto" onclick="botonEditarCrearProducto()"> Editar </button>
+            <button id= "guardarCambiosCrearProducto" onclick="botonGuardarCambiosCrearProducto()"> Agregar Cambios </button>
+
+
+        </div>
+    </div>
+
+
+    </div>
+
 
     <script src="{{ url_for('static', filename='script0002LocalStorage.js') }}"></script>
     <script src="{{ url_for('static', filename='script0003Cliente.js') }}"></script>
     <script src="{{ url_for('static', filename='script0004Usuario.js') }}"></script>
-
+    <script src="{{ url_for('static', filename='productos.js') }}"></script>
+    <script src="{{ url_for('static', filename='factura.js') }}"></script>
 
     
 {% endblock %}
