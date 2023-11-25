@@ -90,12 +90,23 @@ fetch(`http://127.0.0.1:4500/users/${id}/invoice/${idFacturaVer}`, requestOption
 )
 .then(
     resp => {
-        for (let parcial in resp['service_products']){
+        let tabla = '<table id="tablaParcial">';
+        tabla += `<tr><td>ID</td><td>PRODUCTO/SERVICIO</td><td>SUB TOTAL</td><td>IVA SUB TOTAL</td><td>UNIDADES/HORAS</td></tr>`;
+        
+            
+            resp['service_products'].forEach(parcial =>{
             // ARMAR EL CUERPO
-        }
-        document.getElementById("nroFactura").append(resp['invoice']['id']);
-        document.getElementById("cuitUsuario").append(resp['invoice']['user_cuil_cuit']);
-        document.getElementById("cuitCliente").append(resp['invoice']['client_cuil_cuit']);
+            tabla += `<tr><td>${parcial['ps_id']}</td><td>${parcial['prd_serv']}</td><td>${parcial['sub_total']}</td><td>${parcial['iva_subtotal']}</td><td>${parcial['units_hours']}</td></tr>`;
+            })
+            tabla += '</table>';
+        
+            document.getElementById("facturaParcial").innerHTML = tabla;
+  
+        document.getElementById("nroFactura").innerText = "FACTURA NRO: " + resp["invoice"]["id"];
+        document.getElementById("cuitUsuario").innerText = "Emisor: " + resp["invoice"]["user_cuil_cuit"];
+        document.getElementById("cuitCliente").innerText = "Receptor:" + resp["invoice"]["client_cuil_cuit"];
+        document.getElementById("montoTotal").innerText = "TOTAL:" + resp["invoice"]["total_price"];
+        document.getElementById("montoIva").innerText = "IVA:" + resp["invoice"]["total_iva"];
         openModalMostrarFactura();
     }
 )
