@@ -10,7 +10,6 @@
     <h3> Token !!! <span id="token"></span></h3>
     <h3> ID !!! <span id="id"></span></h3>
 
-
     <br></br>
     <button onclick="openModal_0003(), cargarDatosUsuarios()"> Editar Perfil </button>
     <br></br>
@@ -31,6 +30,48 @@
     <br></br>
     <button id= "nuevoServicio" onclick="openModal_0004()"> Nuevo Servicio  </button>
     <br></br>
+
+    <div class="container"> 
+        <h1>Dashboard de Sistema de Gestión</h1>
+        <p>Bienvenido a nuestro panel de control de gestión. Aquí podrás administrar tu cuenta, realizar facturas y más.</p>
+            <div class="dashboard-content">
+                <br></br>
+                <div class="section">
+                <button onclick="openModal_0003(), cargarDatosUsuarios()"> Editar Perfil </button>
+                <img src="static\img\editarPerfil.avif" alt="Editar perfil de usuario">
+            </div>
+                <br></br>
+            <div class="section">
+                <button onclick="cargarClientes()"> Lista de Clientes </button>
+                <img src="static\img\listaClientes.jpg" alt="Dar de alta nuevo cliente">
+            </div>
+                <br></br>
+            <div class="section">
+                <button id= "nuevoCliente" onclick="openModal_0001()"> Nuevo Cliente  </button>
+                <img src="static\img\nuevoCliente.jpg" alt="Dar de alta nuevo cliente">
+            </div>
+                <br></br>
+            
+                <br></br>
+            <div class="section">
+                <button onclick="cargarProductos()"> Lista de Productos: Stock </button>
+                <img src="static\img\stockProducto.png" alt="Stock de los productos">
+            </div>
+                <br></br>
+            <div class="section">
+                <button id= "nuevoProducto" onclick="openModalCrearProducto()"> Nuevo Productos  </button>
+                <img src="static\img\nuevoProducto.jpg" alt="Dar de alta nuevo producto">
+            </div>
+                <br></br>
+            <div class="section">
+                <button id= "cerrarSesion" onclick=""> Cerrar Sesión  </button>
+                <br></br>
+            </div>
+            <div><button onclick="cargarFacturas()">Facturas</button></div>
+        </div>
+    </div>
+
+
 
     <br/>
         <!-- Salto de Linea -->   
@@ -155,6 +196,7 @@
         </div>
     </div>
 
+
     <!-- MODAL DATOS SERVICIOS -->
     <div id="myModal_0004" class="modal">
         <div class="modal-content">
@@ -177,6 +219,33 @@
             <button onclick="closeModal_0004()"> Salir  </button>
             <button id= "guardarCambios_0004" onclick="crearServicio(),closeModal_0004()"> Guardar Servicio </button>
 
+    <!-- MODAL DATOS PRODUCTOS -->
+    <div id="myModalProducto" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModalProducto()">&times;</span>
+            <h3>FORMULARIO: PRODUCTOS</h3>
+            <p>Controle que los datos sean correctos antes de realizar cualquier modificacion y editarlos.</p>
+            <label for="nameProduct">Name:</label>
+            <input type="text" id="nameProduct" onkeyup="" placeholder="name">
+            <br></br>
+            <label for="unitary_price">Unitary Price:</label>
+            <input type="number" id="unitary_price" onkeyup="" placeholder="unitary_price">
+            <br></br>
+            <label for="units_stored">Uniits Stored:</label>
+            <input type="number" id="units_stored" onkeyup="" placeholder="units_stored">
+            <br></br>
+            <label for="iva">Iva:</label>
+            <input type="number" id="iva" onkeyup="" placeholder="iva">
+            <br></br>
+            <label for="description">Description:</label>
+            <input type="text" id="description" onkeyup="" placeholder="description">
+            <br></br>
+
+            <button onclick="closeModalProducto()"> Salir  </button>
+            <button id= "modificarDatosProducto" onclick="modificarDatosProducto()"> Modificar Datos </button>
+            <button id= "botonEditarProducto" onclick="botonEditarProducto()"> Editar </button>
+            <button id= "guardarCambiosProducto" onclick="botonGuardarCambiosProducto()"> Agregar Cambios </button>
+            <button id= "borrarProducto" onclick="borradoLogicoProducto()"> Borrar  </button>
         </div>
     </div>
 
@@ -209,10 +278,59 @@
         </div>
     </div>
 
+    <!-- MODAL CREAR PRODUCTOS -->
+    <div id="myModalCrearProducto" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModalProducto()">&times;</span>
+            <h3>FORMULARIO: PRODUCTOS</h3>
+            <p>Controle que los datos sean correctos antes de realizar cualquier modificacion y editarlos.</p>
+            <label for="nameCrearProducto">Name:</label>
+            <input type="text" id="nameCrearProducto" onkeyup="" placeholder="name">
+            <br></br>
+            <label for="unitary_priceCrearProducto">Unitary Price:</label>
+            <input type="number" id="unitary_priceCrearProducto" onkeyup="" placeholder="unitary_price">
+            <br></br>
+            <label for="units_storedCrearProducto">Uniits Stored:</label>
+            <input type="number" id="units_storedCrearProducto" onkeyup="" placeholder="units_stored">
+            <br></br>
+            <label for="ivaCrearProducto">Iva:</label>
+            <input type="number" id="ivaCrearProducto" onkeyup="" placeholder="iva">
+            <br></br>
+            <label for="descriptionCrearProducto">Description:</label>
+            <input type="text" id="descriptionCrearProducto" onkeyup="" placeholder="description">
+            <br></br>
+
+            <button onclick="closeModalProducto()"> Salir  </button>
+            <button id= "crearProducto" onclick="crearProducto()"> Crear Producto </button>
+            <button id= "botonEditarCrearProducto" onclick="botonEditarCrearProducto()"> Editar </button>
+            <button id= "guardarCambiosCrearProducto" onclick="botonGuardarCambiosCrearProducto()"> Agregar Cambios </button>
+
+
+        </div>
+    </div>
+
+    <div id="myModalMostrarFactura" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModalFactura()">&times;</span>
+            <h3 id="nroFactura">FACTURA NUMERO: </h3>
+            <div id="facturaParcial">
+
+            </div>
+            <span id="cuitUsuario">Emisor: </span>
+            <span id="cuitCliente">Receptor: </span>
+            <button onclick="closeModalFactura()"> Salir  </button>
+        </div>
+    </div>
+    
+    </div>
+
+
     <script src="{{ url_for('static', filename='script0002LocalStorage.js') }}"></script>
     <script src="{{ url_for('static', filename='script0003Cliente.js') }}"></script>
     <script src="{{ url_for('static', filename='script0004Usuario.js') }}"></script>
     <script src="{{ url_for('static', filename='script0005Servicios.js') }}"></script>
+    <script src="{{ url_for('static', filename='productos.js') }}"></script>
+    <script src="{{ url_for('static', filename='factura.js') }}"></script>
 
 
     

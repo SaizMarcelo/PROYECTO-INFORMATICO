@@ -56,26 +56,31 @@ class Product_Service_Invoice():
         self._invoice_id = row[1]
         self._user_id = row[2]
         self._client_id = row[3]
-        self._ps_id = row[4]
-        self._prd_serv = row[5]
-        self._units_hours = row[6]
-        self._iva_subtotal = row[7]
-        self._sub_total = row[8]
-        self._visibility = row[9]
+        self._prd_serv = row[4]
+        self._product_id = row[5]
+        self._service_id = row[6]
+        self._units_hours = row[7]
+        self._iva_subtotal = row[8]
+        self._sub_total = row[9]
+        self._visibility = row[10]
 
     def to_json(self):
-        return{
+        json = {
             "id": self._id,
             "invoice_id": self._invoice_id,
             "user_id": self._user_id,
             "client_id": self._client_id,
-            "ps_id": self._ps_id,
             "prd_serv": self._prd_serv,
             "units_hours": self._units_hours,
             "iva_subtotal" : self._iva_subtotal,
             "sub_total": self._sub_total,
             "visibility": self._visibility
         }
+        if self._product_id:
+            json["ps_id"] = self._product_id
+        elif self._service_id:
+            json["ps_id"] = self._service_id
+        return json
 
     ###########################################
     def count_price(data):
