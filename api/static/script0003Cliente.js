@@ -181,7 +181,6 @@ function crearCliente(){
 // Obtenemos la ID del Usuario:
 const id = localStorage.getItem('id');
 const token = localStorage.getItem('token');
-const idClienteVer = localStorage.getItem('idClienteVer');
 
 // Creamos el objeto Request para modificar los datos del cliente: JSON
 const requestOption = {
