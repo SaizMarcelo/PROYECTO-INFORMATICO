@@ -129,4 +129,172 @@ function openModalMostrarFactura() {
 
 function closeModalFactura() {
     document.getElementById('myModalMostrarFactura').style.display = 'none';
+    document.getElementById('myModalFactura').style.display = 'none';
+}
+
+
+/***********************************************/
+
+function openModalMostrarCrearFactura() {
+    document.getElementById('myModalFactura').style.display = 'block';
+    // Emisor
+    deshabilitarInput("user_id_0006")
+    deshabilitarInput("cuil_cuit_0006")
+    deshabilitarInput("address_0006")
+    deshabilitarInput("email_0006")
+    deshabilitarInput("name_0006")
+    deshabilitarInput("phone_number_0006")
+    // Receptor
+    deshabilitarInput("cuil_cuit_cliente_0006")
+    deshabilitarInput("address_cliente_0006")
+    deshabilitarInput("email_cliente_0006")
+    deshabilitarInput("name_cliente_0006")
+    deshabilitarInput("phone_number_cliente_0006")
+    cargarDatosUsuarios()
+}
+
+// FUNCION CARGAR DATOS USUARIO.
+function cargarDatosUsuarios(){
+    // Obtenemos la ID del Usuario:
+    const id = localStorage.getItem('id');
+    const token = localStorage.getItem('token');
+
+    // Creamos el objeto Request para crear el cliente: JSON
+    const requestOption = {
+        method : 'GET',
+        headers: {
+            'Content-Type': 'aplication/json',
+            'x-access-token': token,
+            'user-id': id,
+        }
+    }
+
+    fetch(`http://127.0.0.1:4500/users/${id}`, requestOption)
+    .then(
+        resp  => {
+            
+            return resp.json()
+        }
+
+    )
+    .then(
+        resp => {
+            // De la consulta vamos a conulstar cuantos registros tiene la cunsulta realizada:
+            document.getElementById("user_id_0006").value = resp["id"]
+            document.getElementById("cuil_cuit_0006").value = resp["cuil_cuit"]
+            document.getElementById("address_0006").value = resp["address"]
+            document.getElementById("email_0006").value = resp["email"]
+            document.getElementById("name_0006").value = resp["name"]
+            document.getElementById("phone_number_0006").value = resp["phone_number"]
+
+        }
+    )
+    .catch(error => {
+        // Manejar cualquier error que pueda ocurrir durante la solicitud
+        console.error('Error:', error);
+    });
+}
+
+// Consultamos el Cliente seleccionado en la tabla: boton ver.
+function buscarDatosClienteFactura(){
+    // Obtenemos la ID del Usuario:
+    const id = localStorage.getItem('id');
+    const token = localStorage.getItem('token');
+    // Buscamos Id ingresado:
+    const idClienteBuscado = document.getElementById("user_id_cliente_0006").value
+    console.log(id)
+    console.log(token)
+    console.log(idClienteBuscado)
+
+    // Creamos el objeto Request para crear el cliente: JSON
+    const requestOption = {
+        method : 'GET',
+        headers: {
+            'Content-Type': 'aplication/json',
+            'x-access-token': token,
+            'user-id': id,
+        }
+    }
+
+    fetch(`http://127.0.0.1:4500/users/${id}/client/${idClienteBuscado}`, requestOption)
+    .then(
+        resp  => {
+            
+            return resp.json()
+        }
+        
+    )
+    .then(
+        resp => {
+            console.log(resp)
+            // Enviamos los datos para cargar el fomulario:
+            document.getElementById("cuil_cuit_cliente_0006").value = parseInt(resp["cuil_cuit"])
+            document.getElementById("address_cliente_0006").value = resp["address"]
+            document.getElementById("email_cliente_0006").value = resp["email"]
+            document.getElementById("name_cliente_0006").value = resp["name"]
+            document.getElementById("phone_number_cliente_0006").value = resp["phone_number"]
+
+        }
+    )
+}
+
+// FUNCION CARGAR CLIENTES.
+function cargarListaServiciosFactura(){
+    // Obtenemos la ID del Usuario:
+    const id = localStorage.getItem('id');
+    const token = localStorage.getItem('token');
+    const idServicio = document.getElementById("id_servicio_0006").value
+    const horaPrestadas = document.getElementById("horas_servicio_0006").value
+    var listaServiciosFacturar = []
+
+    // Creamos el objeto Request para crear el cliente: JSON
+    const requestOption = {
+        method : 'GET',
+        headers: {
+            'Content-Type': 'aplication/json',
+            'x-access-token': token,
+            'user-id': id,
+        }
+    }
+
+    fetch(`http://127.0.0.1:4500/users/${id}/service/${idServicio}`, requestOption)
+    .then(
+        resp  => {
+            return resp.json()
+        }
+
+    )
+    .then(
+        resp => {
+            console.log(resp)
+            listaServiciosFacturar.push(resp)
+            // console.log(listaServiciosFacturar)
+            // console.log(JSON.stringify(listaServiciosFacturar)[0])
+            //const jsonServ = JSON.stringify(listaServiciosFacturar)
+            // De la consulta vamos a conulstar cuantos registros tiene la cunsulta realizada:
+            // localStorage.setItem('consultaPuente', resp)
+            // Inicializamos la variable de conteo:
+            var contador = 0
+            // Creamos una variable con el contenedor HTML.
+            var contenedorDinamicoServicioFactura = document.getElementById("contenedorDinamicoServicioFactura");
+            // Inicializamos el contenedor vacio:
+            contenedorDinamicoServicioFactura.innerHTML="";
+
+            var tabla = '<table id="myTableServiciosFacturados" class="myTable">';
+            //tabla += `<tr><td>${resp["id"]}</td><td>${resp["name"]}</td><td>${resp["description"]}</td><td>${resp["hour_price"]}</td><td>${resp["iva"]}</td><td><button onclick="">Ver</button></td></tr>`
+            
+            tabla += `<tr><td>COD_SERVICIO</td><td>NAME</td><td>DESCRIPCION</td><td></td></tr>`
+            for (let key in listaServiciosFacturar){
+                tabla += `<tr><td>${listaServiciosFacturar[contador]["id"]}</td><td>${listaServiciosFacturar[contador]["name"]}</td><td>${listaServiciosFacturar[contador]["description"]}</td><td>${listaServiciosFacturar[contador]["hour_price"]}</td><td>${listaServiciosFacturar[contador]["iva"]}</td><td><button onclick="">Ver</button></td></tr>`
+                contador += 1
+            }
+            tabla += "</table>";
+            contenedorDinamicoServicioFactura.innerHTML = tabla;
+
+        }
+    )
+    .catch(error => {
+        console.error('Error:', error);
+        }
+    )
 }

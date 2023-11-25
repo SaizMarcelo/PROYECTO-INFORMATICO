@@ -46,7 +46,13 @@
                 <button id= "cerrarSesion" onclick=""> Cerrar Sesión  </button>
                 <br></br>
             </div>
-            <div><button onclick="cargarFacturas()">Facturas</button></div>
+            <div class="section">
+                <button onclick="cargarFacturas()">Facturas</button>
+            </div>
+            <div class="section">
+                <button id= "crearFactura" onclick="openModalMostrarCrearFactura()"> Crear Nueva Factura </button>
+                <br></br>
+            </div>
         </div>
     </div>
 
@@ -251,9 +257,83 @@
         </div>
     </div>
     
+    <div id="myModalFactura" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModalFactura()">&times;</span>
+            <h3>FORMULARIO: DATOS FACTURA A EMITIR:</h3>
+            <p>Controle que los datos sean correctos antes de realizar cualquier modificacion y editarlos.</p>
+            <p>--- DATOS EMISOR FACTURA --- </p>
+            <label for="user_id_0006"> USER ID:</label>
+            <input type="number" id="user_id_0006" onkeyup="" placeholder="user_id">
+            <br></br>
+            <label for="cuil_cuit_0006">CUIT_CUIL:</label>
+            <input type="number" id="cuil_cuit_0006" onkeyup="" placeholder="cuit_cui_emisor">
+            <br></br>
+            <label for="address_0006">Address:</label>
+            <input type="text" id="address_0006" onkeyup="" placeholder="address">
+            <br></br>
+            <label for="name_0006">Denominacion:</label>
+            <input type="text" id="name_0006" onkeyup="" placeholder="denominacion">
+            <br></br>
+            <label for="email_0006">Name:</label>
+            <input type="text" id="email_0006" onkeyup="" placeholder="email">
+            <br></br>
+            <label for="phone_number_0006">Phone Number:</label>
+            <input type="text" id="phone_number_0006" onkeyup="" placeholder="phone_number">
+            <br></br>
+            <p>--- DATOS RECEPTOR FACTURA --- </p>
+            <br></br>
+            <div>
+                <label for="user_id_cliente_0006">N° Cliente:</label>
+                <input type="number" id="user_id_cliente_0006" onkeyup="" placeholder="Ingres Numero de Cliente">
+                <button onclick="buscarDatosClienteFactura()"> VALIDAR  </button>
+            </div>
+            <br></br>
+            <label for="cuil_cuit_cliente_0006">CUIT_CUIL:</label>
+            <input type="number" id="cuil_cuit_cliente_0006" onkeyup="" placeholder="cuit cuil receptor">
+            <br></br>
+            <label for="address_cliente_0006">Address:</label>
+            <input type="text" id="address_cliente_0006" onkeyup="" placeholder="address receptor">
+            <br></br>
+            <label for="name_cliente_0006">Denominacion:</label>
+            <input type="text" id="name_cliente_0006" onkeyup="" placeholder="denominacion receptor">
+            <br></br>
+            <label for="email_cliente_0006">Name:</label>
+            <input type="text" id="email_cliente_0006" onkeyup="" placeholder="email">
+            <br></br>
+            <label for="phone_number_cliente_0006">Phone Number:</label>
+            <input type="text" id="phone_number_cliente_0006" onkeyup="" placeholder="phone_number receptor">
+            <br></br>
+            <br></br>
+            <p>--- SERVICIOS PRESTADOS --- </p>
+            <br></br>
+            <div>
+                <label for="id_servicio_0006">Codigo Servicio:</label>
+                <input type="number" id="id_servicio_0006" onkeyup="" placeholder="Codigo Serv ...">
+                <label for="horas_servicio_0006">Horas Prestadas:</label>
+                <input type="number" id="horas_servicio_0006" onkeyup="" placeholder="Horas Serv ...">
+                <button onclick="cargarListaServiciosFactura()"> INGRESAR  </button>
+            </div>
+            <br></br>
+            <div id="contenedorDinamicoServicioFactura">
+                <!-- Contenido dinamico de JavaScript-->
+            </div>
+            <br></br>
+            <p>--- PRODUCTOS VENDIDOS --- </p>
+            <br></br>
 
+            <!--
+            <label for="visibility">Visibility:</label>
+            <input type="number" id="visibility" onkeyup="" placeholder="visibility">
+            <span id="clienteEliminado">♠</span>
+            <br></br>-->
 
+            <button onclick="closeModalFactura()"> Salir  </button>
+            <button id= "emitirFactura" onclick=""> Emitir Factura </button>
+
+        </div>
     </div>
+
 
 
     <script src="{{ url_for('static', filename='script0002LocalStorage.js') }}"></script>
