@@ -9,56 +9,60 @@
 
 <form>
     <!-- Etiqueta -->
-    <label for="in-username"> Usuario </label>
-    <!-- Ingreso Datos -->
-    <input type="text" id="in-username">
-
+    <div>
+        <label for="in-username"> Usuario </label>
+        <!-- Ingreso Datos -->
+        <input type="text" id="in-username">
+    </div>
     <!-- Etiqueta -->
-    <label for="in-password"> Contraseña </label>
-    <!-- Ingreso Datos -->
-    <input type="password" id="in-password">
-
-    <!-- Boton de Ejecucion -->
-    <input type="button" onclick="iniciarSesion()" value="Iniciar Sesion">
-
-    <!-- Si no hay Token la respuesta del Script0001.js se recibe por aca: -->
-    <span id="message">♠</span>
-
+    <div>
+        <label for="in-password"> Contraseña </label>
+        <!-- Ingreso Datos -->
+        <input type="password" id="in-password">
+    </div>
+    <div>
+        <!-- Boton de Ejecucion -->
+        <input type="button" onclick="iniciarSesion()" value="Iniciar Sesion">
+    </div>
+    <div>
+        <!-- Si no hay Token la respuesta del Script0001.js se recibe por aca: -->
+        <span id="message">♠</span>
+    </div>
 </form>
 
-    <!-- MODAL CREAR CUENTA DE USUARIO -->
-    <div id="myModal_0002" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="">&times;</span>
-            <h3>FORMULARIO: DATOS NUEVO USUARIO:</h3>
-            <p>Controle que los datos sean correctos antes de realizar cualquier modificacion y editarlos.</p>
-            <label for="cuil_cuit_0002">Cuil_Cuit:</label>
-            <input type="text" id="cuil_cuit_0002" onkeyup="" placeholder="cuil_cuit">
-            <br></br>
-            <label for="username_0002">Username:</label>
-            <input type="text" id="username_0002" onkeyup="" placeholder="username">
-            <br></br>
-            <label for="password_0002">Password:</label>
-            <input type="password" id="password_0002" onkeyup="" placeholder="password">
-            <br></br>
-            <label for="name_0002">Name:</label>
-            <input type="text" id="name_0002" onkeyup="" placeholder="name">
-            <br></br>
-            <label for="address_0002">address:</label>
-            <input type="text" id="address_0002" onkeyup="" placeholder="address">
-            <br></br>
-            <label for="email_0002">Email:</label>
-            <input type="text" id="email_0002" onkeyup="" placeholder="email">
-            <br></br>
-            <label for="phone_number_0002">Phone Number:</label>
-            <input type="text" id="phone_number_0002" onkeyup="" placeholder="phone_number">
-            <br></br>
+<!-- MODAL CREAR CUENTA DE USUARIO -->
+<div id="myModal_0002" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="">&times;</span>
+        <h3>FORMULARIO: DATOS NUEVO USUARIO:</h3>
+        <p>Controle que los datos sean correctos antes de realizar cualquier modificacion y editarlos.</p>
+        <label for="cuil_cuit_0002">Cuil_Cuit:</label>
+        <input type="text" id="cuil_cuit_0002" onkeyup="" placeholder="cuil_cuit">
+        <br></br>
+        <label for="username_0002">Username:</label>
+        <input type="text" id="username_0002" onkeyup="" placeholder="username">
+        <br></br>
+        <label for="password_0002">Password:</label>
+        <input type="password" id="password_0002" onkeyup="" placeholder="password">
+        <br></br>
+        <label for="name_0002">Name:</label>
+        <input type="text" id="name_0002" onkeyup="" placeholder="name">
+        <br></br>
+        <label for="address_0002">address:</label>
+        <input type="text" id="address_0002" onkeyup="" placeholder="address">
+        <br></br>
+        <label for="email_0002">Email:</label>
+        <input type="text" id="email_0002" onkeyup="" placeholder="email">
+        <br></br>
+        <label for="phone_number_0002">Phone Number:</label>
+        <input type="text" id="phone_number_0002" onkeyup="" placeholder="phone_number">
+        <br></br>
 
-            <button onclick="closeModal_0002()"> Salir  </button>
-            <button id= "guardarCambios_0002" onclick="crearUsuario(),closeModal_0002()"> Crear Usuario </button>
+        <button onclick="closeModal_0002()"> Salir </button>
+        <button id="guardarCambios_0002" onclick="crearUsuario(),closeModal_0002()"> Crear Usuario </button>
 
-        </div>
     </div>
+</div>
 
 
 <!-- Conectamos el script0001.js con el HTML -->
