@@ -4,7 +4,7 @@
    Style_responsive es el final */
 
 * {
-  border: 1px solid black;
+  /* border: 1px solid black; */
   /* Identificamos los box para poder moverlos */
   margin: 15px;
   /*Espacio uniforme entre todos los elementos para evitar que se peguen entre sí*/
