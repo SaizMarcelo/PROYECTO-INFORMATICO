@@ -188,10 +188,16 @@ function borradoLogicoCliente(){
 
 // Funcion POST: Crear un nuevo cliente.
 function crearCliente(){
+<<<<<<< HEAD
     // Obtenemos la ID del Usuario:
     const id = localStorage.getItem('id');
     const token = localStorage.getItem('token');
     const idClienteVer = localStorage.getItem('idClienteVer');
+=======
+// Obtenemos la ID del Usuario:
+const id = localStorage.getItem('id');
+const token = localStorage.getItem('token');
+>>>>>>> Facturacion
 
 
     // Creamos el objeto Request para modificar los datos del cliente: JSON
@@ -322,5 +328,5 @@ function deshabilitarBoton(nombre) {
 
 // Habilitar Boton
 function habilitarBoton(nombre) {
-  document.getElementById(nombre).disabled = false; 
+document.getElementById(nombre).disabled = false; // Habilita el botón
 }
