@@ -58,7 +58,7 @@ class User():
     ###### COMPROBACION DE EXISTENCIA
     def user_exists(cuil_cuit):
         cur = mysql.connection.cursor()
-        cur.execute('SELECT * FROM user WHERE cuil_cuit = %s', (cuil_cuit,))
+        cur.execute('SELECT * FROM user WHERE cuil_cuit = %s AND visibility = 1', (cuil_cuit,))
         cur.fetchall()
         return cur.rowcount > 0
     
