@@ -211,3 +211,36 @@ class Invoice():
 
         raise DBError("Error deleting invoice - id not found")
     
+
+    ##### RANKING FACTURA CLIENTE
+    def ranking_clients(user_id):
+        try:
+            invoices = Invoice.get_all_invoice_by_user_id(user_id)
+        except Exception as e:
+            return {"message": e.args[0]}
+        output = []
+        invoiceObj = {}
+        for invoice in invoices:
+            if invoiceObj.get(invoice["client_id"]):
+                invoiceObj[invoice["client_id"]]["total_buys"]+= 1
+                invoiceObj[invoice["client_id"]]["total_mount"]+= invoice["total_price"]
+            else:
+                invoiceObj[invoice["client_id"]] = {"total_buys": 1,
+                                                  "total_mount": invoice["total_price"]}
+        
+        for key in invoiceObj.keys():
+            objAux = {"ps_id": key,
+                      "count": invoiceObj[key]["total_buys"],
+                      "total_mount": invoiceObj[key]["total_mount"]}
+            output.append(objAux)
+        
+        for i in range(len(output) - 1):
+            
+            for j in range(len(output) - i):
+                if output[j + i]["count"] > output[i]["count"]:
+                    aux = output[i]
+                    output[i] = output[j + i]
+                    output[j + i] = aux
+        
+        return output
+        

@@ -80,6 +80,7 @@ class Product_Service_Invoice():
             json["ps_id"] = self._product_id
         elif self._service_id:
             json["ps_id"] = self._service_id
+
         return json
 
     ###########################################
@@ -128,3 +129,138 @@ class Product_Service_Invoice():
 
         else:
             raise DBError("Error - atribute not found")
+        
+
+    ##### GET ALL SERVICE BY ID
+    def get_invoice_service_list(user_id):
+
+            cur = mysql.connection.cursor()
+            output = []
+
+            cur.execute('SELECT * FROM product_service_invoice WHERE prd_serv = "s" AND user_id = %s AND visibility = 1', (user_id, ))
+            service = cur.fetchall()
+            if cur.rowcount < 1:
+                raise DBError("Error service invoice - row not found")
+            for serv in service:
+                objProdServ = Product_Service_Invoice(serv)
+                output.append(objProdServ.to_json())
+            
+            
+            return output
+
+
+
+    ##### GET ALL PRODUCTS BY ID
+    def get_invoice_product_list(user_id):
+
+            cur = mysql.connection.cursor()
+            output = []
+
+            cur.execute('SELECT * FROM product_service_invoice WHERE prd_serv = "p" AND user_id = %s AND visibility = 1', (user_id, ))
+            service = cur.fetchall()
+            if cur.rowcount < 1:
+                raise DBError("Error product invoice - row not found")
+            for serv in service:
+                objProdServ = Product_Service_Invoice(serv)
+                output.append(objProdServ.to_json())
+            
+            
+            return output
+
+
+
+    ##### CREAR LISTA DE PRDUCTOS VENDIDOS
+    def count_product_selled(user_id):
+        try:
+            product_list = Product_Service_Invoice.get_invoice_product_list(user_id)
+        except Exception as e:
+            return e
+        
+        output = []
+        productsObj = {}
+        for product in product_list:
+            if productsObj.get(product["ps_id"]):
+                productsObj[product["ps_id"]]["total_units_hours"]+= product["units_hours"]
+                productsObj[product["ps_id"]]["total_mount"]+= product["sub_total"]
+            else:
+                productsObj[product["ps_id"]] = {"total_units_hours": product["units_hours"],
+                                                  "total_mount": product["sub_total"]}
+        
+        for key in productsObj.keys():
+            objAux = {"ps_id": key,
+                      "count": productsObj[key]["total_units_hours"],
+                      "total_mount": productsObj[key]["total_mount"]}
+            output.append(objAux)
+        
+        for i in range(len(output) - 1):
+            
+            for j in range(len(output) - i):
+                if output[j + i]["count"] > output[i]["count"]:
+                    aux = output[i]
+                    output[i] = output[j + i]
+                    output[j + i] = aux
+        
+        return output
+    
+    def count_service_ofered(user_id):
+        try:
+            service_list = Product_Service_Invoice.get_invoice_service_list(user_id)
+        except Exception as e:
+            return e
+        
+        output = []
+        servicesObj = {}
+        for service in service_list:
+            if servicesObj.get(service["ps_id"]):
+                servicesObj[service["ps_id"]]["total_units_hours"]+= service["units_hours"]
+                servicesObj[service["ps_id"]]["total_mount"]+= service["sub_total"]
+            else:
+                servicesObj[service["ps_id"]] = {"total_units_hours": service["units_hours"],
+                                                  "total_mount": service["sub_total"]}
+        
+        for key in servicesObj.keys():
+            objAux = {"ps_id": key,
+                      "count": servicesObj[key]["total_units_hours"],
+                      "total_mount": servicesObj[key]["total_mount"]}
+            output.append(objAux)
+        
+        for i in range(len(output) - 1):
+            
+            for j in range(len(output) - i):
+                if output[j + i]["count"] > output[i]["count"]:
+                    aux = output[i]
+                    output[i] = output[j + i]
+                    output[j + i] = aux
+        
+        return output
+    
+    def control_flow_product(user_id):
+        cur = mysql.connection.cursor()
+        output = []
+
+        cur.execute('SELECT * FROM product_service_invoice WHERE prd_serv = "p" AND user_id = %s AND visibility = 1', (user_id, ))
+        product = cur.fetchall()
+
+        if cur.rowcount < 1:
+            raise DBError("Error product invoice - row not found")
+        
+        for prod in product:
+            objProduct = Product_Service_Invoice(prod)
+            json = objProduct.to_json()
+            cur.execute('SELECT date FROM invoice WHERE id = %s AND visibility = 1', (json["invoice_id"] ,))
+            row = cur.fetchone()
+            date = row[0]
+            
+            report = {
+                "id_product": json["ps_id"],
+                "id_invoice": json["invoice_id"],
+                "flow": (json["units_hours"] * -1),
+                "date": date,
+                "total_price": json["sub_total"]
+            }
+           
+            output.append(report)
+        output.reverse()
+       
+        return output
+        
