@@ -51,9 +51,6 @@ function cargarFacturas(){
     });
 }
 
-
-
-
 // PARTE CON ID
 // Creamos una funcion para obtener el ID del Factura que se selecciona desde la tabla:
 function consultarIdBotonVerFactura(boton){
@@ -239,13 +236,15 @@ function buscarDatosClienteFactura(){
 }
 
 // FUNCION CARGAR CLIENTES.
+var listaServiciosFacturar = []
 function cargarListaServiciosFactura(){
     // Obtenemos la ID del Usuario:
     const id = localStorage.getItem('id');
     const token = localStorage.getItem('token');
     const idServicio = document.getElementById("id_servicio_0006").value
     const horaPrestadas = document.getElementById("horas_servicio_0006").value
-    var listaServiciosFacturar = []
+
+
 
     // Creamos el objeto Request para crear el cliente: JSON
     const requestOption = {
@@ -268,6 +267,13 @@ function cargarListaServiciosFactura(){
         resp => {
             console.log(resp)
             listaServiciosFacturar.push(resp)
+            console.log(listaServiciosFacturar.length)
+            
+            // Lista formato JSON guardada para posteriormente ser ingresada a la Base de Datso:
+            localStorage.setItem('listaServiciosFacturarLocalStorage', JSON.stringify(listaServiciosFacturar))
+            CONTROL_LISTA()
+            //console.log(localStorage.getItem(listaServiciosFacturarLocalStorage))
+            
             // console.log(listaServiciosFacturar)
             // console.log(JSON.stringify(listaServiciosFacturar)[0])
             //const jsonServ = JSON.stringify(listaServiciosFacturar)
@@ -283,9 +289,12 @@ function cargarListaServiciosFactura(){
             var tabla = '<table id="myTableServiciosFacturados" class="myTable">';
             //tabla += `<tr><td>${resp["id"]}</td><td>${resp["name"]}</td><td>${resp["description"]}</td><td>${resp["hour_price"]}</td><td>${resp["iva"]}</td><td><button onclick="">Ver</button></td></tr>`
             
-            tabla += `<tr><td>COD_SERVICIO</td><td>NAME</td><td>DESCRIPCION</td><td></td></tr>`
+            tabla += `<tr><td>COD</td><td>NAME</td><td>DESCRIPCION</td><td>$-SUBTOTAL</td><td>$-IVA</td><td>$-TOTAL</td></tr>`
             for (let key in listaServiciosFacturar){
-                tabla += `<tr><td>${listaServiciosFacturar[contador]["id"]}</td><td>${listaServiciosFacturar[contador]["name"]}</td><td>${listaServiciosFacturar[contador]["description"]}</td><td>${listaServiciosFacturar[contador]["hour_price"]}</td><td>${listaServiciosFacturar[contador]["iva"]}</td><td><button onclick="">Ver</button></td></tr>`
+                const subTotalServ = (listaServiciosFacturar[contador]["hour_price"]) * horaPrestadas
+                const subIVAServ = (listaServiciosFacturar[contador]["hour_price"]) * (listaServiciosFacturar[contador]["iva"]/100)
+                const subTotal = subTotalServ + subIVAServ
+                tabla += `<tr><td>${listaServiciosFacturar[contador]["id"]}</td><td>${listaServiciosFacturar[contador]["name"]}</td><td>${listaServiciosFacturar[contador]["description"]}</td><td>${subTotalServ}</td><td>${subIVAServ}</td><td>${subIVAServ}</td><td><button onclick="">Eliminar</button></td></tr>`
                 contador += 1
             }
             tabla += "</table>";
@@ -297,4 +306,8 @@ function cargarListaServiciosFactura(){
         console.error('Error:', error);
         }
     )
+}
+
+function CONTROL_LISTA(){
+    console.log(JSON.parse(localStorage.getItem('listaServiciosFacturarLocalStorage')))
 }
