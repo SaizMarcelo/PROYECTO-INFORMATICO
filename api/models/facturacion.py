@@ -217,7 +217,7 @@ class Invoice():
         try:
             invoices = Invoice.get_all_invoice_by_user_id(user_id)
         except Exception as e:
-            return {"message": e.args[0]}
+            return e
         output = []
         invoiceObj = {}
         for invoice in invoices:
