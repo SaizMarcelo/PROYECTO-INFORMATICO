@@ -51,9 +51,6 @@ function cargarFacturas(){
     });
 }
 
-
-
-
 // PARTE CON ID
 // Creamos una funcion para obtener el ID del Factura que se selecciona desde la tabla:
 function consultarIdBotonVerFactura(boton){
@@ -113,18 +110,112 @@ fetch(`http://127.0.0.1:4500/users/${id}/invoice/${idFacturaVer}`, requestOption
 
 }
 
+// FUNCION CARGAR DATOS USUARIO.
+function cargarDatosUsuarios(){
+    // Obtenemos la ID del Usuario:
+    const id = localStorage.getItem('id');
+    const token = localStorage.getItem('token');
 
+    // Creamos el objeto Request para crear el cliente: JSON
+    const requestOption = {
+        method : 'GET',
+        headers: {
+            'Content-Type': 'aplication/json',
+            'x-access-token': token,
+            'user-id': id,
+        }
+    }
 
+    fetch(`http://127.0.0.1:4500/users/${id}`, requestOption)
+    .then(
+        resp  => {
+            
+            return resp.json()
+        }
 
+    )
+    .then(
+        resp => {
+            // De la consulta vamos a conulstar cuantos registros tiene la cunsulta realizada:
+            document.getElementById("user_id_0006").value = resp["id"]
+            document.getElementById("cuil_cuit_0006").value = resp["cuil_cuit"]
+            document.getElementById("address_0006").value = resp["address"]
+            document.getElementById("email_0006").value = resp["email"]
+            document.getElementById("name_0006").value = resp["name"]
+            document.getElementById("phone_number_0006").value = resp["phone_number"]
+
+        }
+    )
+    .catch(error => {
+        // Manejar cualquier error que pueda ocurrir durante la solicitud
+        console.error('Error:', error);
+    });
+}
 
 // DELETE
 
 
+// Consultamos el Cliente seleccionado en la tabla: boton ver.
+function buscarDatosClienteFactura(){
+    // Obtenemos la ID del Usuario:
+    const id = localStorage.getItem('id');
+    const token = localStorage.getItem('token');
+    // Buscamos Id ingresado:
+    const idClienteBuscado = document.getElementById("user_id_cliente_0006").value
+    console.log(id)
+    console.log(token)
+    console.log(idClienteBuscado)
+
+    // Creamos el objeto Request para crear el cliente: JSON
+    const requestOption = {
+        method : 'GET',
+        headers: {
+            'Content-Type': 'aplication/json',
+            'x-access-token': token,
+            'user-id': id,
+        }
+    }
+
+    fetch(`http://127.0.0.1:4500/users/${id}/client/${idClienteBuscado}`, requestOption)
+    .then(
+        resp  => {
+            
+            return resp.json()
+        }
+        
+    )
+    .then(
+        resp => {
+            console.log(resp)
+            // Enviamos los datos para cargar el fomulario:
+            document.getElementById("cuil_cuit_cliente_0006").value = parseInt(resp["cuil_cuit"])
+            document.getElementById("address_cliente_0006").value = resp["address"]
+            document.getElementById("email_cliente_0006").value = resp["email"]
+            document.getElementById("name_cliente_0006").value = resp["name"]
+            document.getElementById("phone_number_cliente_0006").value = resp["phone_number"]
+
+        }
+    )
+}
 
 
 // UTILIDADES
 function openModalMostrarFactura() {
-    document.getElementById('myModalMostrarFactura').style.display = 'block';
+    document.getElementById('myModalFactura').style.display = 'block';
+    // Emisor
+    deshabilitarInput("user_id_0006")
+    deshabilitarInput("cuil_cuit_0006")
+    deshabilitarInput("address_0006")
+    deshabilitarInput("email_0006")
+    deshabilitarInput("name_0006")
+    deshabilitarInput("phone_number_0006")
+    // Receptor
+    deshabilitarInput("cuil_cuit_cliente_0006")
+    deshabilitarInput("address_cliente_0006")
+    deshabilitarInput("email_cliente_0006")
+    deshabilitarInput("name_cliente_0006")
+    deshabilitarInput("phone_number_cliente_0006")
+    cargarDatosUsuarios()
 }
 
 function closeModalFactura() {
@@ -239,13 +330,15 @@ function buscarDatosClienteFactura(){
 }
 
 // FUNCION CARGAR CLIENTES.
+var listaServiciosFacturar = []
 function cargarListaServiciosFactura(){
     // Obtenemos la ID del Usuario:
     const id = localStorage.getItem('id');
     const token = localStorage.getItem('token');
     const idServicio = document.getElementById("id_servicio_0006").value
     const horaPrestadas = document.getElementById("horas_servicio_0006").value
-    var listaServiciosFacturar = []
+
+
 
     // Creamos el objeto Request para crear el cliente: JSON
     const requestOption = {
@@ -268,6 +361,13 @@ function cargarListaServiciosFactura(){
         resp => {
             console.log(resp)
             listaServiciosFacturar.push(resp)
+            console.log(listaServiciosFacturar.length)
+            
+            // Lista formato JSON guardada para posteriormente ser ingresada a la Base de Datso:
+            localStorage.setItem('listaServiciosFacturarLocalStorage', JSON.stringify(listaServiciosFacturar))
+            CONTROL_LISTA()
+            //console.log(localStorage.getItem(listaServiciosFacturarLocalStorage))
+            
             // console.log(listaServiciosFacturar)
             // console.log(JSON.stringify(listaServiciosFacturar)[0])
             //const jsonServ = JSON.stringify(listaServiciosFacturar)
@@ -283,9 +383,12 @@ function cargarListaServiciosFactura(){
             var tabla = '<table id="myTableServiciosFacturados" class="myTable">';
             //tabla += `<tr><td>${resp["id"]}</td><td>${resp["name"]}</td><td>${resp["description"]}</td><td>${resp["hour_price"]}</td><td>${resp["iva"]}</td><td><button onclick="">Ver</button></td></tr>`
             
-            tabla += `<tr><td>COD_SERVICIO</td><td>NAME</td><td>DESCRIPCION</td><td></td></tr>`
+            tabla += `<tr><td>COD</td><td>NAME</td><td>DESCRIPCION</td><td>$-SUBTOTAL</td><td>$-IVA</td><td>$-TOTAL</td></tr>`
             for (let key in listaServiciosFacturar){
-                tabla += `<tr><td>${listaServiciosFacturar[contador]["id"]}</td><td>${listaServiciosFacturar[contador]["name"]}</td><td>${listaServiciosFacturar[contador]["description"]}</td><td>${listaServiciosFacturar[contador]["hour_price"]}</td><td>${listaServiciosFacturar[contador]["iva"]}</td><td><button onclick="">Ver</button></td></tr>`
+                const subTotalServ = (listaServiciosFacturar[contador]["hour_price"]) * horaPrestadas
+                const subIVAServ = (listaServiciosFacturar[contador]["hour_price"]) * (listaServiciosFacturar[contador]["iva"]/100)
+                const subTotal = subTotalServ + subIVAServ
+                tabla += `<tr><td>${listaServiciosFacturar[contador]["id"]}</td><td>${listaServiciosFacturar[contador]["name"]}</td><td>${listaServiciosFacturar[contador]["description"]}</td><td>${subTotalServ}</td><td>${subIVAServ}</td><td>${subIVAServ}</td><td><button onclick="">Eliminar</button></td></tr>`
                 contador += 1
             }
             tabla += "</table>";
@@ -297,4 +400,8 @@ function cargarListaServiciosFactura(){
         console.error('Error:', error);
         }
     )
+}
+
+function CONTROL_LISTA(){
+    console.log(JSON.parse(localStorage.getItem('listaServiciosFacturarLocalStorage')))
 }
