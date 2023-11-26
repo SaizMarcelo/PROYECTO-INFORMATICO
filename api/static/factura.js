@@ -60,6 +60,16 @@ function consultarIdBotonVerFactura(boton){
     var datoPrimeraColumna = fila.getElementsByTagName('td')[0].innerText; // Obtener el valor de la primera columna
     localStorage.setItem("idFacturaVer", datoPrimeraColumna);
 }
+function consultarIdiceBotonEliminarServicio(boton){
+    //Nos Posicionamos en el nodo td-tr de esta forma:
+    var fila = boton.parentNode.parentNode; 
+    // De los 4 td nos posicionamos en el primero que tiene el dato requerido.
+    //var datoPrimeraColumna = fila.getElementsByTagName('td')[0].innerText; // Obtener el valor de la primera columna
+    localStorage.setItem("idFacturaEliminarServ", (fila.sectionRowIndex - 1)); // Guardamos el indice de la tabla menos uno.
+
+    eliminarServFactura()
+
+}
 
 // Consultamos el Producto seleccionado en la tabla: boton ver.
 function buscarDatosFactura(){
@@ -318,6 +328,7 @@ function buscarDatosClienteFactura(){
 
 // FUNCION CARGAR CLIENTES.
 var listaServiciosFacturar = []
+var serviciosFacturadosEviar = []
 function cargarListaServiciosFactura(){
     // Obtenemos la ID del Usuario:
     const id = localStorage.getItem('id');
@@ -353,6 +364,16 @@ function cargarListaServiciosFactura(){
             // Lista formato JSON guardada para posteriormente ser ingresada a la Base de Datso:
             localStorage.setItem('listaServiciosFacturarLocalStorage', JSON.stringify(listaServiciosFacturar))
             CONTROL_LISTA()
+            // Preparamos la estructura que sera enviada:
+            serviciosFacturadosEviar.push({
+                "ps_id": parseInt(resp["id"]),
+                "prd_serv": "s",
+                "units_hours": parseInt(horaPrestadas)
+            })
+            console.log(serviciosFacturadosEviar)
+            localStorage.setItem('ServiciosFacturasEviarOk', JSON.stringify(listaServiciosFacturar))
+            console.log(serviciosFacturadosEviar)
+
             //console.log(localStorage.getItem(listaServiciosFacturarLocalStorage))
             
             // console.log(listaServiciosFacturar)
@@ -362,6 +383,7 @@ function cargarListaServiciosFactura(){
             // localStorage.setItem('consultaPuente', resp)
             // Inicializamos la variable de conteo:
             var contador = 0
+            var subTotalServicios = 0
             // Creamos una variable con el contenedor HTML.
             var contenedorDinamicoServicioFactura = document.getElementById("contenedorDinamicoServicioFactura");
             // Inicializamos el contenedor vacio:
@@ -370,14 +392,17 @@ function cargarListaServiciosFactura(){
             var tabla = '<table id="myTableServiciosFacturados" class="myTable">';
             //tabla += `<tr><td>${resp["id"]}</td><td>${resp["name"]}</td><td>${resp["description"]}</td><td>${resp["hour_price"]}</td><td>${resp["iva"]}</td><td><button onclick="">Ver</button></td></tr>`
             
-            tabla += `<tr><td>COD</td><td>NAME</td><td>DESCRIPCION</td><td>$-SUBTOTAL</td><td>$-IVA</td><td>$-TOTAL</td></tr>`
+            tabla += `<tr><td>COD</td><td>NAME</td><td>DESCRIPCION</td><td>$ sin IVA</td><td>$ IVA</td><td>$ con IVA</td></tr>`
             for (let key in listaServiciosFacturar){
-                const subTotalServ = (listaServiciosFacturar[contador]["hour_price"]) * horaPrestadas
-                const subIVAServ = (listaServiciosFacturar[contador]["hour_price"]) * (listaServiciosFacturar[contador]["iva"]/100)
-                const subTotal = subTotalServ + subIVAServ
-                tabla += `<tr><td>${listaServiciosFacturar[contador]["id"]}</td><td>${listaServiciosFacturar[contador]["name"]}</td><td>${listaServiciosFacturar[contador]["description"]}</td><td>${subTotalServ}</td><td>${subIVAServ}</td><td>${subIVAServ}</td><td><button onclick="">Eliminar</button></td></tr>`
+                const subTotalSinIva = (listaServiciosFacturar[contador]["hour_price"]) * horaPrestadas
+                const IVAServ = subTotalSinIva * (listaServiciosFacturar[contador]["iva"]/100)
+                const subTotal = subTotalSinIva + IVAServ
+
+                tabla += `<tr><td>${listaServiciosFacturar[contador]["id"]}</td><td>${listaServiciosFacturar[contador]["name"]}</td><td>${listaServiciosFacturar[contador]["description"]}</td><td>${subTotalSinIva}</td><td>${IVAServ}</td><td>${subTotal}</td><td><button onclick="consultarIdiceBotonEliminarServicio(this)">Eliminar</button></td></tr>`
                 contador += 1
+                subTotalServicios += subTotal
             }
+            tabla += `<tr><td></td><td></td><td></td><td></td><td>SUBTOTAL SERVICIOS: </td><td>${subTotalServicios}</td></tr>`
             tabla += "</table>";
             contenedorDinamicoServicioFactura.innerHTML = tabla;
 
@@ -391,4 +416,43 @@ function cargarListaServiciosFactura(){
 
 function CONTROL_LISTA(){
     console.log(JSON.parse(localStorage.getItem('listaServiciosFacturarLocalStorage')))
+}
+
+function eliminarServFactura(){
+    console.log(serviciosFacturadosEviar)
+    console.log(localStorage.getItem("idFacturaEliminarServ"))
+    serviciosFacturadosEviar.splice(localStorage.getItem("idFacturaEliminarServ"),1) // Eliminamos elementos seleccionado:
+    console.log(serviciosFacturadosEviar)
+
+    console.log(listaServiciosFacturar)
+    console.log(localStorage.getItem("idFacturaEliminarServ"))
+    listaServiciosFacturar.splice(localStorage.getItem("idFacturaEliminarServ"),1) // Eliminamos elementos seleccionado:
+    console.log(listaServiciosFacturar)
+
+    var contador = 0
+    // Creamos una variable con el contenedor HTML.
+    var contenedorDinamicoServicioFactura = document.getElementById("contenedorDinamicoServicioFactura");
+    // Inicializamos el contenedor vacio:
+    contenedorDinamicoServicioFactura.innerHTML="";
+
+    var tabla = '<table id="myTableServiciosFacturados" class="myTable">';
+    //tabla += `<tr><td>${resp["id"]}</td><td>${resp["name"]}</td><td>${resp["description"]}</td><td>${resp["hour_price"]}</td><td>${resp["iva"]}</td><td><button onclick="">Ver</button></td></tr>`
+    
+    tabla += `<tr><td>COD</td><td>NAME</td><td>DESCRIPCION</td><td>$ sin IVA</td><td>$ IVA</td><td>$ con IVA</td></tr>`
+    for (let key in listaServiciosFacturar){
+        const subTotalSinIva = (listaServiciosFacturar[contador]["hour_price"]) * serviciosFacturadosEviar[contador]['units_hours']
+        const IVAServ = subTotalSinIva * (listaServiciosFacturar[contador]["iva"]/100)
+        const subTotal = subTotalSinIva + IVAServ
+
+        tabla += `<tr><td>${listaServiciosFacturar[contador]["id"]}</td><td>${listaServiciosFacturar[contador]["name"]}</td><td>${listaServiciosFacturar[contador]["description"]}</td><td>${subTotalSinIva}</td><td>${IVAServ}</td><td>${subTotal}</td><td><button onclick="consultarIdiceBotonEliminarServicio(this)">Eliminar</button></td></tr>`
+        contador += 1
+    }
+  
+    tabla += "</table>";
+
+
+    contenedorDinamicoServicioFactura.innerHTML = tabla;
+
+    //localStorage.setItem('listaServiciosFacturarLocalStorage', JSON.stringify(lista))
+    //console.log(localStorage.getItem('listaServiciosFacturarLocalStorage'))
 }
