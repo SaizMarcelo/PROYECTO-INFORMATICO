@@ -10,15 +10,15 @@
 <form>
     <!-- Etiqueta -->
     <div>
-        <label for="in-username"> Usuario </label>
+        <label for="in-username"> Usuario: </label>
         <!-- Ingreso Datos -->
-        <input type="text" id="in-username">
+        <input type="text" id="in-username" required>
     </div>
     <!-- Etiqueta -->
     <div>
-        <label for="in-password"> Contraseña </label>
+        <label for="in-password"> Contraseña: </label>
         <!-- Ingreso Datos -->
-        <input type="password" id="in-password">
+        <input type="password" id="in-password" required>
     </div>
     <div>
         <!-- Boton de Ejecucion -->
@@ -37,7 +37,7 @@
         <h3>FORMULARIO: DATOS NUEVO USUARIO:</h3>
         <p>Controle que los datos sean correctos antes de realizar cualquier modificacion y editarlos.</p>
         <label for="cuil_cuit_0002">Cuil_Cuit:</label>
-        <input type="text" id="cuil_cuit_0002" onkeyup="" placeholder="cuil_cuit">
+        <input type="text" id="cuil_cuit_0002" onkeyup="" placeholder="cuil_cuit" required maxlength="11" minlength="11">
         <br></br>
         <label for="username_0002">Username:</label>
         <input type="text" id="username_0002" onkeyup="" placeholder="username">
