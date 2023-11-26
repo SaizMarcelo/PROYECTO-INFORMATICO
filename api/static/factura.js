@@ -201,21 +201,8 @@ function buscarDatosClienteFactura(){
 
 // UTILIDADES
 function openModalMostrarFactura() {
-    document.getElementById('myModalFactura').style.display = 'block';
-    // Emisor
-    deshabilitarInput("user_id_0006")
-    deshabilitarInput("cuil_cuit_0006")
-    deshabilitarInput("address_0006")
-    deshabilitarInput("email_0006")
-    deshabilitarInput("name_0006")
-    deshabilitarInput("phone_number_0006")
-    // Receptor
-    deshabilitarInput("cuil_cuit_cliente_0006")
-    deshabilitarInput("address_cliente_0006")
-    deshabilitarInput("email_cliente_0006")
-    deshabilitarInput("name_cliente_0006")
-    deshabilitarInput("phone_number_cliente_0006")
-    cargarDatosUsuarios()
+    document.getElementById('myModalMostrarFactura').style.display = 'block';
+    
 }
 
 function closeModalFactura() {
