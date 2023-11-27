@@ -299,18 +299,35 @@
         <div id="contenedorDinamicoServicioFactura">
             <!-- Contenido dinamico de JavaScript-->
         </div>
+        <div id="contenedorDinamicoServicioFacturaResultado">
+            <!-- Contenido dinamico de JavaScript-->
+        </div>
         <br></br>
         <p>--- PRODUCTOS VENDIDOS --- </p>
         <br></br>
+        <div>
+            <label for="id_producto_0007">Codigo Producto:</label>
+            <input type="number" id="id_producto_0007" onkeyup="" placeholder="Codigo Prod ...">
+            <label for="cantProducto_0007">Horas Prestadas:</label>
+            <input type="number" id="cantProducto_0007" onkeyup="" placeholder="Unidades Producto ...">
+            <button onclick="cargarListaProductosFactura()"> INGRESAR </button>
+        </div>
+        <br></br>
+        <div id="contenedorDinamicoProductosFactura">
+            <!-- Contenido dinamico de JavaScript-->
+        </div>
+        <div id="contenedorDinamicoProductosFacturaResultado">
+            <!-- Contenido dinamico de JavaScript-->
+        </div>
+        <div id="contenedorDinamicoTotalFacturaResultado">
+            <!-- Contenido dinamico de JavaScript-->
+        </div>
+        <br></br>
 
-        <!--
-            <label for="visibility">Visibility:</label>
-            <input type="number" id="visibility" onkeyup="" placeholder="visibility">
-            <span id="clienteEliminado">♠</span>
-            <br></br>-->
+
 
         <button onclick="closeModalFactura()"> Salir </button>
-        <button id="emitirFactura" onclick=""> Emitir Factura </button>
+        <button id="emitirFactura" onclick="emitirFactura()"> Emitir Factura </button>
 
     </div>
 </div>
