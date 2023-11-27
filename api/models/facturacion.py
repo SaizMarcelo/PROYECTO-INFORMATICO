@@ -99,7 +99,7 @@ class Invoice():
         
         for product_service in data["products_services"]:
             partial = Product_Service_Invoice.count_price(product_service)
-            print(partial)
+
             iva_sub_total = partial["iva_sub_total"]
             sub_total = partial["sub_total"]
             
@@ -109,6 +109,7 @@ class Invoice():
                 mysql.connection.commit()
                 cur.execute('SELECT LAST_INSERT_ID()')
                 ps_id = cur.fetchone()
+                product_service_invoice = Product_Service_Invoice((ps_id[0], id, data["user_id"], data["client_id"], product_service["prd_serv"],None, product_service["ps_id"],  product_service["units_hours"], iva_sub_total, sub_total, True)).to_json()
             elif product_service["prd_serv"] == "p":
                 cur.execute('INSERT INTO product_service_invoice (invoice_id, user_id, client_id, prd_serv, product_id, service_id, units_hours, sub_total_iva, sub_total, visibility) VALUES ( %s, %s, %s, %s, %s, NULL, %s, %s, %s, %s)',
                                 ( id, data["user_id"], data["client_id"], product_service["prd_serv"], product_service["ps_id"], product_service["units_hours"], iva_sub_total, sub_total, True))
@@ -121,6 +122,7 @@ class Invoice():
                 reduce_stock = stock - product_service["units_hours"]
                 cur.execute('UPDATE product SET units_stored = %s WHERE id = %s', (reduce_stock, product_service["ps_id"]))
                 mysql.connection.commit()
+                product_service_invoice = Product_Service_Invoice((ps_id[0], id, data["user_id"], data["client_id"], product_service["ps_id"], None, product_service["prd_serv"], product_service["units_hours"], iva_sub_total, sub_total, True)).to_json()
             else:
                 raise DBError("Error creating invoice - no row inserted")
             
@@ -129,8 +131,6 @@ class Invoice():
                 raise DBError("Error creating invoice - no row inserted")
             
             
-            product_service_invoice = Product_Service_Invoice((ps_id[0], id, data["user_id"], data["client_id"], product_service["ps_id"], product_service["prd_serv"], product_service["units_hours"], iva_sub_total, sub_total, True)).to_json()
-           
             invoice_list.append(product_service_invoice)
            
            
