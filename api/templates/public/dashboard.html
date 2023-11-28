@@ -97,7 +97,7 @@
             <span class="close" onclick="closeModalCliente()">&times;</span>
 
             <h3>FORMULARIO: DATOS CLIENTES:</h3>
-            <form>
+            
                 <label for="cuil_cuit_cliente">Cuil_Cuit:</label>
                 <input type="text" id="cuil_cuit_cliente" onkeyup="" placeholder="cuil_cuit">
 
@@ -119,10 +119,10 @@
 
                 <button onclick="closeModalCliente()"> Salir </button>
                 <button id="botonEditarCliente" onclick="botonEditarCliente()"> Editar </button>
-                <button id="guardarCambios" onclick="botonGuardarCambios(), modificarDatosClient()"> Agregar Cambios
+                <button id="guardarCambiosCliente" onclick="botonGuardarCambiosCliente(), modificarDatosClient()"> Agregar Cambios
                 </button>
                 <button id="borrarCliente" onclick="borradoLogicoCliente()"> Borrar </button>
-            </form>
+            
         </div>
     </div>
 
@@ -131,7 +131,7 @@
         <div class="modal-content">
             <span class="close" onclick="closeModalCliente()">&times;</span>
             <h3>FORMULARIO: DATOS NUEVO CLIENTE:</h3>
-            <form>
+            
                 <label for="cuil_cuit_crear_cliente">Cuil_Cuit:</label>
                 <input type="text" id="cuil_cuit_crear_cliente" onkeyup="" placeholder="cuil_cuit">
 
@@ -149,7 +149,7 @@
 
                 <button onclick="closeModalCliente()"> Salir </button>
                 <button id="guardarCambios_crear_cliente" onclick="crearCliente()"> Crear Cliente </button>
-            </form>
+            
         </div>
     </div>
 
@@ -158,7 +158,7 @@
         <div class="modal-content">
             <span class="close" onclick="closeModal_usuario()">&times;</span>
             <h3>FORMULARIO: DATOS DEL USUARIO:</h3>
-            <form>
+            
                 <label for="username_usuario">Username:</label>
                 <input type="text" id="username_usuario" onkeyup="" placeholder="username">
 
@@ -174,9 +174,6 @@
                 <label for="email_usuario">Email:</label>
                 <input type="text" id="email_usuario" onkeyup="" placeholder="email">
 
-                <!-- <label for="id">Id Cliente:</label> -->
-                <!-- <input type="number" id="idCliente" onkeyup="" placeholder="id"> -->
-                <!--  -->
                 <label for="name_usuario">Name:</label>
                 <input type="text" id="name_usuario" onkeyup="" placeholder="name">
 
@@ -187,7 +184,7 @@
                 <button onclick="closeModal_usuario()"> Salir </button>
                 <button id="guardarCambios_usuario" onclick="modificarDatosUsuario()"> Modificar Datos </button>
                 <button id="eliminarUsuario" onclick="eliminarUsuario()"> Eliminar Usuario </button>
-            </form>
+            
         </div>
     </div>
 
@@ -196,7 +193,7 @@
         <div class="modal-content">
             <span class="close" onclick="closeModalProducto()">&times;</span>
             <h3>FORMULARIO: PRODUCTOS</h3>
-            <form>
+        
                 <label for="nombre_producto">Name:</label>
                 <input type="text" id="nombre_producto" onkeyup="" placeholder="nombre">
 
@@ -218,7 +215,7 @@
                 <button id="botonEditarProducto" onclick="botonEditarProducto()"> Editar </button>
                 <button id="guardarCambiosProducto" onclick="botonGuardarCambiosProducto()"> Agregar Cambios </button>
                 <button id="borrarProducto" onclick="borradoLogicoProducto()"> Borrar </button>
-            </form>
+       
         </div>
     </div>
 
@@ -227,7 +224,7 @@
         <div class="modal-content">
             <span class="close" onclick="closeModalProducto()">&times;</span>
             <h3>FORMULARIO: PRODUCTOS</h3>
-            <form>
+      
                 <label for="nombre_crear_producto">Name:</label>
                 <input type="text" id="nombre_crear_producto" onkeyup="" placeholder="name">
 
@@ -249,7 +246,7 @@
                 <button id="botonEditarCrearProducto" onclick="botonEditarCrearProducto()"> Editar </button>
                 <button id="guardarCambiosCrearProducto" onclick="botonGuardarCambiosCrearProducto()"> Agregar Cambios
                 </button>
-            </form>
+     
 
         </div>
     </div>
@@ -329,7 +326,7 @@
         <div class="modal-content">
             <span class="close" onclick="closeModalFactura()">&times;</span>
             <h3>FORMULARIO: DATOS FACTURA A EMITIR:</h3>
-            <form>
+     
                 <p>--- DATOS EMISOR FACTURA --- </p>
                 <label for="user_id_crear_factura"> USER ID:</label>
                 <input type="number" id="user_id_crear_factura" onkeyup="" placeholder="user_id">
@@ -400,7 +397,7 @@
                 </div>
                 <button onclick="closeModalFactura()"> Salir </button>
                 <button id="emitirFactura" onclick="emitirFactura()"> Emitir Factura </button>
-            </form>
+      
         </div>
     </div>
 

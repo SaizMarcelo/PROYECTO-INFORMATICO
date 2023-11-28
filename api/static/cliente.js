@@ -31,7 +31,6 @@ function crearCliente(){
         // Actualizamos la lista de clientes:
         cargarClientes();
         closeModalCliente();
-        deshabilitarBotonCliente("listaClientes");
     })
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
@@ -80,13 +79,9 @@ function cargarClientes(){
             }
             tabla += "</table>";
             contenedorDinamico.innerHTML = tabla;
-            document.getElementById("mensajeListaClientes").innerHTML = '♠'
         }
     )
     .catch(error => {
-        //
-        document.getElementById("mensajeListaClientes").innerHTML = 'La base de datos esta vacia: crear un cliente previamente.'
-        deshabilitarBotonCliente("listaClientes")
         // Manejar cualquier error que pueda ocurrir durante la solicitud
         console.error('Error: ', error);
     });
@@ -149,6 +144,10 @@ function buscarDatosCliente(){
             document.getElementById("phone_number_cliente").value = resp["phone_number"]
         }
     )
+    .catch(error => {
+        // Manejar cualquier error que pueda ocurrir durante la solicitud
+        console.error('Error: ', error);
+    });
 }
 
 
@@ -211,13 +210,10 @@ function borradoLogicoCliente(){
     .then(resp => {
         if (resp.ok){
             cargarClientes();
-            document.getElementById("clienteEliminado").innerHTML = 'El cliente fue eliminado definitivamente'
-            deshabilitarBotonCliente("guardarCambios")
+            deshabilitarBotonCliente("guardarCambiosCliente")
             deshabilitarBotonCliente("botonEditarCliente")
             deshabilitarBotonCliente("borrarCliente")
             closeModalCliente()
-        } else {
-            document.getElementById("clienteEliminado").innerHTML = 'El borrado no tuvo exito'
         }
     })
     .catch(error => {
@@ -248,12 +244,11 @@ function habilitarInputCliente(nombre) {
 
 // Función para mostrar el modal
 function openModalCliente() {
-
+    deshabilitarBotonCliente("guardarCambiosCliente");
+    habilitarBotonCliente("botonEditarCliente");
+    habilitarBotonCliente("borrarCliente");
     document.getElementById('myModal_cliente').style.display = 'block';
-    deshabilitarBotonCliente("guardarCambios")
-    habilitarBotonCliente("botonEditarCliente")
-    habilitarBotonCliente("borrarCliente")
-    document.getElementById("clienteEliminado").innerHTML = '♠'
+    
 }
     // Función para mostrar el modal_cliente
 function openModalCrearCliente() {
@@ -279,25 +274,24 @@ document.getElementById(nombre).disabled = false; // Habilita el botón
 
 function botonEditarCliente(){
     // Habilitamos los imputo a modificar:
-        habilitarInputCliente("cuil_cuit_cliente")
-        habilitarInputCliente("address_cliente")
-        habilitarInputCliente("email_cliente")
-        habilitarInputCliente("name_cliente")
-        habilitarInputCliente("phone_number_cliente")
-        deshabilitarBotonCliente("botonEditarCliente")
-        habilitarBotonCliente("guardarCambios")
+        habilitarInputCliente("cuil_cuit_cliente");
+        habilitarInputCliente("address_cliente");
+        habilitarInputCliente("email_cliente");
+        habilitarInputCliente("name_cliente");
+        habilitarInputCliente("phone_number_cliente");
+        habilitarBotonCliente("guardarCambiosCliente");
 }
     
-function botonGuardarCambios(){
-    deshabilitarInputCliente("cuil_cuit_cliente")
-    deshabilitarInputCliente("address_cliente")
-    deshabilitarInputCliente("email_cliente")
-    deshabilitarInputCliente("id_cliente")
-    deshabilitarInputCliente("name_cliente")
-    deshabilitarInputCliente("phone_number_cliente")
-    habilitarBotonCliente("botonEditarCliente")
-    deshabilitarBotonCliente("guardarCambios")
-    closeModalCliente()
+function botonGuardarCambiosCliente(){
+    deshabilitarInputCliente("cuil_cuit_cliente");
+    deshabilitarInputCliente("address_cliente");
+    deshabilitarInputCliente("email_cliente");
+    deshabilitarInputCliente("id_cliente");
+    deshabilitarInputCliente("name_cliente");
+    deshabilitarInputCliente("phone_number_cliente");
+    habilitarBotonCliente("botonEditarCliente");
+    deshabilitarBotonCliente("guardarCambiosCliente");
+    closeModalCliente();
 }
     
 // Buscar apellido en tabla.
