@@ -53,7 +53,7 @@ function openModal_0003() {
 
 // FUNCION CARGAR DATOS USUARIO.
 // FUNCION CARGAR DATOS USUARIO.
-function cargarDatosUsuarios(){
+function cargarDatosUsuario(){
     // Obtenemos la ID del Usuario:
     const id = localStorage.getItem('id');
     const token = localStorage.getItem('token');
