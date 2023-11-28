@@ -15,11 +15,11 @@ function crearProducto(){
             'user-id': id,
         },
         body: JSON.stringify({
-            "name": document.getElementById("nameCrearProducto").value,
-            "unitary_price": parseInt(document.getElementById("unitary_priceCrearProducto").value),
-            "units_stored": parseInt(document.getElementById("units_storedCrearProducto").value),
-            "iva": parseInt(document.getElementById("ivaCrearProducto").value),
-            "description": document.getElementById("descriptionCrearProducto").value
+            "name": document.getElementById("nombre_crear_producto").value,
+            "unitary_price": parseInt(document.getElementById("precio_unidad_crear_producto").value),
+            "units_stored": parseInt(document.getElementById("unidades_almacenadas_crear_producto").value),
+            "iva": parseInt(document.getElementById("iva_crear_producto").value),
+            "description": document.getElementById("descripcion_crear_producto").value
         })
     }
     fetch(`http://127.0.0.1:4500/users/${id}/product`, requestOption)
@@ -71,9 +71,9 @@ function cargarProductos(){
 
             var buscador ='<div><input type="text" id="searchInput" onkeyup="buscarEnTabla()" placeholder="Buscar por apellido..."></div>'
             var tabla = buscador+'<table id="myTable" class="myTable">';
-            tabla += `<tr><td>N°_Producto</td><td>PRECIO</td><td>DENOMINACION</td><td></td></tr>`
+            tabla += `<tr><td>N°_Producto</td><td>PRECIO</td><td>DENOMINACION</td><td>STOCK</td><td></td></tr>`
             for (let key in resp){
-                tabla += `<tr><td>${resp[contador]["id"]}</td><td>${resp[contador]["unitary_price"]}</td><td>${resp[contador]["name"]}</td><td><button onclick="consultarIdBotonVerProducto(this),buscarDatosProducto(),openModalProducto()">Ver</button></td></tr>`
+                tabla += `<tr><td>${resp[contador]["id"]}</td><td>${resp[contador]["unitary_price"]}</td><td>${resp[contador]["name"]}</td><td>${resp[contador]["units_stored"]}</td><td><button onclick="consultarIdBotonVerProducto(this),buscarDatosProducto(),openModalProducto()">Ver</button></td></tr>`
                 contador += 1
             }
             tabla += "</table>";
@@ -122,16 +122,16 @@ fetch(`http://127.0.0.1:4500/users/${id}/product/${idProductoVer}`, requestOptio
 .then(
     resp => {
         // Enviamos los datos para cargar el fomulario:
-        deshabilitarInput("nameProduct")
-        document.getElementById("nameProduct").value = resp["name"]
-        deshabilitarInput("unitary_price")
-        document.getElementById("unitary_price").value = resp["unitary_price"]
-        deshabilitarInput("units_stored")
-        document.getElementById("units_stored").value = resp["units_stored"]
-        deshabilitarInput("iva")
-        document.getElementById("iva").value = resp["iva"]
-        deshabilitarInput("description")
-        document.getElementById("description").value = resp["description"]
+        deshabilitarInputProducto("nombre_producto")
+        document.getElementById("nombre_producto").value = resp["name"]
+        deshabilitarInputProducto("precio_unidad")
+        document.getElementById("precio_unidad").value = resp["unitary_price"]
+        deshabilitarInputProducto("unidades_almacenadas")
+        document.getElementById("unidades_almacenadas").value = resp["units_stored"]
+        deshabilitarInputProducto("iva_producto")
+        document.getElementById("iva_producto").value = resp["iva"]
+        deshabilitarInputProducto("descripcion_producto")
+        document.getElementById("descripcion_producto").value = resp["description"]
         
     }
 )
@@ -178,11 +178,11 @@ function modificarDatosProducto(){
             'user-id': id,
         },
         body: JSON.stringify({
-            "name": document.getElementById("nameProduct").value,
-            "unitary_price": parseInt(document.getElementById("unitary_price").value),
-            "units_stored": parseInt(document.getElementById("units_stored").value),
-            "iva": parseInt(document.getElementById("iva").value),
-            "description": document.getElementById("description").value
+            "name": document.getElementById("nombre_producto").value,
+            "unitary_price": parseInt(document.getElementById("precio_unidad").value),
+            "units_stored": parseInt(document.getElementById("unidades_almacenadas").value),
+            "iva": parseInt(document.getElementById("iva_producto").value),
+            "description": document.getElementById("descripcion_producto").value
         })
     }
     
@@ -224,9 +224,9 @@ function borradoLogicoProducto(){
         if (resp.ok){
             cargarProductos();
             document.getElementById("ProductoEliminado").innerHTML = 'El Producto fue eliminado definitivamente'
-            deshabilitarBoton("guardarCambios")
-            deshabilitarBoton("botonEditarProducto")
-            deshabilitarBoton("borrarProducto")
+            deshabilitarBotonProducto("guardarCambios")
+            deshabilitarBotonProducto("botonEditarProducto")
+            deshabilitarBotonProducto("borrarProducto")
             closeModal()
         } else {
             document.getElementById("ProductoEliminado").innerHTML = 'El borrado no tuvo exito'
@@ -246,23 +246,23 @@ function borradoLogicoProducto(){
 // Función para mostrar el modal edicion
 function openModalProducto() {
 document.getElementById('myModalProducto').style.display = 'block';
-document.getElementById("nameProduct").value = "";
-document.getElementById("unitary_price").value = "";
-document.getElementById("units_stored").value = "";
-document.getElementById("iva").value = "";
-document.getElementById("description").value = "";
-habilitarBoton("botonEditarProducto")
+document.getElementById("nombre_producto").value;
+document.getElementById("precio_unidad").value;
+document.getElementById("unidades_almacenadas").value;
+document.getElementById("iva_producto").value;
+document.getElementById("descripcion_producto").value;
+habilitarBotonProducto("botonEditarProducto")
 }
 
 // Función para mostrar el modal creacion
 function openModalCrearProducto() {
     document.getElementById('myModalCrearProducto').style.display = 'block';
-    document.getElementById("nameProductCrearProducto").value = "";
-    document.getElementById("unitary_priceCrearProducto").value = "";
-    document.getElementById("units_storedCrearProducto").value = "";
-    document.getElementById("ivaCrearProducto").value = "";
-    document.getElementById("descriptionCrearProducto").value = "";
-    habilitarBoton("botonEditarProducto")
+    document.getElementById("nombre_productoCrearProducto").value = "";
+    document.getElementById("precio_unidad_crear_producto").value = "";
+    document.getElementById("unidades_almacenadas_crear_producto").value = "";
+    document.getElementById("iva_crear_producto").value = "";
+    document.getElementById("descripcion_crear_producto").value = "";
+    habilitarBotonProducto("botonEditarProducto")
 }
 
 
@@ -273,65 +273,65 @@ document.getElementById('myModalCrearProducto').style.display = 'none';
 }
 
 // Deshabilitar Input
-function deshabilitarInput(nombre) {
+function deshabilitarInputProducto(nombre) {
 document.getElementById(nombre).disabled = true; // Deshabilita el input
 }
 
 // Habilitar Input
-function habilitarInput(nombre) {
+function habilitarInputProducto(nombre) {
 document.getElementById(nombre).disabled = false; // Habilita el input
 }
 
 function botonEditarProducto(){
 // Habilitamos los imputo a modificar:
-    habilitarInput("nameProduct")
-    habilitarInput("unitary_price")
-    habilitarInput("units_stored")
-    habilitarInput("iva")
-    habilitarInput("description")
-    deshabilitarBoton("botonEditarProducto")
-    habilitarBoton("guardarCambiosProducto")
+    habilitarInputProducto("nombre_producto")
+    habilitarInputProducto("precio_unidad")
+    habilitarInputProducto("unidades_almacenadas")
+    habilitarInputProducto("iva_producto")
+    habilitarInputProducto("descripcion_producto")
+    habilitarBotonProducto("guardarCambiosProducto")
+    deshabilitarBotonProducto("botonEditarProducto")
 }
 
 function botonGuardarCambiosProducto(){
-    deshabilitarInput("nameProduct")
-    deshabilitarInput("unitary_price")
-    deshabilitarInput("units_stored")
-    deshabilitarInput("iva")
-    deshabilitarInput("description")
-    habilitarBoton("botonEditarProducto")
-    deshabilitarBoton("guardarCambiosProducto")
+    deshabilitarInputProducto("nombre_producto")
+    deshabilitarInputProducto("precio_unidad")
+    deshabilitarInputProducto("unidades_almacenadas")
+    deshabilitarInputProducto("iva_producto")
+    deshabilitarInputProducto("descripcion_producto")
+    habilitarBotonProducto("botonEditarProducto")
+    deshabilitarBotonProducto("guardarCambiosProducto")
     closeModal()
 }
 
 function botonEditarCrearProducto(){
     // Habilitamos los imputo a modificar:
-        habilitarInput("nameCrearProducto")
-        habilitarInput("unitary_priceCrearProducto")
-        habilitarInput("units_storedCrearProducto")
-        habilitarInput("ivaCrearProducto")
-        habilitarInput("descriptionCrearProducto")
-        deshabilitarBoton("botonEditarCrearProducto")
-        habilitarBoton("guardarCambiosCrearProducto")
+        habilitarInputProducto("nombre_crear_producto")
+        habilitarInputProducto("precio_unidad_crear_producto")
+        habilitarInputProducto("unidades_almacenadas_crear_producto")
+        habilitarInputProducto("iva_crear_producto")
+        habilitarInputProducto("descripcion_crear_producto")
+        deshabilitarBotonProducto("botonEditarCrearProducto")
+        habilitarBotonProducto("guardarCambiosCrearProducto")
     }
     
     function botonGuardarCambiosCrearProducto(){
-        deshabilitarInput("nameCrearProducto")
-        deshabilitarInput("unitary_priceCrearProducto")
-        deshabilitarInput("units_storedCrearProducto")
-        deshabilitarInput("ivaCrearProducto")
-        deshabilitarInput("descriptionCrearProducto")
-        habilitarBoton("botonEditarCrearProducto")
-        deshabilitarBoton("guardarCambiosCrearProducto")
+        deshabilitarInputProducto("nombre_crear_producto")
+        deshabilitarInputProducto("precio_unidad_crear_producto")
+        deshabilitarInputProducto("unidades_almacenadas_crear_producto")
+        deshabilitarInputProducto("iva_crear_producto")
+        deshabilitarInputProducto("descripcion_crear_producto")
+        habilitarBotonProducto("botonEditarCrearProducto")
+        deshabilitarBotonProducto("guardarCambiosCrearProducto")
         closeModal()
     }
 
 // Deshabilitar Boton
-function deshabilitarBoton(nombre) {
-document.getElementById(nombre).disabled = true; // Deshabilita el botón
+function deshabilitarBotonProducto(nombre) {
+    document.getElementById(nombre).disabled = true; // Deshabilita el botón
 }
 
 // Habilitar Boton
-function habilitarBoton(nombre) {
-document.getElementById(nombre).disabled = false; // Habilita el botón
+function habilitarBotonProducto(nombre) {
+    document.getElementById(nombre).disabled = false; // Habilita el botón
 }

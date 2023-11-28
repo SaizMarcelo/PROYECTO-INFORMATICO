@@ -1,6 +1,5 @@
 from api import app
 from flask import request, jsonify
-from api.db.db import mysql
 from api.models.usuario import User
 from api.utils import token_required, user_resource
 

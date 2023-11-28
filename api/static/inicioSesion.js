@@ -37,7 +37,7 @@ function iniciarSesion(){
                 document.getElementById("message").innerHTML = 'Bienvenido ' + resp.Username
                 // Esta es la forma para movernos a otro documento HTML:
                 // Importante utilizar comillas a la izquierda:
-                window.location.href = '/dashboardForm0001';
+                window.location.href = '/dashboard';
                 
             }
             // De lo contrario buscamos del documento el id:span mostramos el codigo.

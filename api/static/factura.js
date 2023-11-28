@@ -1,6 +1,3 @@
-// CREATE
-
-
 // READ
 
 // FUNCION CARGAR FACTURAS.
@@ -60,27 +57,6 @@ function consultarIdBotonVerFactura(boton){
     var datoPrimeraColumna = fila.getElementsByTagName('td')[0].innerText; // Obtener el valor de la primera columna
     localStorage.setItem("idFacturaVer", datoPrimeraColumna);
 }
-function consultarIdiceBotonEliminarServicio(boton){
-    //Nos Posicionamos en el nodo td-tr de esta forma:
-    var fila = boton.parentNode.parentNode; 
-    // De los 4 td nos posicionamos en el primero que tiene el dato requerido.
-    //var datoPrimeraColumna = fila.getElementsByTagName('td')[0].innerText; // Obtener el valor de la primera columna
-    localStorage.setItem("idFacturaEliminarServ", (fila.sectionRowIndex - 1)); // Guardamos el indice de la tabla menos uno.
-
-    eliminarServFactura()
-
-}
-
-function consultarIdiceBotonEliminarProductos(boton){
-    //Nos Posicionamos en el nodo td-tr de esta forma:
-    var fila = boton.parentNode.parentNode; 
-    // De los 4 td nos posicionamos en el primero que tiene el dato requerido.
-    //var datoPrimeraColumna = fila.getElementsByTagName('td')[0].innerText; // Obtener el valor de la primera columna
-    localStorage.setItem("idFacturaEliminarProd", (fila.sectionRowIndex - 1)); // Guardamos el indice de la tabla menos uno.
-
-    eliminarProdFactura()
-
-}
 
 // Consultamos el Producto seleccionado en la tabla: boton ver.
 function buscarDatosFactura(){
@@ -131,96 +107,9 @@ fetch(`http://127.0.0.1:4500/users/${id}/invoice/${idFacturaVer}`, requestOption
 
 }
 
-// FUNCION CARGAR DATOS USUARIO.
-function cargarDatosUsuarios(){
-    // Obtenemos la ID del Usuario:
-    const id = localStorage.getItem('id');
-    const token = localStorage.getItem('token');
-
-    // Creamos el objeto Request para crear el cliente: JSON
-    const requestOption = {
-        method : 'GET',
-        headers: {
-            'Content-Type': 'aplication/json',
-            'x-access-token': token,
-            'user-id': id,
-        }
-    }
-
-    fetch(`http://127.0.0.1:4500/users/${id}`, requestOption)
-    .then(
-        resp  => {
-            
-            return resp.json()
-        }
-
-    )
-    .then(
-        resp => {
-            // De la consulta vamos a conulstar cuantos registros tiene la cunsulta realizada:
-            document.getElementById("user_id_0006").value = resp["id"]
-            document.getElementById("cuil_cuit_0006").value = resp["cuil_cuit"]
-            document.getElementById("address_0006").value = resp["address"]
-            document.getElementById("email_0006").value = resp["email"]
-            document.getElementById("name_0006").value = resp["name"]
-            document.getElementById("phone_number_0006").value = resp["phone_number"]
-
-        }
-    )
-    .catch(error => {
-        // Manejar cualquier error que pueda ocurrir durante la solicitud
-        console.error('Error:', error);
-    });
-}
-
-// DELETE
 
 
-// Consultamos el Cliente seleccionado en la tabla: boton ver.
-function buscarDatosClienteFactura(){
-    // Obtenemos la ID del Usuario:
-    const id = localStorage.getItem('id');
-    const token = localStorage.getItem('token');
-    // Buscamos Id ingresado:
-    const idClienteBuscado = document.getElementById("user_id_cliente_0006").value
-    console.log(id)
-    console.log(token)
-    console.log(idClienteBuscado)
-
-    // Creamos el objeto Request para crear el cliente: JSON
-    const requestOption = {
-        method : 'GET',
-        headers: {
-            'Content-Type': 'aplication/json',
-            'x-access-token': token,
-            'user-id': id,
-        }
-    }
-
-    fetch(`http://127.0.0.1:4500/users/${id}/client/${idClienteBuscado}`, requestOption)
-    .then(
-        resp  => {
-            
-            return resp.json()
-        }
-        
-    )
-    .then(
-        resp => {
-            console.log(resp)
-            // Enviamos los datos para cargar el fomulario:
-            document.getElementById("cuil_cuit_cliente_0006").value = parseInt(resp["cuil_cuit"])
-            document.getElementById("address_cliente_0006").value = resp["address"]
-            document.getElementById("email_cliente_0006").value = resp["email"]
-            document.getElementById("name_cliente_0006").value = resp["name"]
-            document.getElementById("phone_number_cliente_0006").value = resp["phone_number"]
-
-        }
-    )
-}
-
-
-// UTILIDADES
+// MODAL
 function openModalMostrarFactura() {
     document.getElementById('myModalMostrarFactura').style.display = 'block';
     
@@ -232,24 +121,87 @@ function closeModalFactura() {
 }
 
 
-/***********************************************/
-
 function openModalMostrarCrearFactura() {
     document.getElementById('myModalFactura').style.display = 'block';
     // Emisor
-    deshabilitarInput("user_id_0006")
-    deshabilitarInput("cuil_cuit_0006")
-    deshabilitarInput("address_0006")
-    deshabilitarInput("email_0006")
-    deshabilitarInput("name_0006")
-    deshabilitarInput("phone_number_0006")
+    deshabilitarInputFactura("user_id_crear_factura")
+    deshabilitarInputFactura("cuil_cuit_crear_factura")
+    deshabilitarInputFactura("address_crear_factura")
+    deshabilitarInputFactura("email_crear_factura")
+    deshabilitarInputFactura("name_crear_factura")
+    deshabilitarInputFactura("phone_number_crear_factura")
     // Receptor
-    deshabilitarInput("cuil_cuit_cliente_0006")
-    deshabilitarInput("address_cliente_0006")
-    deshabilitarInput("email_cliente_0006")
-    deshabilitarInput("name_cliente_0006")
-    deshabilitarInput("phone_number_cliente_0006")
+    deshabilitarInputFactura("cuil_cuit_cliente_crear_factura")
+    deshabilitarInputFactura("address_cliente_crear_factura")
+    deshabilitarInputFactura("email_cliente_crear_factura")
+    deshabilitarInputFactura("name_cliente_crear_factura")
+    deshabilitarInputFactura("phone_number_cliente_crear_factura")
     cargarDatosUsuarios()
+}
+
+// Deshabilitar Input
+function deshabilitarInputFactura(nombre) {
+    document.getElementById(nombre).disabled = true; // Deshabilita el input
+}
+
+
+// CREATE
+
+// Funcion POST: Crear un nuevo Producto.
+function emitirFactura(){
+    // Obtenemos la ID del Usuario:
+    const id = localStorage.getItem('id');
+    const token = localStorage.getItem('token');
+    
+    // Creamos el objeto Request para modificar los datos del Producto: JSON
+    const requestOption = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-access-token': token,
+            'user-id': id,
+        },
+        body: JSON.stringify({
+            "client_id": parseInt(document.getElementById('user_id_cliente_crear_factura').value),
+            "user_cuil_cuit": document.getElementById('cuil_cuit_crear_factura').value,
+            "client_cuil_cuit": document.getElementById('cuil_cuit_cliente_crear_factura').value,
+            "products_services": [...serviciosFacturadosEviar, ...productosFacturadosEviar]
+        })
+    }
+    console.log(requestOption.body)
+    fetch(`http://127.0.0.1:4500/users/${id}/invoice`, requestOption)
+    .then(resp => resp.json())
+    .then(resp => {
+        // Actualizamos la lista de Productos:
+        console.log(resp);
+    })
+    .catch(error => {
+        // Manejar cualquier error que pueda ocurrir durante la solicitud
+        console.error('Error:', error);
+    });
+}
+
+// UTILIDADES CREAR FACTURA
+function consultarIdiceBotonEliminarServicio(boton){
+    //Nos Posicionamos en el nodo td-tr de esta forma:
+    var fila = boton.parentNode.parentNode; 
+    // De los 4 td nos posicionamos en el primero que tiene el dato requerido.
+    //var datoPrimeraColumna = fila.getElementsByTagName('td')[0].innerText; // Obtener el valor de la primera columna
+    localStorage.setItem("idFacturaEliminarServ", (fila.sectionRowIndex - 1)); // Guardamos el indice de la tabla menos uno.
+
+    eliminarServFactura()
+
+}
+
+function consultarIdiceBotonEliminarProductos(boton){
+    //Nos Posicionamos en el nodo td-tr de esta forma:
+    var fila = boton.parentNode.parentNode; 
+    // De los 4 td nos posicionamos en el primero que tiene el dato requerido.
+    //var datoPrimeraColumna = fila.getElementsByTagName('td')[0].innerText; // Obtener el valor de la primera columna
+    localStorage.setItem("idFacturaEliminarProd", (fila.sectionRowIndex - 1)); // Guardamos el indice de la tabla menos uno.
+
+    eliminarProdFactura()
+
 }
 
 // FUNCION CARGAR DATOS USUARIO.
@@ -279,12 +231,12 @@ function cargarDatosUsuarios(){
     .then(
         resp => {
             // De la consulta vamos a conulstar cuantos registros tiene la cunsulta realizada:
-            document.getElementById("user_id_0006").value = resp["id"]
-            document.getElementById("cuil_cuit_0006").value = resp["cuil_cuit"]
-            document.getElementById("address_0006").value = resp["address"]
-            document.getElementById("email_0006").value = resp["email"]
-            document.getElementById("name_0006").value = resp["name"]
-            document.getElementById("phone_number_0006").value = resp["phone_number"]
+            document.getElementById("user_id_crear_factura").value = resp["id"]
+            document.getElementById("cuil_cuit_crear_factura").value = resp["cuil_cuit"]
+            document.getElementById("address_crear_factura").value = resp["address"]
+            document.getElementById("email_crear_factura").value = resp["email"]
+            document.getElementById("name_crear_factura").value = resp["name"]
+            document.getElementById("phone_number_crear_factura").value = resp["phone_number"]
 
         }
     )
@@ -300,7 +252,7 @@ function buscarDatosClienteFactura(){
     const id = localStorage.getItem('id');
     const token = localStorage.getItem('token');
     // Buscamos Id ingresado:
-    const idClienteBuscado = document.getElementById("user_id_cliente_0006").value
+    const idClienteBuscado = document.getElementById("user_id_cliente_crear_factura").value
     console.log(id)
     console.log(token)
     console.log(idClienteBuscado)
@@ -325,13 +277,13 @@ function buscarDatosClienteFactura(){
     )
     .then(
         resp => {
-            console.log(resp)
+
             // Enviamos los datos para cargar el fomulario:
-            document.getElementById("cuil_cuit_cliente_0006").value = parseInt(resp["cuil_cuit"])
-            document.getElementById("address_cliente_0006").value = resp["address"]
-            document.getElementById("email_cliente_0006").value = resp["email"]
-            document.getElementById("name_cliente_0006").value = resp["name"]
-            document.getElementById("phone_number_cliente_0006").value = resp["phone_number"]
+            document.getElementById("cuil_cuit_cliente_crear_factura").value = resp["cuil_cuit"]
+            document.getElementById("address_cliente_crear_factura").value = resp["address"]
+            document.getElementById("email_cliente_crear_factura").value = resp["email"]
+            document.getElementById("name_cliente_crear_factura").value = resp["name"]
+            document.getElementById("phone_number_cliente_crear_factura").value = resp["phone_number"]
 
         }
     )
@@ -345,8 +297,8 @@ function cargarListaServiciosFactura(){
     // Obtenemos la ID del Usuario:
     const id = localStorage.getItem('id');
     const token = localStorage.getItem('token');
-    const idServicio = document.getElementById("id_servicio_0006").value
-    const horaPrestadas = document.getElementById("horas_servicio_0006").value
+    const idServicio = document.getElementById("id_servicio_crear_factura").value
+    const horaPrestadas = document.getElementById("horas_servicio_crear_factura").value
 
     // Creamos el objeto Request para crear el cliente: JSON
     const requestOption = {
@@ -475,8 +427,8 @@ function cargarListaProductosFactura(){
     // Obtenemos la ID del Usuario:
     const id = localStorage.getItem('id');
     const token = localStorage.getItem('token');
-    const idProducto = document.getElementById("id_producto_0007").value
-    const cantProductos = document.getElementById("cantProducto_0007").value
+    const idProducto = document.getElementById("id_producto_crear_factura").value
+    const cantProductos = document.getElementById("cantProducto_crear_factura").value
 
     // Creamos el objeto Request para crear el cliente: JSON
     const requestOption = {
@@ -572,8 +524,7 @@ function eliminarProdFactura(){
     contenedorDinamicoProductosFactura.innerHTML="";
 
     var tabla = '<table id="myTableProductosFacturados" class="myTable">';
-    //tabla += `<tr><td>${resp["id"]}</td><td>${resp["name"]}</td><td>${resp["description"]}</td><td>${resp["hour_price"]}</td><td>${resp["iva"]}</td><td><button onclick="">Ver</button></td></tr>`
-    
+   
     tabla += `<tr><td>COD</td><td>NAME</td><td>DESCRIPCION</td><td>CANT.</td><td>$ sin IVA</td><td>$ IVA</td><td>$ con IVA</td></tr>`
     for (let key in listaProductosFacturar){
         const subTotalSinIva = (listaProductosFacturar[contador]["unitary_price"]) * productosFacturadosEviar[contador]["units_hours"]
@@ -584,7 +535,8 @@ function eliminarProdFactura(){
         contador += 1
         subTotalProductos += subTotal
     }
-    //tabla += `<tr><td></td><td></td><td></td><td></td><td></td><td>SUBTOTAL SERVICIOS: </td><td>${subTotalServicios}</td></tr>`
+    
+    
     tabla += "</table>";
     contenedorDinamicoProductosFactura.innerHTML = tabla;
     contenedorDinamicoProductosFacturaResultado.innerHTML="";
@@ -608,48 +560,51 @@ function totalFactura(){
     contenedorDinamicoTotalFacturaResultado.innerHTML=resultadoTotal;
 }
 
-function emitirFactura(){
 
-    console.log(parseInt(document.getElementById('user_id_cliente_0006').value))
-    console.log(document.getElementById('cuil_cuit_0006').value)
-    console.log(document.getElementById('cuil_cuit_cliente_0006').value)
-    console.log(serviciosFacturadosEviar)
-    console.log(productosFacturadosEviar)
-
-}
-
-// CREATE
-
-// Funcion POST: Crear un nuevo Producto.
-function emitirFactura(){
+// CONTROL DE FLUJO PRODUCTOS
+function flujoProductos(){
     // Obtenemos la ID del Usuario:
     const id = localStorage.getItem('id');
     const token = localStorage.getItem('token');
-    
-    // Creamos el objeto Request para modificar los datos del Producto: JSON
+
+    // Creamos el objeto Request para crear el cliente: JSON
     const requestOption = {
-        method: 'POST',
+        method : 'GET',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'aplication/json',
             'x-access-token': token,
             'user-id': id,
-        },
-        body: JSON.stringify({
-            "client_id": parseInt(document.getElementById('user_id_cliente_0006').value),
-            "user_cuil_cuit": document.getElementById('cuil_cuit_0006').value,
-            "client_cuil_cuit": document.getElementById('cuil_cuit_cliente_0006').value,
-            "products_services": [...serviciosFacturadosEviar,...productosFacturadosEviar]
-        })
+        }
     }
-    console.log(requestOption.body)
-    fetch(`http://127.0.0.1:4500/users/${id}/invoice`, requestOption)
-    .then(resp => resp.json())
-    .then(resp => {
-        // Actualizamos la lista de Productos:
-        console.log(resp);
-    })
+
+    fetch(`/users/${id}/invoice_control_flow_product`, requestOption)
+    .then(
+        resp  => {
+            return resp.json()
+        }
+
+    )
+    .then(
+        resp => {
+            // De la consulta vamos a conulstar cuantos registros tiene la cunsulta realizada:
+            localStorage.setItem('consultaPuente', resp)
+            var contador = 0
+            var contenedorDinamico = document.getElementById("contenedorDinamico");
+            contenedorDinamico.innerHTML="";
+
+            
+            var tabla = '<table id="myTable" class="myTable">';
+            tabla += `<tr><td>NRO FACTURA</td><td>CODIGO PRODUCTO</td><td>MOVIMIENTO</td><td>FECHA</td><td>VALOR PRODUCTO PEDIDO</td><td></td></tr>`
+            for (let key in resp){
+                tabla += `<tr><td>${resp[contador]["id_invoice"]}</td><td>${resp[contador]["id_product"]}</td><td>${resp[contador]["flow"]}</td><td>${resp[contador]["date"]}</td><td>${resp[contador]["total_price"]}</td><td><button onclick="consultarIdBotonVerFactura(this), buscarDatosFactura()">Ver</button></td></tr>`
+                contador += 1
+            }
+            tabla += "</table>";
+            contenedorDinamico.innerHTML = tabla;
+        }
+    )
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
-        console.error('Error:', error);
+        console.error('Error: ', error);
     });
 }

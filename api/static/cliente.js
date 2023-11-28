@@ -1,4 +1,45 @@
+// CRUD ###################
 
+// CREAD 
+// Funcion POST: Crear un nuevo cliente.
+function crearCliente(){
+    // Obtenemos la ID del Usuario:
+    const id = localStorage.getItem('id');
+    const token = localStorage.getItem('token');
+    
+
+    // Creamos el objeto Request para modificar los datos del cliente: JSON
+    const requestOption = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-access-token': token,
+            'user-id': id,
+        },
+        body: JSON.stringify({
+            "cuil_cuit": document.getElementById("cuil_cuit_crear_cliente").value,
+            "name": document.getElementById("name_crear_cliente").value,
+            "email": document.getElementById("email_crear_cliente").value,
+            "address": document.getElementById("address_crear_cliente").value,
+            "phone_number": document.getElementById("phone_number_crear_cliente").value
+        })
+    }
+
+    fetch(`http://127.0.0.1:4500/users/${id}/client`, requestOption)
+    .then(resp => resp.json())
+    .then(resp => {
+        // Actualizamos la lista de clientes:
+        cargarClientes();
+        closeModalCliente();
+        deshabilitarBotonCliente("listaClientes");
+    })
+    .catch(error => {
+        // Manejar cualquier error que pueda ocurrir durante la solicitud
+        console.error('Error:', error);
+    });
+}
+
+// READ
 // FUNCION CARGAR CLIENTES.
 function cargarClientes(){
     // Obtenemos la ID del Usuario:
@@ -34,7 +75,7 @@ function cargarClientes(){
             var tabla = buscador+'<table id="myTable" class="myTable">';
             tabla += `<tr><td>N°_CLIENTE</td><td>CUIL_CUIT</td><td>DENOMINACION</td><td></td></tr>`
             for (let key in resp){
-                tabla += `<tr><td>${resp[contador]["id"]}</td><td>${resp[contador]["cuil_cuit"]}</td><td>${resp[contador]["name"]}</td><td><button onclick="consultarIdBotonVer_0001(this),buscarDatosCliente(),openModal()">Ver</button></td></tr>`
+                tabla += `<tr><td>${resp[contador]["id"]}</td><td>${resp[contador]["cuil_cuit"]}</td><td>${resp[contador]["name"]}</td><td><button onclick="consultarIdBotonVerCliente(this),buscarDatosCliente(),openModalCliente()">Ver</button></td></tr>`
                 contador += 1
             }
             tabla += "</table>";
@@ -45,14 +86,14 @@ function cargarClientes(){
     .catch(error => {
         //
         document.getElementById("mensajeListaClientes").innerHTML = 'La base de datos esta vacia: crear un cliente previamente.'
-        deshabilitarBoton("listaClientes")
+        deshabilitarBotonCliente("listaClientes")
         // Manejar cualquier error que pueda ocurrir durante la solicitud
         console.error('Error: ', error);
     });
 }
 
 // Creamos una funcion para obtener el ID del cliente que se selecciona desde la tabla:
-function consultarIdBotonVer_0001(boton){
+function consultarIdBotonVerCliente(boton){
     //Nos Posicionamos en el nodo td-tr de esta forma:
     var fila = boton.parentNode.parentNode; 
     // De los 4 td nos posicionamos en el primero que tiene el dato requerido.
@@ -94,29 +135,27 @@ function buscarDatosCliente(){
         resp => {
             console.log(resp)
             // Enviamos los datos para cargar el fomulario:
-            deshabilitarInput("cuil_cuit")
-            document.getElementById("cuil_cuit").value = resp["cuil_cuit"]
-            deshabilitarInput("address")
-            document.getElementById("address").value = resp["address"]
-            deshabilitarInput("email")
-            document.getElementById("email").value = resp["email"]
-            deshabilitarInput("idCliente")
-            document.getElementById("idCliente").value = parseInt(resp["id"])
-            deshabilitarInput("name")
-            document.getElementById("name").value = resp["name"]
-            deshabilitarInput("phone_number")
-            document.getElementById("phone_number").value = resp["phone_number"]
-            deshabilitarInput("user_id")
-            document.getElementById("user_id").value = parseInt(resp["user_id"])
-            deshabilitarInput("visibility")
-            document.getElementById("visibility").value = parseInt(resp["visibility"])
+            deshabilitarInputCliente("cuil_cuit_cliente")
+            document.getElementById("cuil_cuit_cliente").value = resp["cuil_cuit"]
+            deshabilitarInputCliente("address_cliente")
+            document.getElementById("address_cliente").value = resp["address"]
+            deshabilitarInputCliente("email_cliente")
+            document.getElementById("email_cliente").value = resp["email"]
+            deshabilitarInputCliente("id_cliente")
+            document.getElementById("id_cliente").value = parseInt(resp["id"])
+            deshabilitarInputCliente("name_cliente")
+            document.getElementById("name_cliente").value = resp["name"]
+            deshabilitarInputCliente("phone_number_cliente")
+            document.getElementById("phone_number_cliente").value = resp["phone_number"]
         }
     )
 }
 
+
+// UPDATE
 // Funcion PUT - Modificar Datos del Cliente:
 function modificarDatosClient(){
-// Obtenemos la ID del Usuario:
+    // Obtenemos la ID del Usuario:
     const id = localStorage.getItem('id');
     const token = localStorage.getItem('token');
     const idClienteVer = localStorage.getItem('idClienteVer');
@@ -130,11 +169,11 @@ function modificarDatosClient(){
             'user-id': id,
         },
         body: JSON.stringify({
-            "cuil_cuit": document.getElementById("cuil_cuit").value,
-            "name": document.getElementById("name").value,
-            "email": document.getElementById("email").value,
-            "address": document.getElementById("address").value,
-            "phone_number": document.getElementById("phone_number").value
+            "cuil_cuit": document.getElementById("cuil_cuit_cliente").value,
+            "name": document.getElementById("name_cliente").value,
+            "email": document.getElementById("email_cliente").value,
+            "address": document.getElementById("address_cliente").value,
+            "phone_number": document.getElementById("phone_number_cliente").value
         })
     }
 
@@ -149,10 +188,11 @@ function modificarDatosClient(){
         console.error('Error:', error);
     });
 }
-
+    
+// DELETE
 // Funcion PUT - BORRADO LOGICO:
 function borradoLogicoCliente(){
-// Obtenemos la ID del Usuario:
+    // Obtenemos la ID del Usuario:
     const id = localStorage.getItem('id');
     const token = localStorage.getItem('token');
     const idClienteVer = localStorage.getItem('idClienteVer');
@@ -172,10 +212,10 @@ function borradoLogicoCliente(){
         if (resp.ok){
             cargarClientes();
             document.getElementById("clienteEliminado").innerHTML = 'El cliente fue eliminado definitivamente'
-            deshabilitarBoton("guardarCambios")
-            deshabilitarBoton("botonEditarCliente")
-            deshabilitarBoton("borrarCliente")
-            closeModal()
+            deshabilitarBotonCliente("guardarCambios")
+            deshabilitarBotonCliente("botonEditarCliente")
+            deshabilitarBotonCliente("borrarCliente")
+            closeModalCliente()
         } else {
             document.getElementById("clienteEliminado").innerHTML = 'El borrado no tuvo exito'
         }
@@ -186,52 +226,80 @@ function borradoLogicoCliente(){
     });
 }
 
-// Funcion POST: Crear un nuevo cliente.
-function crearCliente(){
-<<<<<<< HEAD
-    // Obtenemos la ID del Usuario:
-    const id = localStorage.getItem('id');
-    const token = localStorage.getItem('token');
-    const idClienteVer = localStorage.getItem('idClienteVer');
-=======
-// Obtenemos la ID del Usuario:
-const id = localStorage.getItem('id');
-const token = localStorage.getItem('token');
->>>>>>> Facturacion
+
+// MODAL ###################
 
 
-    // Creamos el objeto Request para modificar los datos del cliente: JSON
-    const requestOption = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'x-access-token': token,
-            'user-id': id,
-        },
-        body: JSON.stringify({
-            "cuil_cuit": document.getElementById("cuil_cuit_0001").value,
-            "name": document.getElementById("name_0001").value,
-            "email": document.getElementById("email_0001").value,
-            "address": document.getElementById("address_0001").value,
-            "phone_number": document.getElementById("phone_number_0001").value
-        })
-    }
-
-    fetch(`http://127.0.0.1:4500/users/${id}/client`, requestOption)
-    .then(resp => resp.json())
-    .then(resp => {
-        // Actualizamos la lista de clientes:
-        cargarClientes();
-        closeModal_0001();
-        deshabilitarBoton("listaClientes");
-    })
-    .catch(error => {
-        // Manejar cualquier error que pueda ocurrir durante la solicitud
-        console.error('Error:', error);
-    });
+// Función para cerrar el modal_cliente
+function closeModalCliente() {
+    document.getElementById('myModal_cliente').style.display = 'none';
+    document.getElementById('myModal_crear_cliente').style.display = 'none';
 }
 
+// Deshabilitar Input
+function deshabilitarInputCliente(nombre) {
+    document.getElementById(nombre).disabled = true; // Deshabilita el input
+}
 
+// Habilitar Input
+function habilitarInputCliente(nombre) {
+    document.getElementById(nombre).disabled = false; // Habilita el input
+}
+
+// Función para mostrar el modal
+function openModalCliente() {
+
+    document.getElementById('myModal_cliente').style.display = 'block';
+    deshabilitarBotonCliente("guardarCambios")
+    habilitarBotonCliente("botonEditarCliente")
+    habilitarBotonCliente("borrarCliente")
+    document.getElementById("clienteEliminado").innerHTML = '♠'
+}
+    // Función para mostrar el modal_cliente
+function openModalCrearCliente() {
+    document.getElementById('myModal_crear_cliente').style.display = 'block';
+    document.getElementById("cuil_cuit_crear_cliente").value = ""
+    document.getElementById("address_crear_cliente").value = ""
+    document.getElementById("email_crear_cliente").value = ""
+    document.getElementById("name_crear_cliente").value = ""
+    document.getElementById("phone_number_crear_cliente").value = ""
+}
+    
+
+// UTILIDADES
+// Deshabilitar Boton
+function deshabilitarBotonCliente(nombre) {
+    document.getElementById(nombre).disabled = true; // Deshabilita el botón
+}
+
+// Habilitar Boton
+function habilitarBotonCliente(nombre) {
+document.getElementById(nombre).disabled = false; // Habilita el botón
+}
+
+function botonEditarCliente(){
+    // Habilitamos los imputo a modificar:
+        habilitarInputCliente("cuil_cuit_cliente")
+        habilitarInputCliente("address_cliente")
+        habilitarInputCliente("email_cliente")
+        habilitarInputCliente("name_cliente")
+        habilitarInputCliente("phone_number_cliente")
+        deshabilitarBotonCliente("botonEditarCliente")
+        habilitarBotonCliente("guardarCambios")
+}
+    
+function botonGuardarCambios(){
+    deshabilitarInputCliente("cuil_cuit_cliente")
+    deshabilitarInputCliente("address_cliente")
+    deshabilitarInputCliente("email_cliente")
+    deshabilitarInputCliente("id_cliente")
+    deshabilitarInputCliente("name_cliente")
+    deshabilitarInputCliente("phone_number_cliente")
+    habilitarBotonCliente("botonEditarCliente")
+    deshabilitarBotonCliente("guardarCambios")
+    closeModalCliente()
+}
+    
 // Buscar apellido en tabla.
 function buscarEnTabla() {
     // Declara variables
@@ -253,80 +321,4 @@ function buscarEnTabla() {
         }
     }
     }
-}
-
-// Función para mostrar el modal
-function openModal() {
-document.getElementById('myModal').style.display = 'block';
-deshabilitarBoton("guardarCambios")
-habilitarBoton("botonEditarCliente")
-habilitarBoton("borrarCliente")
-document.getElementById("clienteEliminado").innerHTML = '♠'
-}
-// Función para mostrar el modal_0001
-function openModal_0001() {
-document.getElementById('myModal_0001').style.display = 'block';
-document.getElementById("cuil_cuit_0001").value = ""
-document.getElementById("address_0001").value = ""
-document.getElementById("email_0001").value = ""
-document.getElementById("name_0001").value = ""
-document.getElementById("phone_number_0001").value = ""
-deshabilitarInput("user_id_0001")
-document.getElementById("user_id_0001").value = ""
-deshabilitarInput("visibility_0001")
-document.getElementById("visibility_0001").value = ""
-}
-
-// Función para cerrar el modal
-function closeModal() {
-document.getElementById('myModal').style.display = 'none';
-}
-// Función para cerrar el modal_0001
-function closeModal_0001() {
-document.getElementById('myModal_0001').style.display = 'none';
-}
-
-// Deshabilitar Input
-function deshabilitarInput(nombre) {
-document.getElementById(nombre).disabled = true; // Deshabilita el input
-}
-
-// Habilitar Input
-function habilitarInput(nombre) {
-document.getElementById(nombre).disabled = false; // Habilita el input
-}
-
-function botonEditarCliente(){
-// Habilitamos los imputo a modificar:
-    habilitarInput("cuil_cuit")
-    habilitarInput("address")
-    habilitarInput("email")
-    habilitarInput("name")
-    habilitarInput("phone_number")
-    deshabilitarBoton("botonEditarCliente")
-    habilitarBoton("guardarCambios")
-}
-
-function botonGuardarCambios(){
-    deshabilitarInput("cuil_cuit")
-    deshabilitarInput("address")
-    deshabilitarInput("email")
-    deshabilitarInput("idCliente")
-    deshabilitarInput("name")
-    deshabilitarInput("phone_number")
-    deshabilitarInput("user_id")
-    deshabilitarInput("visibility")
-    habilitarBoton("botonEditarCliente")
-    deshabilitarBoton("guardarCambios")
-    closeModal()
-}
-
-// Deshabilitar Boton
-function deshabilitarBoton(nombre) {
-    document.getElementById(nombre).disabled = true; // Deshabilita el botón
-}
-
-// Habilitar Boton
-function habilitarBoton(nombre) {
-document.getElementById(nombre).disabled = false; // Habilita el botón
 }

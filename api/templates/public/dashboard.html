@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Informatico</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_responsive.css')}}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+
+<body>
+    <header>
+        <h1>SISTEMA DE FACTURACION Y GESTION ONLINE </h1>
+    </header>
+
+    <nav class="main-menu">
+        <section class="menu-group">
+            <h2> Perfil </h2>
+            <a>
+                <span class="menu-text" onclick="openModal_usuario(), cargarDatosUsuarios()"> Editar Datos </span>
+            </a>
+        </section>
+
+        <section class="menu-group">
+            <h2> Clientes </h2>
+            <a>
+                <span class="menu-text" id="nuevoCliente" onclick="openModalCrearCliente()"> Nuevo </span>
+            </a>
+            <a>
+                <span class="menu-text" onclick="cargarClientes()"> Lista </span>
+            </a>
+            <a>
+                <span class="menu-text" onclick="rankingClientes()"> Ranking Clientes </span>
+            </a>
+        </section>
+
+        <section class="menu-group">
+            <h2> Productos </h2>
+            <a>
+                <span class="menu-text" id="nuevoProducto" onclick="openModalCrearProducto()"> Nuevo </span>
+            </a>
+            <a>
+                <span class="menu-text" onclick="cargarProductos()"> Lista </span>
+            </a>
+            <a>
+                <span class="menu-text" onclick="rankingProductos()"> Ranking Productos </span>
+            </a>
+        </section>
+
+        <section class="menu-group">
+            <h2> Servicios </h2>
+            <a>
+                <span class="menu-text" onclick="openModalCrearServicio()"> Nuevo </span>
+            </a>
+            <a>
+                <span class="menu-text" onclick="cargarServicio()"> Lista </span>
+            </a>
+            <a>
+                <span class="menu-text" onclick="rankingServicios()"> Ranking Servicios </span>
+            </a>
+        </section>
+
+        <section class="menu-group">
+            <h2> Factura </h2>
+            <a>
+                <span class="menu-text" id="crearFactura" onclick="openModalMostrarCrearFactura()"> Nueva </span>
+            </a>
+            <a>
+                <span class="menu-text" onclick="cargarFacturas()"> Lista </span>
+            </a>
+            <a>
+                <span class="menu-text" onclick="flujoProductos()"> Movimientos </span>
+            </a>
+        </section>
+
+        <section class="menu-group">
+            <h2> Sesion </h2>
+            <a>
+                <span class="menu-text" onclick="cerrarSesion()"> Salir </span>
+            </a>
+        </section>
+    </nav>
+
+
+    <main>
+        <div id="contenedorDinamico">
+            <!-- Contenido dinamico de JavaScript-->
+        </div>
+    </main>
+
+
+    <!-- MODAL VER CLIENTE EN LISTA DE CLIENTES -->
+    <div id="myModal_cliente" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModalCliente()">&times;</span>
+
+            <h3>FORMULARIO: DATOS CLIENTES:</h3>
+            <form>
+                <label for="cuil_cuit_cliente">Cuil_Cuit:</label>
+                <input type="text" id="cuil_cuit_cliente" onkeyup="" placeholder="cuil_cuit">
+
+                <label for="address_cliente">Adress:</label>
+                <input type="text" id="address_cliente" onkeyup="" placeholder="address">
+
+                <label for="email_cliente">Email:</label>
+                <input type="text" id="email_cliente" onkeyup="" placeholder="email">
+
+                <label for="id_cliente">Id Cliente:</label>
+                <input type="number" id="id_cliente" onkeyup="" placeholder="id">
+
+                <label for="name_cliente">Name:</label>
+                <input type="text" id="name_cliente" onkeyup="" placeholder="name">
+
+                <label for="phone_number_cliente">Phone Number:</label>
+                <input type="text" id="phone_number_cliente" onkeyup="" placeholder="phone_number">
+
+
+                <button onclick="closeModalCliente()"> Salir </button>
+                <button id="botonEditarCliente" onclick="botonEditarCliente()"> Editar </button>
+                <button id="guardarCambios" onclick="botonGuardarCambios(), modificarDatosClient()"> Agregar Cambios
+                </button>
+                <button id="borrarCliente" onclick="borradoLogicoCliente()"> Borrar </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL CARGAR CLIENTE NUEVO -->
+    <div id="myModal_crear_cliente" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModalCliente()">&times;</span>
+            <h3>FORMULARIO: DATOS NUEVO CLIENTE:</h3>
+            <form>
+                <label for="cuil_cuit_crear_cliente">Cuil_Cuit:</label>
+                <input type="text" id="cuil_cuit_crear_cliente" onkeyup="" placeholder="cuil_cuit">
+
+                <label for="address_crear_cliente">Adress:</label>
+                <input type="text" id="address_crear_cliente" onkeyup="" placeholder="address">
+
+                <label for="email_crear_cliente">Email:</label>
+                <input type="text" id="email_crear_cliente" onkeyup="" placeholder="email">
+
+                <label for="name_crear_cliente">Name:</label>
+                <input type="text" id="name_crear_cliente" onkeyup="" placeholder="name">
+
+                <label for="phone_number_crear_cliente">Phone Number:</label>
+                <input type="text" id="phone_number_crear_cliente" onkeyup="" placeholder="phone_number">
+
+                <button onclick="closeModalCliente()"> Salir </button>
+                <button id="guardarCambios_crear_cliente" onclick="crearCliente()"> Crear Cliente </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DATOS PERFIL -->
+    <div id="myModal_usuario" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal_usuario()">&times;</span>
+            <h3>FORMULARIO: DATOS DEL USUARIO:</h3>
+            <form>
+                <label for="username_usuario">Username:</label>
+                <input type="text" id="username_usuario" onkeyup="" placeholder="username">
+
+                <label for="password_usuario">Password:</label>
+                <input type="password" id="password_usuario" onkeyup="" placeholder="password">
+
+                <label for="cuil_cuit_usuario">Cuil_Cuit:</label>
+                <input type="text" id="cuil_cuit_usuario" onkeyup="" placeholder="cuil_cuit">
+
+                <label for="address_usuario">Address:</label>
+                <input type="text" id="address_usuario" onkeyup="" placeholder="address">
+
+                <label for="email_usuario">Email:</label>
+                <input type="text" id="email_usuario" onkeyup="" placeholder="email">
+
+                <!-- <label for="id">Id Cliente:</label> -->
+                <!-- <input type="number" id="idCliente" onkeyup="" placeholder="id"> -->
+                <!--  -->
+                <label for="name_usuario">Name:</label>
+                <input type="text" id="name_usuario" onkeyup="" placeholder="name">
+
+                <label for="phone_number_usuario">Phone Number:</label>
+                <input type="text" id="phone_number_usuario" onkeyup="" placeholder="phone_number">
+
+
+                <button onclick="closeModal_usuario()"> Salir </button>
+                <button id="guardarCambios_usuario" onclick="modificarDatosUsuario()"> Modificar Datos </button>
+                <button id="eliminarUsuario" onclick="eliminarUsuario()"> Eliminar Usuario </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DATOS PRODUCTOS -->
+    <div id="myModalProducto" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModalProducto()">&times;</span>
+            <h3>FORMULARIO: PRODUCTOS</h3>
+            <form>
+                <label for="nombre_producto">Name:</label>
+                <input type="text" id="nombre_producto" onkeyup="" placeholder="nombre">
+
+                <label for="precio_unidad">Unitary Price:</label>
+                <input type="number" id="precio_unidad" onkeyup="" placeholder="precio por unidad">
+
+                <label for="unidades_almacenadas">Uniits Stored:</label>
+                <input type="number" id="unidades_almacenadas" onkeyup="" placeholder="unidades en stock">
+
+                <label for="iva_producto">Iva:</label>
+                <input type="number" id="iva_producto" onkeyup="" placeholder="iva">
+
+                <label for="descripcion_producto">Description:</label>
+                <input type="text" id="descripcion_producto" onkeyup="" placeholder="description">
+
+
+                <button onclick="closeModalProducto()"> Salir </button>
+                <button id="modificarDatosProducto" onclick="modificarDatosProducto()"> Modificar Datos </button>
+                <button id="botonEditarProducto" onclick="botonEditarProducto()"> Editar </button>
+                <button id="guardarCambiosProducto" onclick="botonGuardarCambiosProducto()"> Agregar Cambios </button>
+                <button id="borrarProducto" onclick="borradoLogicoProducto()"> Borrar </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL CREAR PRODUCTOS -->
+    <div id="myModalCrearProducto" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModalProducto()">&times;</span>
+            <h3>FORMULARIO: PRODUCTOS</h3>
+            <form>
+                <label for="nombre_crear_producto">Name:</label>
+                <input type="text" id="nombre_crear_producto" onkeyup="" placeholder="name">
+
+                <label for="precio_unidad_crear_producto">Unitary Price:</label>
+                <input type="number" id="precio_unidad_crear_producto" onkeyup="" placeholder="unitary_price">
+
+                <label for="unidades_almacenadas_crear_producto">Uniits Stored:</label>
+                <input type="number" id="unidades_almacenadas_crear_producto" onkeyup="" placeholder="units_stored">
+
+                <label for="iva_crear_producto">Iva:</label>
+                <input type="number" id="iva_crear_producto" onkeyup="" placeholder="iva">
+
+                <label for="descripcion_crear_producto">Description:</label>
+                <input type="text" id="descripcion_crear_producto" onkeyup="" placeholder="description">
+
+
+                <button onclick="closeModalProducto()"> Salir </button>
+                <button id="crearProducto" onclick="crearProducto()"> Crear Producto </button>
+                <button id="botonEditarCrearProducto" onclick="botonEditarCrearProducto()"> Editar </button>
+                <button id="guardarCambiosCrearProducto" onclick="botonGuardarCambiosCrearProducto()"> Agregar Cambios
+                </button>
+            </form>
+
+        </div>
+    </div>
+
+    <div id="myModalMostrarFactura" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModalFactura()">&times;</span>
+            <h3 id="nroFactura">FACTURA NUMERO: </h3>
+            <form>
+                <span id="cuitUsuario">Emisor: </span>
+                <span id="cuitCliente">Receptor: </span>
+                <div id="facturaParcial">
+
+                </div>
+                <span id="montoTotal">TOTAL: </span>
+                <span id="montoIva">IVA: </span>
+                <button onclick="closeModalFactura()"> Salir </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL DATOS SERVICIOS -->
+<div id="myModalServicio" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModalServicio()">&times;</span>
+        <h3>FORMULARIO: SERVICIOS</h3>
+        <p>Controle que los datos sean correctos antes de realizar cualquier modificacion y editarlos.</p>
+        <label for="nombre_servicio">Nombre:</label>
+        <input type="text" id="nombre_servicio" onkeyup="" placeholder="Nombre del servicio">
+        <br></br>
+        <label for="precio_hora">Valor hora:</label>
+        <input type="number" id="precio_hora" onkeyup="" placeholder="Valor hora del servicio">
+        <br></br>
+        <label for="iva_servicio">Iva:</label>
+        <input type="number" id="iva_servicio" onkeyup="" placeholder="Iva">
+        <br></br>
+        <label for="descripcion_servicio">Descripcion:</label>
+        <input type="text" id="descripcion_servicio" onkeyup="" placeholder="Descripcion">
+        <br></br>
+
+        <button onclick="closeModalServicio()"> Salir </button>
+        <button id="modificarDatosServicio" onclick="modificarDatosServicio()"> Modificar Datos </button>
+        <button id="botonEditarServicio" onclick="botonEditarServicio()"> Editar </button>
+        <button id="guardarCambiosServicio" onclick="botonGuardarCambiosServicio()"> Agregar Cambios </button>
+        <button id="borrarServicio" onclick="borradoLogicoServicio()"> Borrar </button>
+
+    </div>
+</div>
+
+<!-- MODAL CREAR PRODUCTOS -->
+<div id="myModalCrearServicio" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModalServicio()">&times;</span>
+        <h3>FORMULARIO: ServicioS</h3>
+        <p>Controle que los datos sean correctos antes de realizar cualquier modificacion y editarlos.</p>
+        <label for="nombre_crear_servicio">Nombre:</label>
+        <input type="text" id="nombre_crear_servicio" onkeyup="" placeholder="nomrbe servicio">
+        <br></br>
+        <label for="precio_hora_crear_servicio">Valor hora:</label>
+        <input type="number" id="precio_hora_crear_servicio" onkeyup="" placeholder="precio por hora">
+        <br></br>
+        <label for="iva_crear_servicio">Iva:</label>
+        <input type="number" id="iva_crear_servicio" onkeyup="" placeholder="iva">
+        <br></br>
+        <label for="descricion_crear_servicio">Descripcion:</label>
+        <input type="text" id="descricion_crear_servicio" onkeyup="" placeholder="descipcion">
+        <br></br>
+
+        <button onclick="closeModalServicio()"> Salir </button>
+        <button id="crearServicio" onclick="comprobarServicio()"> Crear Servicio </button>
+        
+    </div>
+</div>
+
+
+    <div id="myModalFactura" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModalFactura()">&times;</span>
+            <h3>FORMULARIO: DATOS FACTURA A EMITIR:</h3>
+            <form>
+                <p>--- DATOS EMISOR FACTURA --- </p>
+                <label for="user_id_crear_factura"> USER ID:</label>
+                <input type="number" id="user_id_crear_factura" onkeyup="" placeholder="user_id">
+                <label for="cuil_cuit_crear_factura">CUIT_CUIL:</label>
+                <input type="text" id="cuil_cuit_crear_factura" onkeyup="" placeholder="cuit_cui_emisor">
+                <label for="address_crear_factura">Address:</label>
+                <input type="text" id="address_crear_factura" onkeyup="" placeholder="address">
+                <label for="name_crear_factura">Denominacion:</label>
+                <input type="text" id="name_crear_factura" onkeyup="" placeholder="denominacion">
+                <label for="email_crear_factura">Name:</label>
+                <input type="text" id="email_crear_factura" onkeyup="" placeholder="email">
+                <label for="phone_number_crear_factura">Phone Number:</label>
+                <input type="text" id="phone_number_crear_factura" onkeyup="" placeholder="phone_number">
+
+                <p>--- DATOS RECEPTOR FACTURA --- </p>
+                <div>
+                    <label for="user_id_cliente_crear_factura">N° Cliente:</label>
+                    <input type="number" id="user_id_cliente_crear_factura" onkeyup="" placeholder="Ingres Numero de Cliente">
+                    <button onclick="buscarDatosClienteFactura()"> VALIDAR </button>
+                </div>
+                
+                <label for="cuil_cuit_cliente_crear_factura">CUIT_CUIL:</label>
+                <input type="text" id="cuil_cuit_cliente_crear_factura" onkeyup="" placeholder="cuit cuil receptor">
+                
+                <label for="address_cliente_crear_factura">Address:</label>
+                <input type="text" id="address_cliente_crear_factura" onkeyup="" placeholder="address receptor">
+                
+                <label for="name_cliente_crear_factura">Denominacion:</label>
+                <input type="text" id="name_cliente_crear_factura" onkeyup="" placeholder="denominacion receptor">
+                
+                <label for="email_cliente_crear_factura">Email:</label>
+                <input type="text" id="email_cliente_crear_factura" onkeyup="" placeholder="email">
+                
+                <label for="phone_number_cliente_crear_factura">Phone Number:</label>
+                <input type="text" id="phone_number_cliente_crear_factura" onkeyup="" placeholder="phone_number receptor">
+
+                <p>--- SERVICIOS PRESTADOS --- </p>
+                <div>
+                    <label for="id_servicio_crear_factura">Codigo Servicio:</label>
+                    <input type="number" id="id_servicio_crear_factura" onkeyup="" placeholder="Codigo Serv ...">
+                    <label for="horas_servicio_crear_factura">Horas Prestadas:</label>
+                    <input type="number" id="horas_servicio_crear_factura" onkeyup="" placeholder="Horas Serv ...">
+                    <button onclick="cargarListaServiciosFactura()"> INGRESAR </button>
+                </div>
+                <div id="contenedorDinamicoServicioFactura">
+                    <!-- Contenido dinamico de JavaScript-->
+                </div>
+                <div id="contenedorDinamicoServicioFacturaResultado">
+                    <!-- Contenido dinamico de JavaScript-->
+                </div>
+
+                <p>--- PRODUCTOS VENDIDOS --- </p>
+                <div>
+                    <label for="id_producto_crear_factura">Codigo Producto:</label>
+                    <input type="number" id="id_producto_crear_factura" onkeyup="" placeholder="Codigo Prod ...">
+                    <label for="cantProducto_crear_factura">Horas Prestadas:</label>
+                    <input type="number" id="cantProducto_crear_factura" onkeyup="" placeholder="Unidades Producto ...">
+                    <button onclick="cargarListaProductosFactura()"> INGRESAR </button>
+                </div>
+                <div id="contenedorDinamicoProductosFactura">
+                    <!-- Contenido dinamico de JavaScript-->
+                </div>
+                <div id="contenedorDinamicoProductosFacturaResultado">
+                    <!-- Contenido dinamico de JavaScript-->
+                </div>
+                <div id="contenedorDinamicoTotalFacturaResultado">
+                    <!-- Contenido dinamico de JavaScript-->
+                </div>
+                <button onclick="closeModalFactura()"> Salir </button>
+                <button id="emitirFactura" onclick="emitirFactura()"> Emitir Factura </button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>Proyecto Informático - T.U. Tecnologías de la Programación (UPSO)</p>
+        <p>Santi - Pisciolari Chauvié - Saiz</p>
+    </footer>
+
+    <!-- Abrimos una nueva pagina y recuparamos la informacion del LOCALSTORAGE-->
+    <h3> Bienvenido !!! <span id="username"></span></h3>
+
+</body>
+
+<script src="{{ url_for('static', filename='localStorage.js') }}"></script>
+<script src="{{ url_for('static', filename='cliente.js') }}"></script>
+<script src="{{ url_for('static', filename='usuario.js') }}"></script>
+<script src="{{ url_for('static', filename='productos.js') }}"></script>
+<script src="{{ url_for('static', filename='factura.js') }}"></script>
+<script src="{{ url_for('static', filename='servicios.js') }}"></script>
+<script src="{{ url_for('static', filename='rankings.js') }}"></script>
+</html>
