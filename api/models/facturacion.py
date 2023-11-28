@@ -158,7 +158,8 @@ class Invoice():
             
             objInvoice = Invoice(row).to_json()
             invoiceList.append(objInvoice)
-        
+        invoiceList.reverse()
+
         return invoiceList
 
     def get_invoice_by_id(id):

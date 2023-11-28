@@ -162,6 +162,7 @@ function modificarDatosServicio(){
     fetch(`http://127.0.0.1:4500/users/${id}/service/${idServicioVer}`, requestOption)
     .then(resp => resp.json())
     .then(resp => {
+            guardarCambiosServicio();
             cargarServicio();
         })
     .catch(error => {
@@ -210,6 +211,7 @@ function openModalCrearServicio() {
 }
 
 function openModalServicio() {
+    guardarCambiosServicio();
     document.getElementById('myModalServicio').style.display = 'block';
 }
 
@@ -257,19 +259,19 @@ function buscarEnTabla(){
 
 function botonEditarServicio(){
     // Habilitamos los imputo a modificar:
-        habilitarInputServicio("nombre_servicio")
-        habilitarInputServicio("precio_hora")
-        habilitarInputServicio("iva_servicio")
-        habilitarInputServicio("descripcion_servicio")
-        deshabilitarBotonServicio("modificarDatosServicio")
+        habilitarInputServicio("nombre_servicio");
+        habilitarInputServicio("precio_hora");
+        habilitarInputServicio("iva_servicio");
+        habilitarInputServicio("descripcion_servicio");
+        habilitarBotonServicio("modificarDatosServicio");
 }
 
-function botonGuardarCambiosServicio(){
+function guardarCambiosServicio(){
     deshabilitarInputServicio("nombre_servicio")
     deshabilitarInputServicio("precio_hora")
     deshabilitarInputServicio("iva_servicio")
     deshabilitarInputServicio("descripcion_servicio")
-    habilitarBotonServicio("modificarDatosServicio")
+    deshabilitarBotonServicio("modificarDatosServicio")
 }
 
 // Deshabilitar Input

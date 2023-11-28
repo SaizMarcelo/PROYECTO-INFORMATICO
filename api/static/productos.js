@@ -190,6 +190,7 @@ function modificarDatosProducto(){
     .then(resp => resp.json())
     .then(resp => {
         // Actualizamos la lista de Productos:
+        GuardarCambiosProducto();
         cargarProductos();
     })
     .catch(error => {
@@ -262,7 +263,6 @@ function openModalCrearProducto() {
     document.getElementById("unidades_almacenadas_crear_producto").value = "";
     document.getElementById("iva_crear_producto").value = "";
     document.getElementById("descripcion_crear_producto").value = "";
-    habilitarBotonProducto("botonEditarProducto")
 }
 
 
@@ -293,7 +293,7 @@ function botonEditarProducto(){
     deshabilitarBotonProducto("botonEditarProducto")
 }
 
-function botonGuardarCambiosProducto(){
+function GuardarCambiosProducto(){
     deshabilitarInputProducto("nombre_producto")
     deshabilitarInputProducto("precio_unidad")
     deshabilitarInputProducto("unidades_almacenadas")
@@ -301,30 +301,11 @@ function botonGuardarCambiosProducto(){
     deshabilitarInputProducto("descripcion_producto")
     habilitarBotonProducto("botonEditarProducto")
     deshabilitarBotonProducto("guardarCambiosProducto")
-    closeModal()
 }
 
-function botonEditarCrearProducto(){
-    // Habilitamos los imputo a modificar:
-        habilitarInputProducto("nombre_crear_producto")
-        habilitarInputProducto("precio_unidad_crear_producto")
-        habilitarInputProducto("unidades_almacenadas_crear_producto")
-        habilitarInputProducto("iva_crear_producto")
-        habilitarInputProducto("descripcion_crear_producto")
-        deshabilitarBotonProducto("botonEditarCrearProducto")
-        habilitarBotonProducto("guardarCambiosCrearProducto")
-    }
+
     
-    function botonGuardarCambiosCrearProducto(){
-        deshabilitarInputProducto("nombre_crear_producto")
-        deshabilitarInputProducto("precio_unidad_crear_producto")
-        deshabilitarInputProducto("unidades_almacenadas_crear_producto")
-        deshabilitarInputProducto("iva_crear_producto")
-        deshabilitarInputProducto("descripcion_crear_producto")
-        habilitarBotonProducto("botonEditarCrearProducto")
-        deshabilitarBotonProducto("guardarCambiosCrearProducto")
-        closeModal()
-    }
+
 
 // Deshabilitar Boton
 function deshabilitarBotonProducto(nombre) {
