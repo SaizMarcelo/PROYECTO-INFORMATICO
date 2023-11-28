@@ -1,76 +1,89 @@
-{% extends 'public//base.html' %}
-{% block title %} LOGIN {% endblock %}
-{% block content %}
-<!-- Creamos el formulario para ingresar los datos del Usuario -->
+<!DOCTYPE html>
+<html lang="es">
 
-<div class="CrearCuenta">
-    <button onclick="openModal_0002()"> Crear Cuenta Usuario </button>
-</div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Informatico {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_responsive.css')}}">
+</head>
 
-<form>
-    <!-- Etiqueta -->
-    <div>
-        <label for="in-username"> Usuario: </label>
-        <!-- Ingreso Datos -->
-        <input type="text" id="in-username" required>
-    </div>
-    <!-- Etiqueta -->
-    <div>
-        <label for="in-password"> Contraseña: </label>
-        <!-- Ingreso Datos -->
-        <input type="password" id="in-password" required>
-    </div>
-    <div>
-        <!-- Boton de Ejecucion -->
-        <input type="button" onclick="iniciarSesion()" value="Iniciar Sesion">
-    </div>
-    <div>
-        <!-- Si no hay Token la respuesta del Script0001.js se recibe por aca: -->
-        <span id="message">♠</span>
-    </div>
-</form>
+<body>
+    <header>
+        <h1>SISTEMA DE FACTURACION Y GESTION ONLINE </h1>
+    </header>
 
-<!-- MODAL CREAR CUENTA DE USUARIO -->
-<div id="myModal_0002" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="">&times;</span>
-        <h3>FORMULARIO: DATOS NUEVO USUARIO:</h3>
-        <p>Controle que los datos sean correctos antes de realizar cualquier modificacion y editarlos.</p>
-        <label for="cuil_cuit_0002">Cuil_Cuit:</label>
-        <input type="text" id="cuil_cuit_0002" onkeyup="" placeholder="cuil_cuit" required maxlength="11" minlength="11">
-        <br></br>
-        <label for="username_0002">Username:</label>
-        <input type="text" id="username_0002" onkeyup="" placeholder="username">
-        <br></br>
-        <label for="password_0002">Password:</label>
-        <input type="password" id="password_0002" onkeyup="" placeholder="password">
-        <br></br>
-        <label for="name_0002">Name:</label>
-        <input type="text" id="name_0002" onkeyup="" placeholder="name">
-        <br></br>
-        <label for="address_0002">address:</label>
-        <input type="text" id="address_0002" onkeyup="" placeholder="address">
-        <br></br>
-        <label for="email_0002">Email:</label>
-        <input type="text" id="email_0002" onkeyup="" placeholder="email">
-        <br></br>
-        <label for="phone_number_0002">Phone Number:</label>
-        <input type="text" id="phone_number_0002" onkeyup="" placeholder="phone_number">
-        <br></br>
+    <main>
+        <form>
+            <!-- Etiqueta -->
+            <div>
+                <label for="in-username"> Usuario: </label>
+                <!-- Ingreso Datos -->
+                <input type="text" id="in-username" required>
+            </div>
+            <!-- Etiqueta -->
+            <div>
+                <label for="in-password"> Contraseña: </label>
+                <!-- Ingreso Datos -->
+                <input type="password" id="in-password" required>
+            </div>
+            <div>
+                <!-- Boton de Ejecucion -->
+                <input type="button" onclick="iniciarSesion()" value="Iniciar Sesion">
+            </div>
+            <span id="message"> ✓ </span>
+        </form>
 
-        <button onclick="closeModal_0002()"> Salir </button>
-        <button id="guardarCambios_0002" onclick="crearUsuario(),closeModal_0002()"> Crear Usuario </button>
+        <div class="CrearCuenta">
+            <!-- <button onclick="openModal_0002()"> Crear Cuenta Usuario </button> -->
+            <a onclick="openModal_0002()">CREAR CUENTA</a>
+        </div>
 
-    </div>
-</div>
+        <!-- MODAL CREAR CUENTA DE USUARIO -->
+        <div id="myModal_0002" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="">&times;</span>
+                <h3>FORMULARIO: DATOS NUEVO USUARIO:</h3>
+                <p>Controle que los datos sean correctos antes de realizar cualquier modificacion y editarlos.</p>
+                <label for="cuil_cuit_0002">Cuil_Cuit:</label>
+                <input type="text" id="cuil_cuit_0002" onkeyup="" placeholder="cuil_cuit" required maxlength="11"
+                    minlength="11">
+                <br></br>
+                <label for="username_0002">Username:</label>
+                <input type="text" id="username_0002" onkeyup="" placeholder="username">
+                <br></br>
+                <label for="password_0002">Password:</label>
+                <input type="password" id="password_0002" onkeyup="" placeholder="password">
+                <br></br>
+                <label for="name_0002">Name:</label>
+                <input type="text" id="name_0002" onkeyup="" placeholder="name">
+                <br></br>
+                <label for="address_0002">address:</label>
+                <input type="text" id="address_0002" onkeyup="" placeholder="address">
+                <br></br>
+                <label for="email_0002">Email:</label>
+                <input type="text" id="email_0002" onkeyup="" placeholder="email">
+                <br></br>
+                <label for="phone_number_0002">Phone Number:</label>
+                <input type="text" id="phone_number_0002" onkeyup="" placeholder="phone_number">
+                <br></br>
 
+                <button onclick="closeModal_0002()"> Salir </button>
+                <button id="guardarCambios_0002" onclick="crearUsuario(),closeModal_0002()"> Crear Usuario </button>
+
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Proyecto Informático - T.U. Tecnologías de la Programación (UPSO)</p>
+        <p>Santi - Pisciolari Chauvié - Saiz</p>
+    </footer>
+</body>
 
 <!-- Conectamos el script0001.js con el HTML -->
 <script src="{{ url_for('static', filename='script0001InicioSesion.js')}}"></script>
 
 <script src="{{ url_for('static', filename='script0004Usuario.js')}}"></script>
 
-
-
-
-{% endblock %}
+</html>

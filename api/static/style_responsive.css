@@ -6,7 +6,7 @@
 
 
 * {
-  border: 1px solid black;
+  /* border: 1px solid white;    */
   /* Identificamos los box para poder moverlos */
   margin: 15px;
   /*Espacio uniforme entre todos los elementos para evitar que se peguen entre sí*/
@@ -15,11 +15,6 @@
 
 /* Diseño responsive: Adaptación para dispositivos móviles */
 @media (max-width: 600px) {
-  .CrearCuenta button {
-    font-size: 14px;
-    padding: 8px 16px;
-  }
-
   .modal-content {
     max-width: 90%;
   }
@@ -31,6 +26,22 @@
   .dashboard-content {
     padding: 10px;
     /* Ajustar el relleno para dispositivos móviles */
+  }
+
+  #contenedorDinamico {
+    display: block;
+    /* Cambia el contenedor a un formato de bloque para adaptarse a resoluciones más pequeñas */
+  }
+
+  .myTable {
+    width: 100%;
+    /* Ajusta el ancho de la tabla al 100% para adaptarse a resoluciones más pequeñas */
+  }
+
+  .myTable th,
+  .myTable td {
+    padding: 4px;
+    /* Reducir el relleno para adaptarse a resoluciones más pequeñas */
   }
 
   .section {
@@ -50,14 +61,8 @@
 }
 
 
-/* PÁGINA: BASE */
-.main-header {
-  text-align: center;
-  /* El contenido se centrará horizontalmente dentro del contenedor */
-}
-
-.main-header h1 {
-  color: white;
+body {
+  background-color: grey;
 }
 
 main {
@@ -69,53 +74,24 @@ main {
   margin: auto;
 }
 
-p:first-of-type {
-  font-size: 2rem;
-  font-weight: bold;
-}
 
-p:last-of-type {
-  font-size: 1rem;
-  font-style: italic;
-  padding: 10px;
-  line-height: 1.5em;
-}
-
-footer {
-  display: block;
-  height: 50px;
-  background-color: rgba(0, 0, 0, 0.4);
-  color: white;
-  padding: 30px 0;
+/* PÁGINA: INDEX */
+header {
+  display: flex;
   justify-content: center;
-  text-align: center;
-  font-size: 18px;
+  /* Centra horizontalmente el contenido del header */
+  align-items: center;
+  /* Centra verticalmente el contenido del header */
+  height: 50px;
+  /* Ajusta la altura del header según sea necesario */
+  background-color: black;
+  /* Color de fondo para visualizar el header */
 }
 
-/* PAGINA: INDEX */
-
-/* Estilos para el botón CREAR CUENTA y su contenedor */
-.CrearCuenta {
-  margin: auto;
-}
-
-.CrearCuenta button {
-  background-color: #af4c59;
-  border: none;
+header h1 {
   color: white;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 10px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s;
-}
-
-.CrearCuenta button:hover {
-  background-color: #a04545;
+  margin: 0;
+  /* Elimina el margen predeterminado del h1 */
 }
 
 /* Estilos para el formulario */
@@ -124,12 +100,15 @@ form {
   flex-direction: column;
   align-items: center;
   margin: auto;
+  background-color: white;
+  border-color: gold;
+  border-radius: 5%;
 }
 
 label {
   display: inline-block;
   width: 100px;
-  text-align: right;
+  text-align: center;
   /* Alinea el texto a la derecha dentro del label */
   margin-right: 10px;
   /* Agrega un margen a la derecha para separar los labels de los inputs */
@@ -154,10 +133,31 @@ form input[type="button"]:hover {
   background-color: #45a049;
 }
 
+a {
+  text-decoration: none;
+  color: blue;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: black;
+  font-style: italic;
+}
+
+footer {
+  /* display: block; */
+  height: 50px;
+  background-color: black;
+  color: white;
+  padding: 2%;
+  justify-content: center;
+  text-align: center;
+  font-size: 18px;
+}
 
 
 
-/* Estilos para el DASHBOARD */
+/* Estilos para el DASHBOARD (ESTOS SON LOS ANTIGUOS)*/
 h1 {
   font-size: 24px;
   color: #333;
@@ -204,36 +204,128 @@ h1 {
 }
 
 /* Estilo de los modales*/
-.modal {
-  display: none;
-  /* Ocultar el modal de forma predeterminada */
-  position: fixed;
-  /* Posición fija para cubrir toda la pantalla */
-  z-index: 1;
-  /* Colocar el modal encima de todo */
-  left: 0;
-  top: 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* NUEVOS ESTILOS DASHBOARD */
+
+
+/* ESTILOS DE BARRA DE NAVEGACIÓN */
+
+.main-menu {
+  position: static;
+  display: flex;
+  background-color: grey;
   width: 100%;
-  height: 100%;
-  overflow: auto;
-  /* Permitir desplazamiento si el contenido es demasiado grande */
-  background-color: rgba(0, 0, 0, 0.4);
+  overflow-y: hidden;
 }
 
-.modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  /* Centrar el modal en la pantalla */
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  max-width: 600px;
-  overflow: auto;
-  /* Agrego línea para permitir el scroll */
+.menu-group {
+  flex: 1;
+  position: relative;
 }
+
+.menu-group h2 {
+  padding: 10px;
+  margin: 0;
+  border-radius: 10px;
+}
+
+.menu-group h2~a {
+  display: none;
+  padding: 10px;
+  color: black;
+  flex-direction: column;
+  text-decoration: none;
+  overflow: hidden;
+}
+
+.menu-group a {
+  margin: 0px;
+  border-radius: 10px;
+}
+
+.menu-group h2:hover {
+  background-color: black;
+  color: grey;
+  text-transform: uppercase;
+
+}
+
+.menu-group:hover a {
+  display: block;
+}
+
+.menu-group a:hover {
+  background-color: white;
+}
+
+
+/* FORMATO DE LAS TABLAS */
+
+#contenedorDinamico {
+  width: 100%;
+  background-color: white;
+  display: flex;
+}
+
+.myTable {
+  border: 1px solid black;
+  /* Establece un borde de 1 píxel sólido de color negro */
+  position: relative;
+  width: 100%;
+  border-collapse: collapse;
+  /* Combina los bordes de las celdas para que parezcan un solo borde */
+  font-family: Arial, sans-serif;
+  justify-content: inherit;
+}
+
+.myTable th,
+.myTable td {
+  border: 1px solid black;
+  /* Establece un borde de 1 píxel sólido de color negro para las celdas */
+  padding: 8px;
+  /* Añade un relleno alrededor del contenido de las celdas */
+  text-align: left;
+}
+
+.myTable th {
+  background-color: #f2f2f2;
+}
+
+.myTable tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.myTable tr:hover {
+  background-color: #e5e5e5;
+}
+
+
+/* BOTONES */
 
 button {
-  background-color: #007BFF;
+  background-color: rgb(75, 163, 75);
   color: #fff;
   padding: 10px 20px;
   border: none;
@@ -244,22 +336,93 @@ button {
 }
 
 button:hover {
-  background-color: #005298;
+  background-color: rgb(93, 150, 93);
 }
 
-.contenedorDinamico {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 5px;
-  margin-top: 20px;
+
+/* FORMULARIOS */
+.modal {
+  display: none; /* Oculta el modal de forma predeterminada */
   position: fixed;
-  top: 0;
+  /* Posición fija para cubrir toda la pantalla */
+  z-index: 1;
+  /* Colocar el modal encima de todo */
   left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
-  z-index: 9999;
+  overflow: auto; /* Permitir desplazamiento si el contenido es demasiado grande */
+  background-color: rgba(0, 0, 0, 0.4); /* Fondo semitransparente */
 }
 
-#cerrarSesion {
-  display: block;
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;   /* Centrar el modal en la pantalla */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px; /* Ancho máximo de 600px para adaptarse a resoluciones más pequeñas */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  overflow: auto;
 }
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Estilos para los campos de entrada y etiquetas */
+.modal-content input[type="text"],
+.modal-content input[type="number"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.modal-content label {
+  margin-top: 10px;
+  display: block;
+  font-weight: bold;
+}
+
+/* Estilos para los botones */
+.modal-content button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.modal-content button:hover {
+  background-color: #45a049;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
