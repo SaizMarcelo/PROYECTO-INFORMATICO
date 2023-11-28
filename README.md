@@ -1,7 +1,7 @@
 # PROYECTO-INFORMATICO
 Repositorio de la materia proyecto informatico
 
-## INTEGRANTES: 
+## INTEGRANTES GRUPO 12: 
 - PISCIOLA, FEDERICO
 - SAIZ, MARCELO
 - SANTI, ANTONELLA
