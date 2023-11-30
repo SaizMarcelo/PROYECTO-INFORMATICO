@@ -26,7 +26,6 @@ function iniciarSesion(){
     .then(
         // Si llegamos a este punto hacemos un control.log
         resp => {
-            console.log(resp)
             // Inicio de sesion correcta, al tener Token:
             if(resp.Token){
                 // Guardamos la informacion del token en un LOCALSTORAGE del cliente:
@@ -43,7 +42,7 @@ function iniciarSesion(){
             // De lo contrario buscamos del documento el id:span mostramos el codigo.
             else{
                 // Le pasamos la respuesta del servidor:
-                document.getElementById("message").innerHTML = resp.Messenfe;
+                document.getElementById("message").innerHTML = resp.message;
             }
         
         }

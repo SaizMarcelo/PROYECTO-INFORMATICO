@@ -94,7 +94,6 @@ function consultarIdBotonVerCliente(boton){
     // De los 4 td nos posicionamos en el primero que tiene el dato requerido.
     var datoPrimeraColumna = fila.getElementsByTagName('td')[0].innerText; // Obtener el valor de la primera columna
     localStorage.setItem("idClienteVer", datoPrimeraColumna);
-    console.log(localStorage.getItem('idClienteVer'))
 }
 
 
@@ -104,9 +103,7 @@ function buscarDatosCliente(){
     const id = localStorage.getItem('id');
     const token = localStorage.getItem('token');
     const idClienteVer = localStorage.getItem('idClienteVer')
-    console.log(id)
-    console.log(token)
-    console.log(idClienteVer)
+
 
     // Creamos el objeto Request para crear el cliente: JSON
     const requestOption = {
@@ -128,7 +125,6 @@ function buscarDatosCliente(){
     )
     .then(
         resp => {
-            console.log(resp)
             // Enviamos los datos para cargar el fomulario:
             deshabilitarInputCliente("cuil_cuit_cliente")
             document.getElementById("cuil_cuit_cliente").value = resp["cuil_cuit"]
@@ -316,3 +312,5 @@ function buscarEnTabla() {
     }
     }
 }
+
+// VALIDACIONES ##########################

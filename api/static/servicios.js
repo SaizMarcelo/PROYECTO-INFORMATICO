@@ -82,11 +82,10 @@ function cargarServicio(){
             }
             tabla += "</table>";
             contenedorDinamico.innerHTML = tabla;
-            document.getElementById("mensajeListaServicios").innerHTML = '♠'
+
         }
     )
     .catch(error => {
-        document.getElementById("mensajeListaServicios").innerHTML = 'La base de datos esta vacia: crear un servicio previamente.'
         deshabilitarBotonServicio("listaServicios")
         // Manejar cualquier error que pueda ocurrir durante la solicitud
         console.error('Error:', error);
@@ -191,8 +190,8 @@ function borradoLogicoServicio(){
     
     fetch(`http://127.0.0.1:4500/users/${id}/service/${idServicioVer}`, requestOption)
     .then(resp => {
-            cargarServicio();
-            closeModalServicio()
+            closeModalServicio();
+            cargarServicio();      
     })
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
@@ -296,7 +295,7 @@ function habilitarBotonServicio(nombre) {
 
 // VALIDACIONES ##########################
 
-function validarUnidadesHoras(horas){
+function validarUnidadesHorasServicio(horas){
     const regex = /^(?!0+$)\d+$/
     if (regex.test(horas)){
         return true;
@@ -306,7 +305,7 @@ function validarUnidadesHoras(horas){
         
 }
 
-function validarNombre(nombre){
+function validarNombreServicio(nombre){
     if( nombre.length > 0){
         return true;
     } else {
@@ -314,7 +313,7 @@ function validarNombre(nombre){
     }
 }
 
-function validarIva(iva){
+function validarIvaServicio(iva){
     const regex = /\d.*\d/
     if (iva.length == 2 && regex.test(iva)){
        return true; 
@@ -322,7 +321,7 @@ function validarIva(iva){
     return false;
 }
 
-function validarDescripcion(descripcion){
+function validarDescripcionServicio(descripcion){
     if( descripcion.length > 0){
         return true;
     } else {
@@ -336,7 +335,7 @@ function comprobarServicio(){
     const precio = document.getElementById("precio_hora_crear_servicio").value;
     const iva = document.getElementById("iva_crear_servicio").value;
     const descripcion = document.getElementById("descricion_crear_servicio").value;
-    if ( validarNombre(nombre) && validarUnidadesHoras(precio) && validarIva(iva) && validarDescripcion(descripcion) ){
+    if ( validarNombreServicio(nombre) && validarUnidadesHorasServicio(precio) && validarIvaServicio(iva) && validarDescripcionServicio(descripcion) ){
         crearServicio();
     }
 }

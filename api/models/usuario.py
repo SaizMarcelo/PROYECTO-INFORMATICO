@@ -73,13 +73,13 @@ class User():
 
         """ Control: existen y coincide el usuario en la BD?"""
         cur = mysql.connection.cursor()
-        cur.execute("SELECT * FROM user WHERE username = %s AND password = %s", (auth.username, auth.password))
+        cur.execute("SELECT * FROM user WHERE username = %s AND password = %s AND visibility =1", (auth.username, auth.password))
         # Esperamos recibir una fila: devuelve 1ero en fila osea 1.
         row = cur.fetchone()
 
         # si la consulta no devuelve filas:
         if not row:
-            return DBError("Login No Autorizado") # existen librerias que facilitan el manejo de errores
+            raise DBError("Login No Autorizado") # existen librerias que facilitan el manejo de errores
 
         """ El usuario existe en la BD y coincide su contrseña"""
         # Creamos una variable codificada:
@@ -146,9 +146,10 @@ class User():
     ### DELETE
     def delete_user(id):
         cur = mysql.connection.cursor()
-        cur.execute('SELECT * FROM users WHERE id=%s AND visibility =%s', (id, True))
+        cur.execute('SELECT * FROM user WHERE id=%s AND visibility =1', (id,))
         if cur.rowcount > 0:
-            cur.execute('UPDATE users SET visibility=%s WHERE id=%s', (False, id))
+            cur.execute('UPDATE user SET visibility=0 WHERE id=%s', (id,))
             mysql.connection.commit()
+            print("lo borra")
             return {"message": "deleted", "id": id}
         raise DBError("Error getting client by id - no row found")

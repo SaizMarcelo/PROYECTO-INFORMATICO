@@ -16,17 +16,11 @@ function crearUsuario(){
             "name": document.getElementById("name_crear_usuario").value,
             "email": document.getElementById("email_crear_usuario").value,
             "address": document.getElementById("address_crear_usuario").value,
-            "phone_number": document.getElementById("phone_number_crear_usuario").value
-            
+            "phone_number": document.getElementById("phone_number_crear_usuario").value 
         })
     }
-    
     fetch(`/signup`, requestOption)
     .then(resp => resp.json())
-    .then(resp => {
-        console.log(resp)
-        
-    })
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
         console.error('Error:', error);
@@ -61,7 +55,6 @@ function cargarDatosUsuario(){
     )
     .then(
         resp => {
-            console.log(resp);
             // De la consulta vamos a conulstar cuantos registros tiene la cunsulta realizada:
             document.getElementById("username_usuario").value = resp["username"];
             document.getElementById("password_usuario").value = resp["password"];
@@ -108,10 +101,6 @@ function modificarDatosUsuario(){
     
     fetch(`http://127.0.0.1:4500/users/${id}`, requestOption)
     .then(resp => resp.json())
-    .then(resp => {
-        // Actualizamos la lista de clientes:
-        console.log(resp)
-    })
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
         console.error('Error:', error);
@@ -137,12 +126,8 @@ function eliminarUsuario(){
     fetch(`http://127.0.0.1:4500/users/${id}`, requestOption)
     .then(
         resp  => {
-            
-            return resp.json()
-        }
-    ).then(
-        resp => {
             cerrarSesion()
+            return resp.json()
         }
     )
     .catch(error => {
@@ -188,3 +173,5 @@ function cerrarSesion(){
     localStorage.setItem('token', "");
     window.location.href = '/'
 }
+
+// VALIDACIONES ##########################

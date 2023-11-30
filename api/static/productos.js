@@ -27,6 +27,7 @@ function crearProducto(){
     .then(resp => {
         // Actualizamos la lista de Productos:
         cargarProductos();
+        closeModalProducto();
     })
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
@@ -223,14 +224,12 @@ function borradoLogicoProducto(){
     fetch(`http://127.0.0.1:4500/users/${id}/product/${idProductoVer}`, requestOption)
     .then(resp => {
         if (resp.ok){
+            closeModalProducto();
             cargarProductos();
             document.getElementById("ProductoEliminado").innerHTML = 'El Producto fue eliminado definitivamente'
-            deshabilitarBotonProducto("guardarCambios")
-            deshabilitarBotonProducto("botonEditarProducto")
-            deshabilitarBotonProducto("borrarProducto")
-            closeModal()
-        } else {
-            document.getElementById("ProductoEliminado").innerHTML = 'El borrado no tuvo exito'
+            deshabilitarBotonProducto("guardarCambios");
+            deshabilitarBotonProducto("botonEditarProducto");
+            deshabilitarBotonProducto("borrarProducto");
         }
     })
     .catch(error => {
@@ -303,10 +302,6 @@ function GuardarCambiosProducto(){
     deshabilitarBotonProducto("guardarCambiosProducto")
 }
 
-
-    
-
-
 // Deshabilitar Boton
 function deshabilitarBotonProducto(nombre) {
     document.getElementById(nombre).disabled = true; // Deshabilita el botón
@@ -316,3 +311,5 @@ function deshabilitarBotonProducto(nombre) {
 function habilitarBotonProducto(nombre) {
     document.getElementById(nombre).disabled = false; // Habilita el botón
 }
+
+// VALIDACIONES ##########################

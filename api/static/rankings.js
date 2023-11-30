@@ -25,7 +25,7 @@ fetch(`http://127.0.0.1:4500/users/${id}/invoice_ranking_client`, requestOption)
         var contenedorDinamico = document.getElementById("contenedorDinamico");
         contenedorDinamico.innerHTML="";
         
-        let tabla = '<table id="tablaParcial class="myTable">';
+        let tabla = '<table class="myTable">';
         tabla += `<tr><td>CLIENTE</td><td>COMPRAS</td><td>MONTO ACUMULADO</td></tr>`;
         
             
@@ -70,7 +70,7 @@ fetch(`http://127.0.0.1:4500/users/${id}/invoice_ranking_service`, requestOption
         var contenedorDinamico = document.getElementById("contenedorDinamico");
         contenedorDinamico.innerHTML="";
         
-        let tabla = '<table id="tablaParcial class="myTable">';
+        let tabla = '<table class="myTable">';
         tabla += `<tr><td>SERVICIO</td><td>HORAS CONTRATADAS</td><td>MONTO ACUMULADO</td></tr>`;
         
             
@@ -115,7 +115,7 @@ fetch(`http://127.0.0.1:4500/users/${id}/invoice_ranking_product`, requestOption
         var contenedorDinamico = document.getElementById("contenedorDinamico");
         contenedorDinamico.innerHTML="";
         
-        let tabla = '<table id="tablaParcial class="myTable">';
+        let tabla = '<table class="myTable">';
         tabla += `<tr><td>PRODUCTO</td><td>UNIDADES COMPRADAS</td><td>MONTO ACUMULADO</td></tr>`;
         
             

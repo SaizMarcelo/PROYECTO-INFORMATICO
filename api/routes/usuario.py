@@ -62,7 +62,6 @@ def update_user(user_id):
 # DELETE
 @app.route('/users/<int:id>', methods = ['DELETE'] )
 @token_required
-@user_resource
 def remove_user(id):
     try:
         delete = User.delete_user(id)

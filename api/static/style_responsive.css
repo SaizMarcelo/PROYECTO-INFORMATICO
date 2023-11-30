@@ -95,15 +95,7 @@ header h1 {
 }
 
 /* Estilos para el formulario */
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: auto;
-  background-color: white;
-  border-color: gold;
-  border-radius: 5%;
-}
+
 
 label {
   display: inline-block;
@@ -112,25 +104,6 @@ label {
   /* Alinea el texto a la derecha dentro del label */
   margin-right: 10px;
   /* Agrega un margen a la derecha para separar los labels de los inputs */
-}
-
-form input[type="button"] {
-  background-color: #4CAF50;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s;
-}
-
-form input[type="button"]:hover {
-  background-color: #45a049;
 }
 
 a {
