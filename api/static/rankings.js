@@ -39,6 +39,7 @@ fetch(`http://127.0.0.1:4500/users/${id}/invoice_ranking_client`, requestOption)
 )
 .catch(error => {
     // Manejar cualquier error que pueda ocurrir durante la solicitud
+    document.getElementById("contenedorDinamico").innerHTML = error.message;
     console.error('Error:', error);
 });
 }
@@ -84,6 +85,7 @@ fetch(`http://127.0.0.1:4500/users/${id}/invoice_ranking_service`, requestOption
 )
 .catch(error => {
     // Manejar cualquier error que pueda ocurrir durante la solicitud
+    document.getElementById("contenedorDinamico").innerHTML = error.message;
     console.error('Error:', error);
 });
 }
@@ -129,6 +131,7 @@ fetch(`http://127.0.0.1:4500/users/${id}/invoice_ranking_product`, requestOption
 )
 .catch(error => {
     // Manejar cualquier error que pueda ocurrir durante la solicitud
+    document.getElementById("contenedorDinamico").innerHTML = error.message;
     console.error('Error:', error);
 });
 }

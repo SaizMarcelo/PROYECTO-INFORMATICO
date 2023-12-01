@@ -91,6 +91,48 @@
     </main>
 
 
+    <!-- MODAL DATOS PERFIL -->
+    <div id="myModal_usuario" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal_usuario()">&times;</span>
+            <h3>FORMULARIO: DATOS DEL USUARIO:</h3>
+            
+                <label for="username_usuario">Username:</label>
+                <input type="text" id="username_usuario" onkeyup="" placeholder="username">
+                <span  id="nombre_de_usuario_validacion" class="error"></span>
+
+                <label for="password_usuario">Password:</label>
+                <input type="password" id="password_usuario" onkeyup="" placeholder="password">
+                <span  id="contrasenia_usuario_validacion" class="error"></span>
+
+                <label for="cuil_cuit_usuario">Cuil_Cuit:</label>
+                <input type="text" id="cuil_cuit_usuario" onkeyup="" placeholder="cuil_cuit">
+                <span  id="" class="error"></span>
+
+                <label for="address_usuario">Address:</label>
+                <input type="text" id="address_usuario" onkeyup="" placeholder="address">
+                <span  id="direccion_usuario_validacion" class="error"></span>
+
+                <label for="email_usuario">Email:</label>
+                <input type="text" id="email_usuario" onkeyup="" placeholder="email">
+                <span  id="email_usuario_validacion" class="error"></span>
+
+                <label for="name_usuario">Name:</label>
+                <input type="text" id="name_usuario" onkeyup="" placeholder="name">
+                <span  id="nombre_usuario_validacion" class="error"></span>
+
+                <label for="phone_number_usuario">Phone Number:</label>
+                <input type="text" id="phone_number_usuario" onkeyup="" placeholder="phone_number">
+                <span  id="telefono_usuario_validacion" class="error"></span>
+
+
+                <button id="guardarCambios_usuario" onclick="comprobarUsuario()"> Modificar Datos </button>
+                <button id="eliminarUsuario" onclick="eliminarUsuario()"> Eliminar Usuario </button>
+                <button onclick="closeModal_usuario()"> Salir </button>
+        </div>
+    </div>
+
+
     <!-- MODAL VER CLIENTE EN LISTA DE CLIENTES -->
     <div id="myModal_cliente" class="modal">
         <div class="modal-content">
@@ -100,26 +142,31 @@
         
             <label for="cuil_cuit_cliente">Cuil_Cuit:</label>
             <input type="text" id="cuil_cuit_cliente" onkeyup="" placeholder="cuil_cuit">
+            <span  id="cuil_cuit_cliente_validacion" class="error"></span>
 
             <label for="address_cliente">Adress:</label>
             <input type="text" id="address_cliente" onkeyup="" placeholder="address">
+            <span  id="direccion_cliente_validacion" class="error"></span>
 
             <label for="email_cliente">Email:</label>
             <input type="text" id="email_cliente" onkeyup="" placeholder="email">
+            <span  id="email_cliente_validacion" class="error"></span>
 
             <label for="id_cliente">Id Cliente:</label>
             <input type="number" id="id_cliente" onkeyup="" placeholder="id">
 
             <label for="name_cliente">Name:</label>
             <input type="text" id="name_cliente" onkeyup="" placeholder="name">
+            <span  id="nombre_cliente_validacion" class="error"></span>
 
             <label for="phone_number_cliente">Phone Number:</label>
             <input type="text" id="phone_number_cliente" onkeyup="" placeholder="phone_number">
+            <span  id="telefono_cliente_validacion" class="error"></span>
 
 
             
             <button id="botonEditarCliente" onclick="botonEditarCliente()"> Editar </button>
-            <button id="guardarCambiosCliente" onclick="botonGuardarCambiosCliente(), modificarDatosClient()"> Guardar Cambios
+            <button id="guardarCambiosCliente" onclick="comprobarEditarCliente()"> Guardar Cambios
             </button>
             <button id="borrarCliente" onclick="borradoLogicoCliente()"> Borrar </button>
             <button onclick="closeModalCliente()"> Salir </button>
@@ -135,58 +182,30 @@
             
             <label for="cuil_cuit_crear_cliente">Cuil_Cuit:</label>
             <input type="text" id="cuil_cuit_crear_cliente" onkeyup="" placeholder="cuil_cuit">
+            <span id="cuil_cuit_crear_cliente_validacion" class="error"></span>
 
             <label for="address_crear_cliente">Adress:</label>
             <input type="text" id="address_crear_cliente" onkeyup="" placeholder="address">
+            <span id="direccion_crear_cliente_validacion" class="error"></span>
 
             <label for="email_crear_cliente">Email:</label>
             <input type="text" id="email_crear_cliente" onkeyup="" placeholder="email">
+            <span id="email_crear_cliente_validacion" class="error"></span>
 
             <label for="name_crear_cliente">Name:</label>
             <input type="text" id="name_crear_cliente" onkeyup="" placeholder="name">
+            <span id="nombre_crear_cliente_validacion" class="error"></span>
 
             <label for="phone_number_crear_cliente">Phone Number:</label>
             <input type="text" id="phone_number_crear_cliente" onkeyup="" placeholder="phone_number">
+            <span id="telefono_crear_cliente_validacion" class="error"></span>
 
             
-            <button id="guardarCambios_crear_cliente" onclick="crearCliente()"> Crear Cliente </button>
+            <button id="guardarCambios_crear_cliente" onclick="comprobarCrearCliente()"> Crear Cliente </button>
             <button onclick="closeModalCliente()"> Salir </button>
         </div>
     </div>
 
-    <!-- MODAL DATOS PERFIL -->
-    <div id="myModal_usuario" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal_usuario()">&times;</span>
-            <h3>FORMULARIO: DATOS DEL USUARIO:</h3>
-            
-                <label for="username_usuario">Username:</label>
-                <input type="text" id="username_usuario" onkeyup="" placeholder="username">
-
-                <label for="password_usuario">Password:</label>
-                <input type="password" id="password_usuario" onkeyup="" placeholder="password">
-
-                <label for="cuil_cuit_usuario">Cuil_Cuit:</label>
-                <input type="text" id="cuil_cuit_usuario" onkeyup="" placeholder="cuil_cuit">
-
-                <label for="address_usuario">Address:</label>
-                <input type="text" id="address_usuario" onkeyup="" placeholder="address">
-
-                <label for="email_usuario">Email:</label>
-                <input type="text" id="email_usuario" onkeyup="" placeholder="email">
-
-                <label for="name_usuario">Name:</label>
-                <input type="text" id="name_usuario" onkeyup="" placeholder="name">
-
-                <label for="phone_number_usuario">Phone Number:</label>
-                <input type="text" id="phone_number_usuario" onkeyup="" placeholder="phone_number">
-
-
-                <button id="guardarCambios_usuario" onclick="modificarDatosUsuario()"> Modificar Datos </button>
-                <button id="eliminarUsuario" onclick="eliminarUsuario()"> Eliminar Usuario </button>
-                <button onclick="closeModal_usuario()"> Salir </button>
-        </div>
-    </div>
 
     <!-- MODAL DATOS PRODUCTOS -->
     <div id="myModalProducto" class="modal">
@@ -196,22 +215,26 @@
         
             <label for="nombre_producto">Name:</label>
             <input type="text" id="nombre_producto" onkeyup="" placeholder="nombre">
+            <span  id="validar_nombre_producto" class="error"></span>
 
             <label for="precio_unidad">Unitary Price:</label>
             <input type="number" id="precio_unidad" onkeyup="" placeholder="precio por unidad">
+            <span  id="validar_precio_unidad" class="error"></span>
 
             <label for="unidades_almacenadas">Uniits Stored:</label>
             <input type="number" id="unidades_almacenadas" onkeyup="" placeholder="unidades en stock">
+            <span  id="validar_unidades_almacenadas" class="error"></span>
 
             <label for="iva_producto">Iva:</label>
             <input type="number" id="iva_producto" onkeyup="" placeholder="iva">
+            <span  id="validar_iva_producto" class="error"></span>
 
             <label for="descripcion_producto">Description:</label>
             <input type="text" id="descripcion_producto" onkeyup="" placeholder="description">
-
+            <span  id="validar_descripcion_producto" class="error"></span>
 
             
-            <button id="modificarDatosProducto" onclick="modificarDatosProducto()"> Guardar Cambios </button>
+            <button id="modificarDatosProducto" onclick="comprobarProducto()"> Guardar Cambios </button>
             <button id="botonEditarProducto" onclick="botonEditarProducto()"> Editar </button>
             <button id="borrarProducto" onclick="borradoLogicoProducto()"> Borrar </button>
             <button onclick="closeModalProducto()"> Salir </button>
@@ -226,22 +249,85 @@
       
             <label for="nombre_crear_producto">Name:</label>
             <input type="text" id="nombre_crear_producto" onkeyup="" placeholder="name">
+            <span  id="validar_nombre_crear_producto" class="error"></span>
 
             <label for="precio_unidad_crear_producto">Unitary Price:</label>
             <input type="number" id="precio_unidad_crear_producto" onkeyup="" placeholder="unitary_price">
+            <span  id="validar_precio_unidad_crear_producto" class="error"></span>
 
             <label for="unidades_almacenadas_crear_producto">Uniits Stored:</label>
             <input type="number" id="unidades_almacenadas_crear_producto" onkeyup="" placeholder="units_stored">
+            <span  id="validar_unidades_almacenadas_crear_producto" class="error"></span>
 
             <label for="iva_crear_producto">Iva:</label>
             <input type="number" id="iva_crear_producto" onkeyup="" placeholder="iva">
+            <span  id="validar_iva_crear_producto" class="error"></span>
 
             <label for="descripcion_crear_producto">Description:</label>
             <input type="text" id="descripcion_crear_producto" onkeyup="" placeholder="description">
+            <span  id="validar_descripcion_crear_producto" class="error"></span>
 
-            <button id="crearProducto" onclick="crearProducto()"> Crear Producto </button>
+            <button id="crearProducto" onclick="comprobarCrearProducto()"> Crear Producto </button>
             <button onclick="closeModalProducto()"> Salir </button>
 
+        </div>
+    </div>
+
+    <!-- MODAL DATOS SERVICIOS -->
+    <div id="myModalServicio" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModalServicio()">&times;</span>
+            <h3>FORMULARIO: SERVICIOS</h3>
+            <p>Controle que los datos sean correctos antes de realizar cualquier modificacion y editarlos.</p>
+            <label for="nombre_servicio">Nombre:</label>
+            <input type="text" id="nombre_servicio" onkeyup="" placeholder="Nombre del servicio">
+            <span  id="validar_nombre_servicio" class="error"></span>
+          
+            <label for="precio_hora">Valor hora:</label>
+            <input type="number" id="precio_hora" onkeyup="" placeholder="Valor hora del servicio">
+            <span  id="validar_precio_hora_servicio" class="error"></span>
+
+            <label for="iva_servicio">Iva:</label>
+            <input type="number" id="iva_servicio" onkeyup="" placeholder="Iva">
+            <span  id="validar_iva_servicio" class="error"></span>
+
+            <label for="descripcion_servicio">Descripcion:</label>
+            <input type="text" id="descripcion_servicio" onkeyup="" placeholder="Descripcion">
+            <span  id="validar_descripcion_servicio" class="error"></span>
+            
+            
+            <button id="modificarDatosServicio" onclick="comprobarServicio()"> Guardar Cambios </button>
+            <button id="botonEditarServicio" onclick="botonEditarServicio()"> Editar </button>
+            <button id="borrarServicio" onclick="borradoLogicoServicio()"> Borrar </button>
+            <button onclick="closeModalServicio()"> Salir </button>
+        </div>
+    </div>
+
+    <!-- MODAL CREAR PRODUCTOS -->
+    <div id="myModalCrearServicio" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModalServicio()">&times;</span>
+            <h3>FORMULARIO: ServicioS</h3>
+            <p>Controle que los datos sean correctos antes de realizar cualquier modificacion y editarlos.</p>
+            <label for="nombre_crear_servicio">Nombre:</label>
+            <input type="text" id="nombre_crear_servicio" onkeyup="" placeholder="nomrbe servicio">
+            <span  id="validar_nombre_crear_servicio" class="error"></span>
+
+            <label for="precio_hora_crear_servicio">Valor hora:</label>
+            <input type="number" id="precio_hora_crear_servicio" onkeyup="" placeholder="precio por hora">
+            <span  id="validar_precio_hora_crear_servicio" class="error"></span>
+
+            <label for="iva_crear_servicio">Iva:</label>
+            <input type="number" id="iva_crear_servicio" onkeyup="" placeholder="iva">
+            <span  id="validar_iva_crear_servicio" class="error"></span>
+
+            <label for="descripcion_crear_servicio">Descripcion:</label>
+            <input type="text" id="descripcion_crear_servicio" onkeyup="" placeholder="descipcion">
+            <span  id="validar_descripcion_crear_servicio" class="error"></span>
+
+
+            <button id="crearServicio" onclick="comprobarCrearServicio()"> Crear Servicio </button>
+            <button onclick="closeModalServicio()"> Salir </button>
         </div>
     </div>
 
@@ -261,58 +347,6 @@
             </form>
         </div>
     </div>
-
-    <!-- MODAL DATOS SERVICIOS -->
-<div id="myModalServicio" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModalServicio()">&times;</span>
-        <h3>FORMULARIO: SERVICIOS</h3>
-        <p>Controle que los datos sean correctos antes de realizar cualquier modificacion y editarlos.</p>
-        <label for="nombre_servicio">Nombre:</label>
-        <input type="text" id="nombre_servicio" onkeyup="" placeholder="Nombre del servicio">
-        <br></br>
-        <label for="precio_hora">Valor hora:</label>
-        <input type="number" id="precio_hora" onkeyup="" placeholder="Valor hora del servicio">
-        <br></br>
-        <label for="iva_servicio">Iva:</label>
-        <input type="number" id="iva_servicio" onkeyup="" placeholder="Iva">
-        <br></br>
-        <label for="descripcion_servicio">Descripcion:</label>
-        <input type="text" id="descripcion_servicio" onkeyup="" placeholder="Descripcion">
-        <br></br>
-
-        
-        <button id="modificarDatosServicio" onclick="modificarDatosServicio()"> Guardar Cambios </button>
-        <button id="botonEditarServicio" onclick="botonEditarServicio()"> Editar </button>
-        <button id="borrarServicio" onclick="borradoLogicoServicio()"> Borrar </button>
-        <button onclick="closeModalServicio()"> Salir </button>
-    </div>
-</div>
-
-<!-- MODAL CREAR PRODUCTOS -->
-<div id="myModalCrearServicio" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModalServicio()">&times;</span>
-        <h3>FORMULARIO: ServicioS</h3>
-        <p>Controle que los datos sean correctos antes de realizar cualquier modificacion y editarlos.</p>
-        <label for="nombre_crear_servicio">Nombre:</label>
-        <input type="text" id="nombre_crear_servicio" onkeyup="" placeholder="nomrbe servicio">
-        <br></br>
-        <label for="precio_hora_crear_servicio">Valor hora:</label>
-        <input type="number" id="precio_hora_crear_servicio" onkeyup="" placeholder="precio por hora">
-        <br></br>
-        <label for="iva_crear_servicio">Iva:</label>
-        <input type="number" id="iva_crear_servicio" onkeyup="" placeholder="iva">
-        <br></br>
-        <label for="descricion_crear_servicio">Descripcion:</label>
-        <input type="text" id="descricion_crear_servicio" onkeyup="" placeholder="descipcion">
-        <br></br>
-
-        <button id="crearServicio" onclick="comprobarServicio()"> Crear Servicio </button>
-        <button onclick="closeModalServicio()"> Salir </button>
-    </div>
-</div>
-
 
     <div id="myModalFactura" class="modal">
         <div class="modal-content">
@@ -337,6 +371,8 @@
             <div>
                 <label for="user_id_cliente_crear_factura">N° Cliente:</label>
                 <input type="number" id="user_id_cliente_crear_factura" onkeyup="" placeholder="Ingres Numero de Cliente">
+                <span  id="" class="error"></span>
+
                 <button onclick="buscarDatosClienteFactura()"> VALIDAR </button>
             </div>
             
@@ -361,6 +397,8 @@
                 <input type="number" id="id_servicio_crear_factura" onkeyup="" placeholder="Codigo Serv ...">
                 <label for="horas_servicio_crear_factura">Horas Prestadas:</label>
                 <input type="number" id="horas_servicio_crear_factura" onkeyup="" placeholder="Horas Serv ...">
+                <span  id="ingreso_servicio" class="error"></span>
+
                 <button onclick="cargarListaServiciosFactura()"> INGRESAR </button>
             </div>
             <div id="contenedorDinamicoServicioFactura">
@@ -374,8 +412,10 @@
             <div>
                 <label for="id_producto_crear_factura">Codigo Producto:</label>
                 <input type="number" id="id_producto_crear_factura" onkeyup="" placeholder="Codigo Prod ...">
-                <label for="cantProducto_crear_factura">Horas Prestadas:</label>
+                <label for="cantProducto_crear_factura">Unidades Vendidas:</label>
                 <input type="number" id="cantProducto_crear_factura" onkeyup="" placeholder="Unidades Producto ...">
+                <span  id="ingreso_producto" class="error"></span>
+
                 <button onclick="cargarListaProductosFactura()"> INGRESAR </button>
             </div>
             <div id="contenedorDinamicoProductosFactura">

@@ -19,7 +19,7 @@ function crearServicio(){
             "name": document.getElementById("nombre_crear_servicio").value,
             "hour_price": parseInt(document.getElementById("precio_hora_crear_servicio").value),
             "iva": parseInt(document.getElementById("iva_crear_servicio").value),
-            "description": document.getElementById("descricion_crear_servicio").value
+            "description": document.getElementById("descripcion_crear_servicio").value
         })
     }
 
@@ -32,6 +32,7 @@ function crearServicio(){
     })
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
+        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error:', error);
     });
 }
@@ -86,8 +87,8 @@ function cargarServicio(){
         }
     )
     .catch(error => {
-        deshabilitarBotonServicio("listaServicios")
         // Manejar cualquier error que pueda ocurrir durante la solicitud
+        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error:', error);
         }
     )
@@ -163,9 +164,11 @@ function modificarDatosServicio(){
     .then(resp => {
             guardarCambiosServicio();
             cargarServicio();
+            closeModalServicio();
         })
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
+        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error:', error);
     });
     }
@@ -195,6 +198,7 @@ function borradoLogicoServicio(){
     })
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
+        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error:', error);
     });
 }
@@ -205,7 +209,7 @@ function openModalCrearServicio() {
     document.getElementById("nombre_crear_servicio").value = "";
     document.getElementById("precio_hora_crear_servicio").value = "";
     document.getElementById("iva_crear_servicio").value = "";
-    document.getElementById("descricion_crear_servicio").value = "";
+    document.getElementById("descripcion_crear_servicio").value = "";
     document.getElementById('myModalCrearServicio').style.display = 'block';
 }
 
@@ -295,47 +299,121 @@ function habilitarBotonServicio(nombre) {
 
 // VALIDACIONES ##########################
 
-function validarUnidadesHorasServicio(horas){
+function validarUnidadesHorasCrearServicio(){
+    const horas = document.getElementById("precio_hora_crear_servicio").value;
     const regex = /^(?!0+$)\d+$/
     if (regex.test(horas)){
+        document.getElementById("validar_precio_hora_crear_servicio").innerHTML = "";
         return true;
     } else {
+        document.getElementById("validar_precio_hora_crear_servicio").innerHTML = "El precio hora debe ser superior a 0";
         return false;
     }
         
 }
 
-function validarNombreServicio(nombre){
+function validarNombreCrearServicio(){
+    const nombre = document.getElementById("nombre_crear_servicio").value;
     if( nombre.length > 0){
+        document.getElementById("validar_nombre_crear_servicio").innerHTML = "";
         return true;
     } else {
+        document.getElementById("validar_nombre_crear_servicio").innerHTML = "El nombre debe tener al menos un caracter";
         return false;
     }
 }
 
-function validarIvaServicio(iva){
+function validarIvaCrearServicio(){
+    const iva = document.getElementById("iva_crear_servicio").value;
     const regex = /\d.*\d/
     if (iva.length == 2 && regex.test(iva)){
+        document.getElementById("validar_iva_crear_servicio").innerHTML = "";
        return true; 
+    } 
+    else {
+        document.getElementById("validar_iva_crear_servicio").innerHTML = "El iva no puede ser superior o inferior a dos digitos";
+        return false;
     }
-    return false;
 }
 
-function validarDescripcionServicio(descripcion){
+function validarDescripcionCrearServicio(){
+    const descripcion = document.getElementById("descripcion_crear_servicio").value
     if( descripcion.length > 0){
+        document.getElementById("validar_descripcion_crear_servicio").innerHTML = "";
         return true;
     } else {
+        document.getElementById("validar_descripcion_crear_servicio").innerHTML = "La descripcion debe tener al menos un caracter";
+        return false;
+    }
+}
+
+
+function comprobarCrearServicio(){
+    const nombre = validarNombreCrearServicio();
+    const precio = validarUnidadesHorasCrearServicio();
+    const iva = validarIvaCrearServicio();
+    const descripcion = validarDescripcionCrearServicio();
+    if ( nombre && precio && iva && descripcion ){
+        crearServicio();
+    }
+}
+
+// Editar servicio
+function validarUnidadesHorasServicio(){
+    const horas = document.getElementById("precio_hora").value;
+    const regex = /^(?!0+$)\d+$/
+    if (regex.test(horas)){
+        document.getElementById("validar_precio_hora_servicio").innerHTML = "";
+        return true;
+    } else {
+        document.getElementById("validar_precio_hora_servicio").innerHTML = "El precio hora debe ser superior a 0";
+        return false;
+    }
+        
+}
+
+function validarNombreServicio(){
+    const nombre = document.getElementById("nombre_servicio").value;
+    if( nombre.length > 0){
+        document.getElementById("validar_nombre_servicio").innerHTML = "";
+        return true;
+    } else {
+        document.getElementById("validar_nombre_servicio").innerHTML = "El nombre debe tener al menos un caracter";
+        return false;
+    }
+}
+
+function validarIvaServicio(){
+    const iva = document.getElementById("iva_servicio").value;
+    const regex = /\d.*\d/
+    if (iva.length == 2 && regex.test(iva)){
+        document.getElementById("validar_iva_servicio").innerHTML = "";
+       return true; 
+    } 
+    else {
+        document.getElementById("validar_iva_servicio").innerHTML = "El iva no puede ser superior o inferior a dos digitos";
+        return false;
+    }
+}
+
+function validarDescripcionServicio(){
+    const descripcion = document.getElementById("descripcion_servicio").value
+    if( descripcion.length > 0){
+        document.getElementById("validar_descripcion_servicio").innerHTML = "";
+        return true;
+    } else {
+        document.getElementById("validar_descripcion_servicio").innerHTML = "La descripcion debe tener al menos un caracter";
         return false;
     }
 }
 
 
 function comprobarServicio(){
-    const nombre = document.getElementById("nombre_crear_servicio").value;
-    const precio = document.getElementById("precio_hora_crear_servicio").value;
-    const iva = document.getElementById("iva_crear_servicio").value;
-    const descripcion = document.getElementById("descricion_crear_servicio").value;
-    if ( validarNombreServicio(nombre) && validarUnidadesHorasServicio(precio) && validarIvaServicio(iva) && validarDescripcionServicio(descripcion) ){
-        crearServicio();
+    const nombre = validarNombreServicio();
+    const precio = validarUnidadesHorasServicio();
+    const iva = validarIvaServicio();
+    const descripcion = validarDescripcionServicio();
+    if ( nombre && precio && iva && descripcion ){
+        modificarDatosServicio();
     }
 }

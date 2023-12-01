@@ -31,6 +31,7 @@ function crearProducto(){
     })
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
+        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error:', error);
     });
 }
@@ -83,6 +84,7 @@ function cargarProductos(){
     )
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
+        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error:', error);
     });
 }
@@ -193,9 +195,11 @@ function modificarDatosProducto(){
         // Actualizamos la lista de Productos:
         GuardarCambiosProducto();
         cargarProductos();
+        closeModalProducto();
     })
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
+        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error:', error);
     });
 }
@@ -234,6 +238,7 @@ function borradoLogicoProducto(){
     })
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
+        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error:', error);
     });
 }
@@ -257,7 +262,7 @@ habilitarBotonProducto("botonEditarProducto")
 // Función para mostrar el modal creacion
 function openModalCrearProducto() {
     document.getElementById('myModalCrearProducto').style.display = 'block';
-    document.getElementById("nombre_productoCrearProducto").value = "";
+    document.getElementById("nombre_crear_producto").value = "";
     document.getElementById("precio_unidad_crear_producto").value = "";
     document.getElementById("unidades_almacenadas_crear_producto").value = "";
     document.getElementById("iva_crear_producto").value = "";
@@ -313,3 +318,145 @@ function habilitarBotonProducto(nombre) {
 }
 
 // VALIDACIONES ##########################
+// Crear producto
+function validarUnidadesHorasCrearProducto(){
+    const precio = document.getElementById("precio_unidad_crear_producto").value;
+    const regex = /^(?!0+$)\d+$/
+    if (regex.test(precio)){
+        document.getElementById("validar_precio_unidad_crear_producto").innerHTML = "";
+        return true;
+    } else {
+        document.getElementById("validar_precio_unidad_crear_producto").innerHTML = "El precio unidad debe ser superior a 0";
+        return false;
+    }
+}
+
+function validarNombreCrearProducto(){
+    const nombre = document.getElementById("nombre_crear_producto").value;
+    if( nombre.length > 0){
+        document.getElementById("validar_nombre_crear_producto").innerHTML = "";
+        return true;
+    } else {
+        document.getElementById("validar_nombre_crear_producto").innerHTML = "El nombre debe tener al menos un caracter";
+        return false;
+    }
+}
+
+function validarIvaCrearProducto(){
+    const iva = document.getElementById("iva_crear_producto").value;
+    const regex = /\d.*\d/
+    if (iva.length == 2 && regex.test(iva)){
+        document.getElementById("validar_iva_crear_producto").innerHTML = "";
+       return true; 
+    } 
+    else {
+        document.getElementById("validar_iva_crear_producto").innerHTML = "El iva no puede ser superior o inferior a dos digitos";
+        return false;
+    }
+}
+
+function validarDescripcionCrearProducto(){
+    const descripcion = document.getElementById("descripcion_crear_producto").value
+    if( descripcion.length > 0){
+        document.getElementById("validar_descripcion_crear_producto").innerHTML = "";
+        return true;
+    } else {
+        document.getElementById("validar_descripcion_crear_producto").innerHTML = "La descripcion debe tener al menos un caracter";
+        return false;
+    }
+}
+
+function validarStockCrearProducto() {
+    let stock = document.getElementById("unidades_almacenadas_crear_producto").value;
+    let regex = /^\d+$/;
+    if (regex.test(stock)){
+        
+        document.getElementById("validar_unidades_almacenadas_crear_producto").innerHTML = "";
+        return true;
+    } else {
+        document.getElementById("validar_unidades_almacenadas_crear_producto").innerHTML = "Las unidades deben ser enteros no nulos o 0";
+        return false
+    }
+  }
+
+function comprobarCrearProducto(){
+    const nombre = validarNombreCrearProducto();
+    const precio = validarUnidadesHorasCrearProducto();
+    const iva = validarIvaCrearProducto();
+    const descripcion = validarDescripcionCrearProducto();
+    const stock = validarStockCrearProducto();
+    if ( nombre && precio && iva && descripcion && stock ){
+        crearProducto();
+    }
+}
+
+// Edicar producto
+function validarUnidadesHorasProducto(){
+    const precio = document.getElementById("precio_unidad").value;
+    const regex = /^(?!0+$)\d+$/
+    if (regex.test(precio)){
+        document.getElementById("validar_precio_unidad").innerHTML = "";
+        return true;
+    } else {
+        document.getElementById("validar_precio_unidad").innerHTML = "El precio unidad debe ser superior a 0";
+        return false;
+    }
+}
+
+function validarNombreProducto(){
+    const nombre = document.getElementById("nombre_producto").value;
+    if( nombre.length > 0){
+        document.getElementById("validar_nombre_producto").innerHTML = "";
+        return true;
+    } else {
+        document.getElementById("validar_nombre_producto").innerHTML = "El nombre debe tener al menos un caracter";
+        return false;
+    }
+}
+
+function validarIvaProducto(){
+    const iva = document.getElementById("iva_producto").value;
+    const regex = /\d.*\d/
+    if (iva.length == 2 && regex.test(iva)){
+        document.getElementById("validar_iva_producto").innerHTML = "";
+       return true; 
+    } 
+    else {
+        document.getElementById("validar_iva_producto").innerHTML = "El iva no puede ser superior o inferior a dos digitos";
+        return false;
+    }
+}
+
+function validarDescripcionProducto(){
+    const descripcion = document.getElementById("descripcion_producto").value
+    if( descripcion.length > 0){
+        document.getElementById("validar_descripcion_producto").innerHTML = "";
+        return true;
+    } else {
+        document.getElementById("validar_descripcion_producto").innerHTML = "La descripcion debe tener al menos un caracter";
+        return false;
+    }
+}
+
+function validarStockProducto() {
+    let stock = document.getElementById("unidades_almacenadas").value;
+    let regex = /^\d+$/;
+    if (regex.test(stock)){
+        document.getElementById("validar_unidades_almacenadas").innerHTML = "";
+        return true;
+    } else {
+        document.getElementById("validar_unidades_almacenadas").innerHTML = "Las unidades deben ser enteros no nulos o 0";
+        return false
+    }
+}
+
+function comprobarProducto(){
+    const nombre = validarNombreProducto();
+    const precio = validarUnidadesHorasProducto();
+    const iva = validarIvaProducto();
+    const descripcion = validarDescripcionProducto();
+    const stock = validarStockProducto();
+    if ( nombre && precio && iva && descripcion && stock ){
+        modificarDatosProducto();
+    }
+}

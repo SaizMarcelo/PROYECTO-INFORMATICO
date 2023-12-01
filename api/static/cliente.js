@@ -34,6 +34,7 @@ function crearCliente(){
     })
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
+        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error:', error);
     });
 }
@@ -83,6 +84,7 @@ function cargarClientes(){
     )
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
+        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error: ', error);
     });
 }
@@ -142,6 +144,7 @@ function buscarDatosCliente(){
     )
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
+        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error: ', error);
     });
 }
@@ -177,9 +180,11 @@ function modificarDatosClient(){
     .then(resp => {
         // Actualizamos la lista de clientes:
         cargarClientes();
+        closeModalCliente();
     })
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
+        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error:', error);
     });
 }
@@ -214,6 +219,7 @@ function borradoLogicoCliente(){
     })
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
+        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error:', error);
     });
 }
@@ -278,17 +284,6 @@ function botonEditarCliente(){
         habilitarBotonCliente("guardarCambiosCliente");
 }
     
-function botonGuardarCambiosCliente(){
-    deshabilitarInputCliente("cuil_cuit_cliente");
-    deshabilitarInputCliente("address_cliente");
-    deshabilitarInputCliente("email_cliente");
-    deshabilitarInputCliente("id_cliente");
-    deshabilitarInputCliente("name_cliente");
-    deshabilitarInputCliente("phone_number_cliente");
-    habilitarBotonCliente("botonEditarCliente");
-    deshabilitarBotonCliente("guardarCambiosCliente");
-    closeModalCliente();
-}
     
 // Buscar apellido en tabla.
 function buscarEnTabla() {
@@ -314,3 +309,156 @@ function buscarEnTabla() {
 }
 
 // VALIDACIONES ##########################
+// Crear cliente
+function comprobarCrearCliente(){
+    let nombre = validarNombreCrearCliente();
+    let email = validarEmailCrearCliente();
+    let direccion = validarDireccionCrearCliente();
+    let telefono = validarTelefonoCrearCliente();
+    let cuil_cuit = validarCuilCuitCrearCliente();
+    if(nombre && email && direccion && telefono && cuil_cuit){
+        crearCliente();
+    }
+}
+
+function validarCuilCuitCrearCliente() {
+    const cuil_cuit = document.getElementById("cuil_cuit_crear_cliente").value;
+    const regex = /^\d+$/
+    if (cuil_cuit.length == 11 && regex.test(cuil_cuit)) {
+        document.getElementById("cuil_cuit_crear_cliente_validacion").innerHTML = "";
+        return true;
+    } 
+    else {
+        document.getElementById("cuil_cuit_crear_cliente_validacion").innerHTML = "cuil_cuit no valido";
+        return false;
+    }
+}
+
+function validarTelefonoCrearCliente() {
+    const telefono = document.getElementById("phone_number_crear_cliente").value;
+    const regex = /^\d+$/
+    if (telefono.length >= 8 && regex.test(telefono)) {
+        document.getElementById("telefono_crear_cliente_validacion").innerHTML = "";
+        return true;
+    } 
+    else {
+        document.getElementById("telefono_crear_cliente_validacion").innerHTML = "numero de telefono no valido";
+        return false;
+    }
+}
+
+function validarNombreCrearCliente() {
+    const nombre = document.getElementById("name_crear_cliente").value;
+
+    if (nombre.length > 0) {
+        document.getElementById("nombre_crear_cliente_validacion").innerHTML = "";
+        return true;
+    } 
+    else {
+        document.getElementById("nombre_crear_cliente_validacion").innerHTML = "nombre no valido";
+        return false;
+    }
+}
+
+function validarDireccionCrearCliente() {
+    const direccion = document.getElementById("address_crear_cliente").value;
+
+    if (direccion.length > 0) {
+        document.getElementById("direccion_crear_cliente_validacion").innerHTML = "";
+        return true;
+    } 
+    else {
+        document.getElementById("direccion_crear_cliente_validacion").innerHTML = "direccion no valido";
+        return false;
+    }
+}
+
+function validarEmailCrearCliente(){
+    const email = document.getElementById("email_crear_cliente").value;
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (regex.test(email)){
+        document.getElementById("email_crear_cliente_validacion").innerHTML = "";
+        return true;
+    }
+    else{
+        document.getElementById("email_crear_cliente_validacion").innerHTML = "direccion de correo no valido";
+        return false;
+    }
+}
+
+// Editar cliente
+function comprobarEditarCliente(){
+    let nombre = validarNombreCliente();
+    let email = validarEmailCliente();
+    let direccion = validarDireccionCliente();
+    let telefono = validarTelefonoCliente();
+    let cuil_cuit = validarCuilCuitCliente();
+    if(nombre && email && direccion && telefono && cuil_cuit){
+        modificarDatosClient();
+    }
+}
+
+function validarCuilCuitCliente() {
+    const cuil_cuit = document.getElementById("cuil_cuit_cliente").value;
+    const regex = /^\d+$/
+    if (cuil_cuit.length == 11 && regex.test(cuil_cuit)) {
+        document.getElementById("cuil_cuit_cliente_validacion").innerHTML = "";
+        return true;
+    } 
+    else {
+        document.getElementById("cuil_cuit_cliente_validacion").innerHTML = "cuil_cuit no valido";
+        return false;
+    }
+}
+
+function validarTelefonoCliente() {
+    const telefono = document.getElementById("phone_number_cliente").value;
+    const regex = /^\d+$/
+    if (telefono.length >= 8 && regex.test(telefono)) {
+        document.getElementById("telefono_cliente_validacion").innerHTML = "";
+        return true;
+    } 
+    else {
+        document.getElementById("telefono_cliente_validacion").innerHTML = "numero de telefono no valido";
+        return false;
+    }
+}
+
+function validarNombreCliente() {
+    const nombre = document.getElementById("name_cliente").value;
+
+    if (nombre.length > 0) {
+        document.getElementById("nombre_cliente_validacion").innerHTML = "";
+        return true;
+    } 
+    else {
+        document.getElementById("nombre_cliente_validacion").innerHTML = "nombre no valido";
+        return false;
+    }
+}
+
+function validarDireccionCliente() {
+    const direccion = document.getElementById("address_cliente").value;
+
+    if (direccion.length > 0) {
+        document.getElementById("direccion_cliente_validacion").innerHTML = "";
+        return true;
+    } 
+    else {
+        document.getElementById("direccion_cliente_validacion").innerHTML = "direccion no valido";
+        return false;
+    }
+}
+
+function validarEmailCliente(){
+    const email = document.getElementById("email_cliente").value;
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (regex.test(email)){
+        document.getElementById("email_cliente_validacion").innerHTML = "";
+        return true;
+    }
+    else{
+        document.getElementById("email_cliente_validacion").innerHTML = "direccion de correo no valido";
+        return false;
+    }
+}

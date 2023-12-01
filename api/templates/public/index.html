@@ -36,7 +36,7 @@
 
         <div class="CrearCuenta">
             <!-- <button onclick="openModal_crear_usuario()"> Crear Cuenta Usuario </button> -->
-            <a onclick="openModal_crear_usuario()">CREAR CUENTA</a>
+            <a onclick="openModalCrearUsuario()">CREAR CUENTA</a>
         </div>
 
         <!-- MODAL CREAR CUENTA DE USUARIO -->
@@ -48,28 +48,35 @@
                 <label for="cuil_cuit_crear_usuario">Cuil_Cuit:</label>
                 <input type="text" id="cuil_cuit_crear_usuario" onkeyup="" placeholder="cuil_cuit" required maxlength="11"
                     minlength="11">
-                <br></br>
+                <span id="cuil_cuit_crear_usuario_validacion" class="error"></span>
+
                 <label for="username_crear_usuario">Username:</label>
                 <input type="text" id="username_crear_usuario" onkeyup="" placeholder="username">
-                <br></br>
+                <span id="nombre_usuario_crear_usuario_validacion" class="error"></span>
+
                 <label for="password_crear_usuario">Password:</label>
                 <input type="password" id="password_crear_usuario" onkeyup="" placeholder="password">
-                <br></br>
+                <span id="contrasenia_crear_usuario_validacion" class="error"></span>
+
                 <label for="name_crear_usuario">Name:</label>
                 <input type="text" id="name_crear_usuario" onkeyup="" placeholder="name">
-                <br></br>
+                <span id="nombre_crear_usuario_validacion" class="error"></span>
+
                 <label for="address_crear_usuario">address:</label>
                 <input type="text" id="address_crear_usuario" onkeyup="" placeholder="address">
-                <br></br>
+                <span id="direccion_crear_usuario_validacion" class="error"></span>
+
                 <label for="email_crear_usuario">Email:</label>
                 <input type="text" id="email_crear_usuario" onkeyup="" placeholder="email">
-                <br></br>
+                <span id="email_crear_usuario_validacion" class="error"></span>
+
                 <label for="phone_number_crear_usuario">Phone Number:</label>
                 <input type="text" id="phone_number_crear_usuario" onkeyup="" placeholder="phone_number">
-                <br></br>
+                <span id="telefono_crear_usuario_validacion" class="error"></span>
 
-                <button onclick="closeModal_crear_usuario()"> Salir </button>
-                <button id="guardarCambios_crear_usuario" onclick="crearUsuario(),closeModal_crear_usuario()"> Crear Usuario </button>
+
+                <button onclick="closeModalCrearUsuario()"> Salir </button>
+                <button id="guardarCambios_crear_usuario" onclick="comprobarCrearUsuario()"> Crear Usuario </button>
 
             </div>
         </div>
