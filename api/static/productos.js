@@ -83,7 +83,7 @@ function cargarProductos(){
             var tabla = buscador+'<table id="myTable" class="myTable">';
             tabla += `<tr><td>N°_Producto</td><td>PRECIO</td><td>DENOMINACION</td><td>STOCK</td><td></td></tr>`
             for (let key in resp){
-                tabla += `<tr><td>${resp[contador]["id"]}</td><td>${resp[contador]["unitary_price"]}</td><td>${resp[contador]["name"]}</td><td>${resp[contador]["units_stored"]}</td><td><button onclick="consultarIdBotonVerProducto(this),buscarDatosProducto(),openModalProducto()">Ver</button></td></tr>`
+                tabla += `<tr><td>${resp[contador]["id"]}</td><td>${resp[contador]["unitary_price"]}</td><td>${resp[contador]["name"]}</td><td>${resp[contador]["units_stored"]}</td><td><button onclick="comprobarTokenExprirado(), consultarIdBotonVerProducto(this),buscarDatosProducto(),openModalProducto()">Ver</button></td></tr>`
                 contador += 1
             }
             tabla += "</table>";

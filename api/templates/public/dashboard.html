@@ -19,59 +19,59 @@
         <section class="menu-group">
             <h2> Perfil </h2>
             <a>
-                <span class="menu-text" onclick="openModal_usuario(), cargarDatosUsuarios()"> Editar Datos </span>
+                <span class="menu-text" onclick="comprobarTokenExprirado(), openModal_usuario(), cargarDatosUsuarios()"> Editar Datos </span>
             </a>
         </section>
 
         <section class="menu-group">
             <h2> Clientes </h2>
             <a>
-                <span class="menu-text" id="nuevoCliente" onclick="openModalCrearCliente()"> Nuevo </span>
+                <span class="menu-text" id="nuevoCliente" onclick="comprobarTokenExprirado(), openModalCrearCliente()"> Nuevo </span>
             </a>
             <a>
-                <span class="menu-text" onclick="cargarClientes()"> Lista </span>
+                <span class="menu-text" onclick="comprobarTokenExprirado(), cargarClientes()"> Lista </span>
             </a>
             <a>
-                <span class="menu-text" onclick="rankingClientes()"> Ranking Clientes </span>
+                <span class="menu-text" onclick="comprobarTokenExprirado(), rankingClientes()"> Ranking Clientes </span>
             </a>
         </section>
 
         <section class="menu-group">
             <h2> Productos </h2>
             <a>
-                <span class="menu-text" id="nuevoProducto" onclick="openModalCrearProducto()"> Nuevo </span>
+                <span class="menu-text" id="nuevoProducto" onclick="comprobarTokenExprirado(), openModalCrearProducto()"> Nuevo </span>
             </a>
             <a>
-                <span class="menu-text" onclick="cargarProductos()"> Lista </span>
+                <span class="menu-text" onclick="comprobarTokenExprirado(), cargarProductos()"> Lista </span>
             </a>
             <a>
-                <span class="menu-text" onclick="rankingProductos()"> Ranking Productos </span>
+                <span class="menu-text" onclick="comprobarTokenExprirado(), rankingProductos()"> Ranking Productos </span>
             </a>
         </section>
 
         <section class="menu-group">
             <h2> Servicios </h2>
             <a>
-                <span class="menu-text" onclick="openModalCrearServicio()"> Nuevo </span>
+                <span class="menu-text" onclick="comprobarTokenExprirado(), openModalCrearServicio()"> Nuevo </span>
             </a>
             <a>
-                <span class="menu-text" onclick="cargarServicio()"> Lista </span>
+                <span class="menu-text" onclick="comprobarTokenExprirado(), cargarServicio()"> Lista </span>
             </a>
             <a>
-                <span class="menu-text" onclick="rankingServicios()"> Ranking Servicios </span>
+                <span class="menu-text" onclick="comprobarTokenExprirado(), rankingServicios()"> Ranking Servicios </span>
             </a>
         </section>
 
         <section class="menu-group">
             <h2> Factura </h2>
             <a>
-                <span class="menu-text" id="crearFactura" onclick="openModalMostrarCrearFactura()"> Nueva </span>
+                <span class="menu-text" id="crearFactura" onclick="comprobarTokenExprirado(), openModalMostrarCrearFactura()"> Nueva </span>
             </a>
             <a>
-                <span class="menu-text" onclick="cargarFacturas()"> Lista </span>
+                <span class="menu-text" onclick="comprobarTokenExprirado(), cargarFacturas()"> Lista </span>
             </a>
             <a>
-                <span class="menu-text" onclick="flujoProductos()"> Movimientos </span>
+                <span class="menu-text" onclick="comprobarTokenExprirado(), flujoProductos()"> Movimientos </span>
             </a>
         </section>
 
@@ -126,9 +126,9 @@
                 <span  id="telefono_usuario_validacion" class="error"></span>
 
 
-                <button id="guardarCambios_usuario" onclick="comprobarUsuario()"> Modificar Datos </button>
-                <button id="eliminarUsuario" onclick="eliminarUsuario()"> Eliminar Usuario </button>
-                <button onclick="closeModal_usuario()"> Salir </button>
+                <button id="guardarCambios_usuario" onclick="comprobarTokenExprirado(), comprobarUsuario()"> Modificar Datos </button>
+                <button id="eliminarUsuario" onclick="comprobarTokenExprirado(), eliminarUsuario()"> Eliminar Usuario </button>
+                <button onclick="comprobarTokenExprirado(), closeModal_usuario()"> Salir </button>
         </div>
     </div>
 
@@ -165,11 +165,10 @@
 
 
             
-            <button id="botonEditarCliente" onclick="botonEditarCliente()"> Editar </button>
-            <button id="guardarCambiosCliente" onclick="comprobarEditarCliente()"> Guardar Cambios
-            </button>
-            <button id="borrarCliente" onclick="borradoLogicoCliente()"> Borrar </button>
-            <button onclick="closeModalCliente()"> Salir </button>
+            <button id="botonEditarCliente" onclick="comprobarTokenExprirado(), botonEditarCliente()"> Editar </button>
+            <button id="guardarCambiosCliente" onclick="comprobarTokenExprirado(), comprobarEditarCliente()"> Guardar Cambios </button>
+            <button id="borrarCliente" onclick="comprobarTokenExprirado(), borradoLogicoCliente()"> Borrar </button>
+            <button onclick="comprobarTokenExprirado(), closeModalCliente()"> Salir </button>
         
         </div>
     </div>
@@ -201,8 +200,8 @@
             <span id="telefono_crear_cliente_validacion" class="error"></span>
 
             
-            <button id="guardarCambios_crear_cliente" onclick="comprobarCrearCliente()"> Crear Cliente </button>
-            <button onclick="closeModalCliente()"> Salir </button>
+            <button id="guardarCambios_crear_cliente" onclick="comprobarTokenExprirado(), comprobarCrearCliente()"> Crear Cliente </button>
+            <button onclick="comprobarTokenExprirado(), closeModalCliente()"> Salir </button>
         </div>
     </div>
 
@@ -234,10 +233,10 @@
             <span  id="validar_descripcion_producto" class="error"></span>
 
             
-            <button id="modificarDatosProducto" onclick="comprobarProducto()"> Guardar Cambios </button>
-            <button id="botonEditarProducto" onclick="botonEditarProducto()"> Editar </button>
-            <button id="borrarProducto" onclick="borradoLogicoProducto()"> Borrar </button>
-            <button onclick="closeModalProducto()"> Salir </button>
+            <button id="modificarDatosProducto" onclick="comprobarTokenExprirado(), comprobarProducto()"> Guardar Cambios </button>
+            <button id="botonEditarProducto" onclick="comprobarTokenExprirado(), botonEditarProducto()"> Editar </button>
+            <button id="borrarProducto" onclick="comprobarTokenExprirado(), borradoLogicoProducto()"> Borrar </button>
+            <button onclick="comprobarTokenExprirado(), closeModalProducto()"> Salir </button>
         </div>
     </div>
 
@@ -267,8 +266,8 @@
             <input type="text" id="descripcion_crear_producto" onkeyup="" placeholder="description">
             <span  id="validar_descripcion_crear_producto" class="error"></span>
 
-            <button id="crearProducto" onclick="comprobarCrearProducto()"> Crear Producto </button>
-            <button onclick="closeModalProducto()"> Salir </button>
+            <button id="crearProducto" onclick="comprobarTokenExprirado(), comprobarCrearProducto()"> Crear Producto </button>
+            <button onclick="comprobarTokenExprirado(), closeModalProducto()"> Salir </button>
 
         </div>
     </div>
@@ -296,10 +295,10 @@
             <span  id="validar_descripcion_servicio" class="error"></span>
             
             
-            <button id="modificarDatosServicio" onclick="comprobarServicio()"> Guardar Cambios </button>
-            <button id="botonEditarServicio" onclick="botonEditarServicio()"> Editar </button>
-            <button id="borrarServicio" onclick="borradoLogicoServicio()"> Borrar </button>
-            <button onclick="closeModalServicio()"> Salir </button>
+            <button id="modificarDatosServicio" onclick="comprobarTokenExprirado(), comprobarServicio()"> Guardar Cambios </button>
+            <button id="botonEditarServicio" onclick="comprobarTokenExprirado(), botonEditarServicio()"> Editar </button>
+            <button id="borrarServicio" onclick="comprobarTokenExprirado(), borradoLogicoServicio()"> Borrar </button>
+            <button onclick="comprobarTokenExprirado(), closeModalServicio()"> Salir </button>
         </div>
     </div>
 
@@ -326,8 +325,8 @@
             <span  id="validar_descripcion_crear_servicio" class="error"></span>
 
 
-            <button id="crearServicio" onclick="comprobarCrearServicio()"> Crear Servicio </button>
-            <button onclick="closeModalServicio()"> Salir </button>
+            <button id="crearServicio" onclick="comprobarTokenExprirado(), comprobarCrearServicio()"> Crear Servicio </button>
+            <button onclick="comprobarTokenExprirado(), closeModalServicio()"> Salir </button>
         </div>
     </div>
 
@@ -343,7 +342,7 @@
                 </div>
                 <span id="montoTotal">TOTAL: </span>
                 <span id="montoIva">IVA: </span>
-                <button onclick="closeModalFactura()"> Salir </button>
+                <button onclick="comprobarTokenExprirado(), closeModalFactura()"> Salir </button>
             </form>
         </div>
     </div>
@@ -373,7 +372,7 @@
                 <input type="number" id="user_id_cliente_crear_factura" onkeyup="" placeholder="Ingres Numero de Cliente">
                 <span  id="cargar_cliente" class="error"></span>
 
-                <button onclick="buscarDatosClienteFactura()"> VALIDAR </button>
+                <button onclick="comprobarTokenExprirado(), buscarDatosClienteFactura()"> VALIDAR </button>
             </div>
             
             <label for="cuil_cuit_cliente_crear_factura">CUIT_CUIL:</label>
@@ -399,7 +398,7 @@
                 <input type="number" id="horas_servicio_crear_factura" onkeyup="" placeholder="Horas Serv ...">
                 <span  id="ingreso_servicio" class="error"></span>
 
-                <button onclick="cargarListaServiciosFactura()"> INGRESAR </button>
+                <button onclick="comprobarTokenExprirado(), cargarListaServiciosFactura()"> INGRESAR </button>
             </div>
             <div id="contenedorDinamicoServicioFactura">
                 <!-- Contenido dinamico de JavaScript-->
@@ -416,7 +415,7 @@
                 <input type="number" id="cantProducto_crear_factura" onkeyup="" placeholder="Unidades Producto ...">
                 <span  id="ingreso_producto" class="error"></span>
 
-                <button onclick="cargarListaProductosFactura()"> INGRESAR </button>
+                <button onclick="comprobarTokenExprirado(), cargarListaProductosFactura()"> INGRESAR </button>
             </div>
             <div id="contenedorDinamicoProductosFactura">
                 <!-- Contenido dinamico de JavaScript-->
@@ -428,8 +427,8 @@
                 <!-- Contenido dinamico de JavaScript-->
             </div>
             
-            <button id="emitirFactura" onclick="emitirFactura()"> Emitir Factura </button>
-            <button onclick="closeModalFactura()"> Salir </button>
+            <button id="emitirFactura" onclick="comprobarTokenExprirado(), emitirFactura()"> Emitir Factura </button>
+            <button onclick="comprobarTokenExprirado(), closeModalFactura()"> Salir </button>
         </div>
     </div>
 

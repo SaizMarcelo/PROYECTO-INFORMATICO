@@ -84,7 +84,7 @@ function cargarServicio(){
             var tabla = buscador+'<table id="myTable" class="myTable">';
             tabla += `<tr><td>COD_SERVICIO</td><td>NAME</td><td>DESCRIPCION</td><td></td></tr>`
             for (let key in resp){
-                tabla += `<tr><td>${resp[contador]["id"]}</td><td>${resp[contador]["name"]}</td><td>${resp[contador]["description"]}</td><td><button onclick="consultarIdBotonVerServicio(this),buscarDatosServicio()">Ver</button></td></tr>`
+                tabla += `<tr><td>${resp[contador]["id"]}</td><td>${resp[contador]["name"]}</td><td>${resp[contador]["description"]}</td><td><button onclick="comprobarTokenExprirado(), consultarIdBotonVerServicio(this),buscarDatosServicio()">Ver</button></td></tr>`
                 contador += 1
             }
             tabla += "</table>";

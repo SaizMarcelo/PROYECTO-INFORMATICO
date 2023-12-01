@@ -82,7 +82,7 @@ function cargarClientes(){
             var tabla = buscador+'<table id="myTable" class="myTable">';
             tabla += `<tr><td>N°_CLIENTE</td><td>CUIL_CUIT</td><td>DENOMINACION</td><td></td></tr>`
             for (let key in resp){
-                tabla += `<tr><td>${resp[contador]["id"]}</td><td>${resp[contador]["cuil_cuit"]}</td><td>${resp[contador]["name"]}</td><td><button onclick="consultarIdBotonVerCliente(this),buscarDatosCliente(),openModalCliente()">Ver</button></td></tr>`
+                tabla += `<tr><td>${resp[contador]["id"]}</td><td>${resp[contador]["cuil_cuit"]}</td><td>${resp[contador]["name"]}</td><td><button onclick="comprobarTokenExprirado(), consultarIdBotonVerCliente(this),buscarDatosCliente(),openModalCliente()">Ver</button></td></tr>`
                 contador += 1
             }
             tabla += "</table>";
