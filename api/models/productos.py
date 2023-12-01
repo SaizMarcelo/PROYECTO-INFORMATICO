@@ -88,7 +88,7 @@ class Product():
         if cur.rowcount > 0:
             objProduct = Product(data[0])
             return  objProduct.to_json() 
-        return DBError("Error getting product - product not found")
+        raise DBError("Error getting product - product not found")
     
     def get_all_products_by_user_id(user_id):
     # Creamos un cursor:

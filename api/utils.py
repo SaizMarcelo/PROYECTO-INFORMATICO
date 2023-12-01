@@ -36,7 +36,6 @@ def token_required(func):
                 return jsonify({"message": "Error de id"})
         
         except Exception as e:
-            print(e)
             return jsonify({"messege": str(e)}), 401
 
         return func(*args, **kwargs)
@@ -46,7 +45,6 @@ def token_required(func):
 def client_resource(func):
     @wraps(func)
     def decorated(*args, **kwargs):
-        print("Argumentos en client_resource:, ", kwargs)
         client_id = kwargs['client_id']
 
         # Definimos un cursor:
@@ -75,7 +73,6 @@ def client_resource(func):
 def product_resource(func):
     @wraps(func)
     def decorated(*args, **kwargs):
-        print("Argumentos en product_resource:, ", kwargs)
         product_id = kwargs['product_id']
 
         # Definimos un cursor:
@@ -104,7 +101,6 @@ def product_resource(func):
 def invoice_resource(func):
     @wraps(func)
     def decorated(*args, **kwargs):
-        print("Argumentos en invoice_resource:, ", kwargs)
         invoice_id = kwargs['invoice_id']
 
         # Definimos un cursor:
@@ -134,7 +130,6 @@ def invoice_resource(func):
 def service_resource(func):
     @wraps(func)
     def decorated(*args, **kwargs):
-        print("Argumentos en service_resource:, ", kwargs)
         service_id = kwargs['service_id']
 
         # Definimos un cursor:
@@ -163,7 +158,6 @@ def service_resource(func):
 def user_resource(func):
     @wraps(func)
     def decorated(*args, **kwargs):
-        print("Argumentos en user_resource:, ", kwargs)
 
         # Id del usuario utilizado en la ruta:
         user_id_route = kwargs['user_id']

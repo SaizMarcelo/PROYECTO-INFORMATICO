@@ -22,6 +22,9 @@ fetch(`http://127.0.0.1:4500/users/${id}/invoice_ranking_client`, requestOption)
 )
 .then(
     resp => {
+        if (resp.message){
+            document.getElementById("contenedorDinamico").innerHTML = `<span class="error">${resp.message}</span>`;
+        } else {
         var contenedorDinamico = document.getElementById("contenedorDinamico");
         contenedorDinamico.innerHTML="";
         
@@ -36,10 +39,10 @@ fetch(`http://127.0.0.1:4500/users/${id}/invoice_ranking_client`, requestOption)
     
         contenedorDinamico.innerHTML = tabla;
     }
+    }
 )
 .catch(error => {
     // Manejar cualquier error que pueda ocurrir durante la solicitud
-    document.getElementById("contenedorDinamico").innerHTML = error.message;
     console.error('Error:', error);
 });
 }
@@ -68,6 +71,9 @@ fetch(`http://127.0.0.1:4500/users/${id}/invoice_ranking_service`, requestOption
 )
 .then(
     resp => {
+        if (resp.message){
+            document.getElementById("contenedorDinamico").innerHTML = `<span class="error">${resp.message}</span>`;
+        } else {
         var contenedorDinamico = document.getElementById("contenedorDinamico");
         contenedorDinamico.innerHTML="";
         
@@ -81,11 +87,11 @@ fetch(`http://127.0.0.1:4500/users/${id}/invoice_ranking_service`, requestOption
         tabla += '</table>';
     
         contenedorDinamico.innerHTML = tabla;
+        }
     }
 )
 .catch(error => {
     // Manejar cualquier error que pueda ocurrir durante la solicitud
-    document.getElementById("contenedorDinamico").innerHTML = error.message;
     console.error('Error:', error);
 });
 }
@@ -114,6 +120,9 @@ fetch(`http://127.0.0.1:4500/users/${id}/invoice_ranking_product`, requestOption
 )
 .then(
     resp => {
+        if (resp.message){
+            document.getElementById("contenedorDinamico").innerHTML = `<span class="error">${resp.message}</span>`;
+        } else {
         var contenedorDinamico = document.getElementById("contenedorDinamico");
         contenedorDinamico.innerHTML="";
         
@@ -127,11 +136,11 @@ fetch(`http://127.0.0.1:4500/users/${id}/invoice_ranking_product`, requestOption
         tabla += '</table>';
     
         contenedorDinamico.innerHTML = tabla;
+        }
     }
 )
 .catch(error => {
     // Manejar cualquier error que pueda ocurrir durante la solicitud
-    document.getElementById("contenedorDinamico").innerHTML = error.message;
     console.error('Error:', error);
 });
 }

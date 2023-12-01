@@ -16,7 +16,7 @@ def crate_product(user_id):
         product = Product.create_product(data)
         return jsonify (product)
     except Exception as e:
-        return jsonify( {"messege": e.args[0]}), 404
+        return jsonify( {"message": e.args[0]}), 404
     
 
 # READ
@@ -31,7 +31,7 @@ def get_product_by_id(product_id, user_id):
         prodcut = Product.get_product_by_id(product_id)
         return jsonify(prodcut)
     except Exception as e:
-        return jsonify( {"messege": e.args[0]}), 404
+        return jsonify( {"message": e.args[0]}), 404
     
     
 
@@ -40,8 +40,11 @@ def get_product_by_id(product_id, user_id):
 @token_required
 @user_resource
 def get_all_products_by_user_id(user_id):
-    products = Product.get_all_products_by_user_id(user_id)
-    return jsonify (products)
+    try:
+        products = Product.get_all_products_by_user_id(user_id)
+        return jsonify (products)
+    except Exception as e:
+        return jsonify( {"message": e.args[0]} ), 400
 
 
 # UPDATE

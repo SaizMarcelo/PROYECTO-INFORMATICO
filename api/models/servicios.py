@@ -142,4 +142,4 @@ class Service():
             mysql.connection.commit()
             return ({"message": "deleted", "id": service_id})
 
-        return DBError("Error removing service - service not found")
+        raise DBError("Error removing service - service not found")

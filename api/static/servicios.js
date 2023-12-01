@@ -26,13 +26,16 @@ function crearServicio(){
     fetch(`http://127.0.0.1:4500/users/${id}/service`, requestOption)
     .then(resp => resp.json())
     .then(resp => {
+        if (resp.message){
+            document.getElementById("contenedorDinamico").innerHTML = `<span class="error">${resp.message}</span>`;
+        }
+        else {
         // Actualizamos la lista de clientes:
         closeModalServicio();
-        cargarServicio();
+        cargarServicio();}
     })
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
-        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error:', error);
     });
 }
@@ -65,6 +68,9 @@ function cargarServicio(){
     )
     .then(
         resp => {
+            if (resp.message){
+                document.getElementById("contenedorDinamico").innerHTML = `<span class="error">${resp.message}</span>`;;
+            } else {
             // De la consulta vamos a conulstar cuantos registros tiene la cunsulta realizada:
             localStorage.setItem('consultaPuente', resp)
             // Inicializamos la variable de conteo:
@@ -74,7 +80,7 @@ function cargarServicio(){
             // Inicializamos el contenedor vacio:
             contenedorDinamico.innerHTML="";
 
-            var buscador ='<div><input type="text" id="searchInput" onkeyup="buscarEnTabla()" placeholder="Buscar por descripcion..."></div>'
+            var buscador ='<div><input type="text" id="searchInput" onkeyup="buscarEnTablaServicio()" placeholder="Buscar..."></div>'
             var tabla = buscador+'<table id="myTable" class="myTable">';
             tabla += `<tr><td>COD_SERVICIO</td><td>NAME</td><td>DESCRIPCION</td><td></td></tr>`
             for (let key in resp){
@@ -83,12 +89,11 @@ function cargarServicio(){
             }
             tabla += "</table>";
             contenedorDinamico.innerHTML = tabla;
-
+            }
         }
     )
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
-        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error:', error);
         }
     )
@@ -121,6 +126,9 @@ function buscarDatosServicio(){
     )
     .then(
         resp => {
+            if (resp.message){
+                document.getElementById("contenedorDinamico").innerHTML = `<span class="error">${resp.message}</span>`;;
+            } else {
             // Enviamos los datos para cargar el fomulario:
             deshabilitarInputServicio("nombre_servicio")
             document.getElementById("nombre_servicio").value = resp["name"]
@@ -130,7 +138,7 @@ function buscarDatosServicio(){
             document.getElementById("iva_servicio").value = resp["iva"]
             deshabilitarInputServicio("descripcion_servicio")
             document.getElementById("descripcion_servicio").value = resp["description"]
-            openModalServicio()
+            openModalServicio()}
         }
     )
 }
@@ -162,13 +170,15 @@ function modificarDatosServicio(){
     fetch(`http://127.0.0.1:4500/users/${id}/service/${idServicioVer}`, requestOption)
     .then(resp => resp.json())
     .then(resp => {
+        if (resp.message){
+            document.getElementById("contenedorDinamico").innerHTML = `<span class="error">${resp.message}</span>`;
+        } else {
             guardarCambiosServicio();
             cargarServicio();
-            closeModalServicio();
+            closeModalServicio();}
         })
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
-        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error:', error);
     });
     }
@@ -193,12 +203,14 @@ function borradoLogicoServicio(){
     
     fetch(`http://127.0.0.1:4500/users/${id}/service/${idServicioVer}`, requestOption)
     .then(resp => {
+            if (resp.message){
+                document.getElementById("contenedorDinamico").innerHTML = `<span class="error">${resp.message}</span>`;
+            } else {
             closeModalServicio();
-            cargarServicio();      
+            cargarServicio();}      
     })
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
-        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error:', error);
     });
 }
@@ -237,7 +249,7 @@ function consultarIdBotonVerServicio(boton){
 }
 
 // Buscar apellido en tabla.
-function buscarEnTabla(){
+function buscarEnTablaServicio(){
     // Declara variables
     var input, filter, table, tr, td, i, txtValue;
     input = document.getElementById('searchInput');
@@ -247,7 +259,7 @@ function buscarEnTabla(){
     
     // Recorre todas las filas y oculta las que no coinciden con la búsqueda
     for (i = 0; i < tr.length; i++) {
-      td = tr[i].getElementsByTagName('td')[2]; // Busca en la segunda columna: apellido
+      td = tr[i].getElementsByTagName('td')[1]; // Busca en la segunda columna: apellido
       if (td) {
         txtValue = td.textContent || td.innerText;
         if (txtValue.toUpperCase().indexOf(filter) > -1) {

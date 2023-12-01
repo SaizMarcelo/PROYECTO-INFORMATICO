@@ -25,9 +25,13 @@ function crearProducto(){
     fetch(`http://127.0.0.1:4500/users/${id}/product`, requestOption)
     .then(resp => resp.json())
     .then(resp => {
+        if (resp.message){
+            document.getElementById("contenedorDinamico").innerHTML = `<span class="error">${resp.message}</span>`;
+        }
+        else {
         // Actualizamos la lista de Productos:
         cargarProductos();
-        closeModalProducto();
+        closeModalProducto();}
     })
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
@@ -65,13 +69,17 @@ function cargarProductos(){
     )
     .then(
         resp => {
+            if (resp.message){
+                document.getElementById("contenedorDinamico").innerHTML = `<span class="error">${resp.message}</span>`;
+            }
+            else {
             // De la consulta vamos a conulstar cuantos registros tiene la cunsulta realizada:
             localStorage.setItem('consultaPuente', resp)
             var contador = 0
             var contenedorDinamico = document.getElementById("contenedorDinamico");
             contenedorDinamico.innerHTML="";
 
-            var buscador ='<div><input type="text" id="searchInput" onkeyup="buscarEnTabla()" placeholder="Buscar por apellido..."></div>'
+            var buscador ='<div><input type="text" id="searchInput" onkeyup="buscarEnTabla()" placeholder="Buscar..."></div>'
             var tabla = buscador+'<table id="myTable" class="myTable">';
             tabla += `<tr><td>N°_Producto</td><td>PRECIO</td><td>DENOMINACION</td><td>STOCK</td><td></td></tr>`
             for (let key in resp){
@@ -79,12 +87,11 @@ function cargarProductos(){
                 contador += 1
             }
             tabla += "</table>";
-            contenedorDinamico.innerHTML = tabla;
+            contenedorDinamico.innerHTML = tabla;}
         }
     )
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
-        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error:', error);
     });
 }
@@ -124,6 +131,10 @@ fetch(`http://127.0.0.1:4500/users/${id}/product/${idProductoVer}`, requestOptio
 )
 .then(
     resp => {
+        if (resp.message){
+            document.getElementById("contenedorDinamico").innerHTML = `<span class="error">${resp.message}</span>`;
+        }
+        else {
         // Enviamos los datos para cargar el fomulario:
         deshabilitarInputProducto("nombre_producto")
         document.getElementById("nombre_producto").value = resp["name"]
@@ -134,7 +145,7 @@ fetch(`http://127.0.0.1:4500/users/${id}/product/${idProductoVer}`, requestOptio
         deshabilitarInputProducto("iva_producto")
         document.getElementById("iva_producto").value = resp["iva"]
         deshabilitarInputProducto("descripcion_producto")
-        document.getElementById("descripcion_producto").value = resp["description"]
+        document.getElementById("descripcion_producto").value = resp["description"]}
         
     }
 )
@@ -192,14 +203,17 @@ function modificarDatosProducto(){
     fetch(`http://127.0.0.1:4500/users/${id}/product/${idProductoVer}`, requestOption)
     .then(resp => resp.json())
     .then(resp => {
+        if (resp.message){
+            document.getElementById("contenedorDinamico").innerHTML = `<span class="error">${resp.message}</span>`;
+        }
+        else {
         // Actualizamos la lista de Productos:
         GuardarCambiosProducto();
         cargarProductos();
-        closeModalProducto();
+        closeModalProducto();}
     })
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
-        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error:', error);
     });
 }
@@ -238,7 +252,6 @@ function borradoLogicoProducto(){
     })
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
-        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error:', error);
     });
 }

@@ -23,7 +23,6 @@ class Invoice():
             # check if data[key] has the same type as schema[key]
             
             if type(data[key]) != Invoice.schema[key]:
-                print(type(data[key]), Invoice.schema[key])
                 return False
         return True
 
@@ -218,7 +217,7 @@ class Invoice():
         try:
             invoices = Invoice.get_all_invoice_by_user_id(user_id)
         except Exception as e:
-            return e
+            raise e
         output = []
         invoiceObj = {}
         for invoice in invoices:

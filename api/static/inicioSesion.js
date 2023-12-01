@@ -42,7 +42,7 @@ function iniciarSesion(){
             // De lo contrario buscamos del documento el id:span mostramos el codigo.
             else{
                 // Le pasamos la respuesta del servidor:
-                document.getElementById("message").innerHTML = resp.message;
+                document.getElementById("message").innerHTML = `<span class="error">${resp.message}</span>`;
             }
         
         }

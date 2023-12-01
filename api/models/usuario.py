@@ -150,6 +150,5 @@ class User():
         if cur.rowcount > 0:
             cur.execute('UPDATE user SET visibility=0 WHERE id=%s', (id,))
             mysql.connection.commit()
-            print("lo borra")
             return {"message": "deleted", "id": id}
         raise DBError("Error getting client by id - no row found")

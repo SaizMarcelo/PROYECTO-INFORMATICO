@@ -21,8 +21,12 @@ function crearUsuario(){
     }
     fetch(`/signup`, requestOption)
     .then(resp => {
+        if (resp.message){
+            document.getElementById("message").innerHTML = `<span class="error">${resp.message}</span>`;
+        } else {
         resp.json();
         closeModalCrearUsuario();
+        }
     })
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
@@ -58,6 +62,10 @@ function cargarDatosUsuario(){
     )
     .then(
         resp => {
+            if (resp.message){
+                document.getElementById("contenedorDinamico").innerHTML = `<span class="error">${resp.message}</span>`;
+            }
+            else { 
             // De la consulta vamos a conulstar cuantos registros tiene la cunsulta realizada:
             document.getElementById("username_usuario").value = resp["username"];
             document.getElementById("password_usuario").value = resp["password"];
@@ -66,7 +74,7 @@ function cargarDatosUsuario(){
             document.getElementById("email_usuario").value = resp["email"];
             document.getElementById("name_usuario").value = resp["name"];
             document.getElementById("phone_number_usuario").value = resp["phone_number"];
-            
+            }
         }
     )
     .catch(error => {
@@ -104,8 +112,13 @@ function modificarDatosUsuario(){
     
     fetch(`http://127.0.0.1:4500/users/${id}`, requestOption)
     .then(resp => {
+        if (resp.message){
+            document.getElementById("contenedorDinamico").innerHTML = `<span class="error">${resp.message}</span>`;
+        }
+        else { 
         resp.json();
         closeModal_usuario();
+        }
     })
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud

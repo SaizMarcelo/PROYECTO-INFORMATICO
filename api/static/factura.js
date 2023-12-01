@@ -44,7 +44,6 @@ function cargarFacturas(){
     )
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
-        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error:', error);
     });
 }
@@ -171,13 +170,17 @@ function emitirFactura(){
     }
     fetch(`http://127.0.0.1:4500/users/${id}/invoice`, requestOption)
     .then(resp =>{ 
+        if (resp.message){
+            document.getElementById("contenedorDinamico").innerHTML = `<span class="error">${resp.message}</span>`
+        }
+        else{
         cargarFacturas();
         closeModalFactura();
+        }
     }
     )
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
-        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error:', error);
     });
 }
@@ -244,7 +247,6 @@ function cargarDatosUsuarios(){
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
         closeModalFactura();
-        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error:', error);
     });
 }
@@ -270,23 +272,31 @@ function buscarDatosClienteFactura(){
     fetch(`http://127.0.0.1:4500/users/${id}/client/${idClienteBuscado}`, requestOption)
     .then(
         resp  => {
-            
             return resp.json();
         }
         
     )
     .then(
         resp => {
-
+            if (resp.message) {
+                document.getElementById("cargar_cliente").innerHTML = resp.message;
+            }
+            else {
             // Enviamos los datos para cargar el fomulario:
-            document.getElementById("cuil_cuit_cliente_crear_factura").value = resp["cuil_cuit"];
-            document.getElementById("address_cliente_crear_factura").value = resp["address"];
-            document.getElementById("email_cliente_crear_factura").value = resp["email"];
-            document.getElementById("name_cliente_crear_factura").value = resp["name"];
-            document.getElementById("phone_number_cliente_crear_factura").value = resp["phone_number"];
-
+                document.getElementById("cargar_cliente").innerHTML = "";
+                document.getElementById("cuil_cuit_cliente_crear_factura").value = resp["cuil_cuit"];
+                document.getElementById("address_cliente_crear_factura").value = resp["address"];
+                document.getElementById("email_cliente_crear_factura").value = resp["email"];
+                document.getElementById("name_cliente_crear_factura").value = resp["name"];
+                document.getElementById("phone_number_cliente_crear_factura").value = resp["phone_number"];
+            }
         }
     )
+    .catch(error =>
+        {
+            console.error("Error: ", error)
+        }
+        )
 }
 
 // FUNCION CARGAR SERVICIOS EN FACTURA.
@@ -299,76 +309,83 @@ function cargarListaServiciosFactura(){
     const token = localStorage.getItem('token');
     const idServicio = document.getElementById("id_servicio_crear_factura").value;
     const horaPrestadas = document.getElementById("horas_servicio_crear_factura").value;
-    
+    if (idServicio > 0 && horaPrestadas > 0){
     // Creamos el objeto Request para crear el cliente: JSON
-    const requestOption = {
-        method : 'GET',
-        headers: {
-            'Content-Type': 'aplication/json',
-            'x-access-token': token,
-            'user-id': id,
-        }
-    }
-
-    fetch(`http://127.0.0.1:4500/users/${id}/service/${idServicio}`, requestOption)
-    .then(
-        resp  => {
-            return resp.json()
-        }
-
-    )
-    .then(
-        resp => {
-            listaServiciosFacturar.push(resp);
-            
-            // Lista formato JSON guardada para posteriormente ser ingresada a la Base de Datso:
-            localStorage.setItem('listaServiciosFacturarLocalStorage', JSON.stringify(listaServiciosFacturar));
-
-            // Preparamos la estructura que sera enviada:
-            serviciosFacturadosEviar.push({
-                "ps_id": parseInt(resp["id"]),
-                "prd_serv": "s",
-                "units_hours": parseInt(horaPrestadas)
-            });
-            localStorage.setItem('ServiciosFacturasEviarOk', JSON.stringify(listaServiciosFacturar));
-    
-            // Inicializamos la variable de conteo:
-            var contador = 0
-            var subTotalServicios = 0
-            // Creamos una variable con el contenedor HTML.
-            var contenedorDinamicoServicioFactura = document.getElementById("contenedorDinamicoServicioFactura");
-            var contenedorDinamicoServicioFacturaResultado = document.getElementById("contenedorDinamicoServicioFacturaResultado");
-            // Inicializamos el contenedor vacio:
-            contenedorDinamicoServicioFactura.innerHTML="";
-
-            var tabla = '<table id="myTableServiciosFacturados" class="myTable">';
-            //tabla += `<tr><td>${resp["id"]}</td><td>${resp["name"]}</td><td>${resp["description"]}</td><td>${resp["hour_price"]}</td><td>${resp["iva"]}</td><td><button onclick="">Ver</button></td></tr>`
-            
-            tabla += `<tr><td>COD</td><td>NAME</td><td>DESCRIPCION</td><td>HORAS</td><td>$ sin IVA</td><td>$ IVA</td><td>$ con IVA</td></tr>`
-            for (let key in listaServiciosFacturar){
-                const subTotalSinIva = (listaServiciosFacturar[contador]["hour_price"]) * serviciosFacturadosEviar[contador]["units_hours"]
-                const IVAServ = subTotalSinIva * (listaServiciosFacturar[contador]["iva"]/100)
-                const subTotal = subTotalSinIva + IVAServ
-
-                tabla += `<tr><td>${listaServiciosFacturar[contador]["id"]}</td><td>${listaServiciosFacturar[contador]["name"]}</td><td>${listaServiciosFacturar[contador]["description"]}</td><td>${serviciosFacturadosEviar[contador]["units_hours"]}</td><td>${subTotalSinIva}</td><td>${IVAServ}</td><td>${subTotal}</td><td><button onclick="consultarIdiceBotonEliminarServicio(this)">Eliminar</button></td></tr>`
-                contador += 1
-                subTotalServicios += subTotal
+        document.getElementById("ingreso_servicio").innerHTML = "";
+        const requestOption = {
+            method : 'GET',
+            headers: {
+                'Content-Type': 'aplication/json',
+                'x-access-token': token,
+                'user-id': id,
             }
-            //tabla += `<tr><td></td><td></td><td></td><td></td><td></td><td>SUBTOTAL SERVICIOS: </td><td>${subTotalServicios}</td></tr>`
-            tabla += "</table>";
-            contenedorDinamicoServicioFactura.innerHTML = tabla;
-            contenedorDinamicoServicioFacturaResultado.innerHTML="";
-            const resultado = `<div>SUBTOTAL SERVICIOS: ${subTotalServicios}</div>`;
-            contenedorDinamicoServicioFacturaResultado.innerHTML=resultado;
-            localStorage.setItem('totalFacturadoS', subTotalServicios);
-            totalFactura();
         }
-    )
-    .catch(error => {
-        document.getElementById("ingreso_servicio").innerHTML = error.message;
-        console.error('Error:', error);
-        }
-    )
+
+        fetch(`http://127.0.0.1:4500/users/${id}/service/${idServicio}`, requestOption)
+        .then(
+            resp  => {
+                return resp.json()
+            }
+
+        )
+        .then(
+            resp => {
+                if (resp.message) {
+                    document.getElementById("ingreso_servicio").innerHTML = resp.message;
+                }
+                else {
+                    listaServiciosFacturar.push(resp);
+                    
+                    // Lista formato JSON guardada para posteriormente ser ingresada a la Base de Datso:
+                    localStorage.setItem('listaServiciosFacturarLocalStorage', JSON.stringify(listaServiciosFacturar));
+
+                    // Preparamos la estructura que sera enviada:
+                    serviciosFacturadosEviar.push({
+                        "ps_id": parseInt(resp["id"]),
+                        "prd_serv": "s",
+                        "units_hours": parseInt(horaPrestadas)
+                    });
+                    localStorage.setItem('ServiciosFacturasEviarOk', JSON.stringify(listaServiciosFacturar));
+            
+                    // Inicializamos la variable de conteo:
+                    var contador = 0
+                    var subTotalServicios = 0
+                    // Creamos una variable con el contenedor HTML.
+                    var contenedorDinamicoServicioFactura = document.getElementById("contenedorDinamicoServicioFactura");
+                    var contenedorDinamicoServicioFacturaResultado = document.getElementById("contenedorDinamicoServicioFacturaResultado");
+                    // Inicializamos el contenedor vacio:
+                    contenedorDinamicoServicioFactura.innerHTML="";
+
+                    var tabla = '<table id="myTableServiciosFacturados" class="myTable">';
+                    //tabla += `<tr><td>${resp["id"]}</td><td>${resp["name"]}</td><td>${resp["description"]}</td><td>${resp["hour_price"]}</td><td>${resp["iva"]}</td><td><button onclick="">Ver</button></td></tr>`
+                    
+                    tabla += `<tr><td>COD</td><td>NAME</td><td>DESCRIPCION</td><td>HORAS</td><td>$ sin IVA</td><td>$ IVA</td><td>$ con IVA</td></tr>`
+                    for (let key in listaServiciosFacturar){
+                        const subTotalSinIva = (listaServiciosFacturar[contador]["hour_price"]) * serviciosFacturadosEviar[contador]["units_hours"]
+                        const IVAServ = subTotalSinIva * (listaServiciosFacturar[contador]["iva"]/100)
+                        const subTotal = subTotalSinIva + IVAServ
+
+                        tabla += `<tr><td>${listaServiciosFacturar[contador]["id"]}</td><td>${listaServiciosFacturar[contador]["name"]}</td><td>${listaServiciosFacturar[contador]["description"]}</td><td>${serviciosFacturadosEviar[contador]["units_hours"]}</td><td>${subTotalSinIva}</td><td>${IVAServ}</td><td>${subTotal}</td><td><button onclick="consultarIdiceBotonEliminarServicio(this)">Eliminar</button></td></tr>`
+                        contador += 1
+                        subTotalServicios += subTotal
+                    }
+                    //tabla += `<tr><td></td><td></td><td></td><td></td><td></td><td>SUBTOTAL SERVICIOS: </td><td>${subTotalServicios}</td></tr>`
+                    tabla += "</table>";
+                    contenedorDinamicoServicioFactura.innerHTML = tabla;
+                    contenedorDinamicoServicioFacturaResultado.innerHTML="";
+                    const resultado = `<div>SUBTOTAL SERVICIOS: ${subTotalServicios}</div>`;
+                    contenedorDinamicoServicioFacturaResultado.innerHTML=resultado;
+                    localStorage.setItem('totalFacturadoS', subTotalServicios);
+                    totalFactura();}
+            }
+        )
+        .catch(error => {
+            console.error('Error:', error);
+            }
+        )
+    } else {
+        document.getElementById("ingreso_servicio").innerHTML = "Debe ingresarse un servicio y las horas que se solicitan prestar";
+    }
 }
 
 
@@ -418,82 +435,90 @@ function cargarListaProductosFactura(){
     const token = localStorage.getItem('token');
     const idProducto = document.getElementById("id_producto_crear_factura").value;
     const cantProductos = document.getElementById("cantProducto_crear_factura").value;
-
+    
+    if (idProducto > 0 && cantProductos >0){
     // Creamos el objeto Request para crear el cliente: JSON
-    const requestOption = {
-        method : 'GET',
-        headers: {
-            'Content-Type': 'aplication/json',
-            'x-access-token': token,
-            'user-id': id,
-        }
-    }
-
-    fetch(`http://127.0.0.1:4500/users/${id}/product/${idProducto}`, requestOption)
-    .then(
-        resp  => {
-            return resp.json();
-        }
-
-    )
-    .then(
-        resp => {
-            if (resp["units_stored"] >= cantProductos){
-
-                listaProductosFacturar.push(resp);
-                
-                // Lista formato JSON guardada para posteriormente ser ingresada a la Base de Datso:
-                localStorage.setItem('listaProductosFacturarLocalStorage', JSON.stringify(listaProductosFacturar));
-
-                // Preparamos la estructura que sera enviada:
-                productosFacturadosEviar.push({
-                    "ps_id": parseInt(resp["id"]),
-                    "prd_serv": "p",
-                    "units_hours": parseInt(cantProductos)
-                });
-                localStorage.setItem('ProductosFacturasEviarOk', JSON.stringify(listaProductosFacturar));
-        
-                // Inicializamos la variable de conteo:
-                var contador = 0;
-                var subTotalProductos = 0;
-                // Creamos una variable con el contenedor HTML.
-                var contenedorDinamicoProductosFactura = document.getElementById("contenedorDinamicoProductosFactura");
-                var contenedorDinamicoProductosFacturaResultado = document.getElementById("contenedorDinamicoProductosFacturaResultado");
-                // Inicializamos el contenedor vacio:
-                contenedorDinamicoProductosFactura.innerHTML="";
-
-                var tabla = '<table id="myTableProductosFacturados" class="myTable">';
-                //tabla += `<tr><td>${resp["id"]}</td><td>${resp["name"]}</td><td>${resp["description"]}</td><td>${resp["hour_price"]}</td><td>${resp["iva"]}</td><td><button onclick="">Ver</button></td></tr>`
-                
-                tabla += `<tr><td>COD</td><td>NAME</td><td>DESCRIPCION</td><td>CANT.</td><td>$ sin IVA</td><td>$ IVA</td><td>$ con IVA</td></tr>`;
-                for (let key in listaProductosFacturar){
-                    const subTotalSinIva = (listaProductosFacturar[contador]["unitary_price"]) * productosFacturadosEviar[contador]["units_hours"];
-                    const IVAProd = parseInt(subTotalSinIva * (listaProductosFacturar[contador]["iva"]/100));
-                    const subTotal = subTotalSinIva + IVAProd;
-
-                    tabla += `<tr><td>${listaProductosFacturar[contador]["id"]}</td><td>${listaProductosFacturar[contador]["name"]}</td><td>${listaProductosFacturar[contador]["description"]}</td><td>${productosFacturadosEviar[contador]["units_hours"]}</td><td>${subTotalSinIva}</td><td>${IVAProd}</td><td>${subTotal}</td><td><button onclick="consultarIdiceBotonEliminarProductos(this)">Eliminar</button></td></tr>`;
-                    contador += 1;
-                    subTotalProductos += subTotal;
-                }
-                //tabla += `<tr><td></td><td></td><td></td><td></td><td></td><td>SUBTOTAL SERVICIOS: </td><td>${subTotalServicios}</td></tr>`
-                tabla += "</table>";
-                contenedorDinamicoProductosFactura.innerHTML = tabla;
-                contenedorDinamicoProductosFacturaResultado.innerHTML="";
-                const resultado = `<div>SUBTOTAL PRODUCTOS: ${subTotalProductos}</div>`;
-                contenedorDinamicoProductosFacturaResultado.innerHTML=resultado;
-                localStorage.setItem('totalFacturadoP', subTotalProductos);
-                document.getElementById("ingreso_producto").innerHTML = "";
-                totalFactura();
-            } else {
-                document.getElementById("ingreso_producto").innerHTML = `Producto: ${resp["name"]} con stock insuficiente, quedan ${resp["units_stored"]} unidades restantes.`;
+        document.getElementById("ingreso_producto").innerHTML = "";
+        const requestOption = {
+            method : 'GET',
+            headers: {
+                'Content-Type': 'aplication/json',
+                'x-access-token': token,
+                'user-id': id,
             }
         }
-    )
-    .catch(error => {
-        document.getElementById("ingreso_producto").innerHTML = error.message;
-        console.error('Error:', error);
-        }
-    )
+
+        fetch(`http://127.0.0.1:4500/users/${id}/product/${idProducto}`, requestOption)
+        .then(
+            resp  => {
+                return resp.json();
+            }
+
+        )
+        .then( 
+            resp => {
+                if (resp.message){
+                    document.getElementById("ingreso_producto").innerHTML = resp.message;
+                } else {
+                if (resp["units_stored"] >= cantProductos){
+
+                    listaProductosFacturar.push(resp);
+                    
+                    // Lista formato JSON guardada para posteriormente ser ingresada a la Base de Datso:
+                    localStorage.setItem('listaProductosFacturarLocalStorage', JSON.stringify(listaProductosFacturar));
+
+                    // Preparamos la estructura que sera enviada:
+                    productosFacturadosEviar.push({
+                        "ps_id": parseInt(resp["id"]),
+                        "prd_serv": "p",
+                        "units_hours": parseInt(cantProductos)
+                    });
+                    localStorage.setItem('ProductosFacturasEviarOk', JSON.stringify(listaProductosFacturar));
+            
+                    // Inicializamos la variable de conteo:
+                    var contador = 0;
+                    var subTotalProductos = 0;
+                    // Creamos una variable con el contenedor HTML.
+                    var contenedorDinamicoProductosFactura = document.getElementById("contenedorDinamicoProductosFactura");
+                    var contenedorDinamicoProductosFacturaResultado = document.getElementById("contenedorDinamicoProductosFacturaResultado");
+                    // Inicializamos el contenedor vacio:
+                    contenedorDinamicoProductosFactura.innerHTML="";
+
+                    var tabla = '<table id="myTableProductosFacturados" class="myTable">';
+                    //tabla += `<tr><td>${resp["id"]}</td><td>${resp["name"]}</td><td>${resp["description"]}</td><td>${resp["hour_price"]}</td><td>${resp["iva"]}</td><td><button onclick="">Ver</button></td></tr>`
+                    
+                    tabla += `<tr><td>COD</td><td>NAME</td><td>DESCRIPCION</td><td>CANT.</td><td>$ sin IVA</td><td>$ IVA</td><td>$ con IVA</td></tr>`;
+                    for (let key in listaProductosFacturar){
+                        const subTotalSinIva = (listaProductosFacturar[contador]["unitary_price"]) * productosFacturadosEviar[contador]["units_hours"];
+                        const IVAProd = parseInt(subTotalSinIva * (listaProductosFacturar[contador]["iva"]/100));
+                        const subTotal = subTotalSinIva + IVAProd;
+
+                        tabla += `<tr><td>${listaProductosFacturar[contador]["id"]}</td><td>${listaProductosFacturar[contador]["name"]}</td><td>${listaProductosFacturar[contador]["description"]}</td><td>${productosFacturadosEviar[contador]["units_hours"]}</td><td>${subTotalSinIva}</td><td>${IVAProd}</td><td>${subTotal}</td><td><button onclick="consultarIdiceBotonEliminarProductos(this)">Eliminar</button></td></tr>`;
+                        contador += 1;
+                        subTotalProductos += subTotal;
+                    }
+                    //tabla += `<tr><td></td><td></td><td></td><td></td><td></td><td>SUBTOTAL SERVICIOS: </td><td>${subTotalServicios}</td></tr>`
+                    tabla += "</table>";
+                    contenedorDinamicoProductosFactura.innerHTML = tabla;
+                    contenedorDinamicoProductosFacturaResultado.innerHTML="";
+                    const resultado = `<div>SUBTOTAL PRODUCTOS: ${subTotalProductos}</div>`;
+                    contenedorDinamicoProductosFacturaResultado.innerHTML=resultado;
+                    localStorage.setItem('totalFacturadoP', subTotalProductos);
+                    document.getElementById("ingreso_producto").innerHTML = "";
+                    totalFactura();
+                } else {
+                    document.getElementById("ingreso_producto").innerHTML = `Producto: ${resp["name"]} con stock insuficiente, quedan ${resp["units_stored"]} unidades restantes.`;
+                }
+            }
+            }
+        )
+        .catch(error => {
+            console.error('Error:', error);
+            }
+        )
+    } else {
+        document.getElementById("ingreso_producto").innerHTML = "Debe ingresarse un codigo de producto y cantidades que se desean comprar";
+    }
 }
 
 function eliminarProdFactura(){
@@ -591,7 +616,6 @@ function flujoProductos(){
     )
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
-        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error: ', error);
     });
 }
@@ -617,4 +641,7 @@ function limpiarCompra(){
     document.getElementById("contenedorDinamicoProductosFactura").innerHTML = "";
     document.getElementById("contenedorDinamicoProductosFacturaResultado").innerHTML = "";
     document.getElementById("contenedorDinamicoTotalFacturaResultado").innerHTML = "";
+    document.getElementById("cargar_cliente").innerHTML = "";
+    document.getElementById("ingreso_servicio").innerHTML = "";
+    document.getElementById("ingreso_producto").innerHTML = "";
 }

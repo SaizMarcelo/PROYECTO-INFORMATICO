@@ -28,13 +28,16 @@ function crearCliente(){
     fetch(`http://127.0.0.1:4500/users/${id}/client`, requestOption)
     .then(resp => resp.json())
     .then(resp => {
+        if (resp.message){
+            document.getElementById("contenedorDinamico").innerHTML = `<span class="error">${resp.message}</span>`;
+        }
+        else{
         // Actualizamos la lista de clientes:
         cargarClientes();
-        closeModalCliente();
+        closeModalCliente();}
     })
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
-        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error:', error);
     });
 }
@@ -65,13 +68,17 @@ function cargarClientes(){
     )
     .then(
         resp => {
+            if (resp.message){
+                document.getElementById("contenedorDinamico").innerHTML = `<span class="error">${resp.message}</span>`;
+            }
+            else {
             // De la consulta vamos a conulstar cuantos registros tiene la cunsulta realizada:
             localStorage.setItem('consultaPuente', resp)
             var contador = 0
             var contenedorDinamico = document.getElementById("contenedorDinamico");
             contenedorDinamico.innerHTML="";
 
-            var buscador ='<div><input type="text" id="searchInput" onkeyup="buscarEnTabla()" placeholder="Buscar por apellido..."></div>'
+            var buscador ='<div><input type="text" id="searchInput" onkeyup="buscarEnTabla()" placeholder="Buscar..."></div>'
             var tabla = buscador+'<table id="myTable" class="myTable">';
             tabla += `<tr><td>N°_CLIENTE</td><td>CUIL_CUIT</td><td>DENOMINACION</td><td></td></tr>`
             for (let key in resp){
@@ -79,12 +86,11 @@ function cargarClientes(){
                 contador += 1
             }
             tabla += "</table>";
-            contenedorDinamico.innerHTML = tabla;
+            contenedorDinamico.innerHTML = tabla;}
         }
     )
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
-        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error: ', error);
     });
 }
@@ -127,6 +133,9 @@ function buscarDatosCliente(){
     )
     .then(
         resp => {
+            if (resp.message){
+                document.getElementById("contenedorDinamico").innerHTML = `<span class="error">${resp.message}</span>`;
+            } else {
             // Enviamos los datos para cargar el fomulario:
             deshabilitarInputCliente("cuil_cuit_cliente")
             document.getElementById("cuil_cuit_cliente").value = resp["cuil_cuit"]
@@ -139,12 +148,11 @@ function buscarDatosCliente(){
             deshabilitarInputCliente("name_cliente")
             document.getElementById("name_cliente").value = resp["name"]
             deshabilitarInputCliente("phone_number_cliente")
-            document.getElementById("phone_number_cliente").value = resp["phone_number"]
+            document.getElementById("phone_number_cliente").value = resp["phone_number"]}
         }
     )
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
-        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error: ', error);
     });
 }
@@ -178,13 +186,16 @@ function modificarDatosClient(){
     fetch(`http://127.0.0.1:4500/users/${id}/client/${idClienteVer}`, requestOption)
     .then(resp => resp.json())
     .then(resp => {
+        if (resp.message){
+            document.getElementById("contenedorDinamico").innerHTML = `<span class="error">${resp.message}</span>`;
+        }
+        else { 
         // Actualizamos la lista de clientes:
         cargarClientes();
-        closeModalCliente();
+        closeModalCliente();}
     })
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
-        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error:', error);
     });
 }
@@ -219,7 +230,6 @@ function borradoLogicoCliente(){
     })
     .catch(error => {
         // Manejar cualquier error que pueda ocurrir durante la solicitud
-        document.getElementById("contenedorDinamico").innerHTML = error.message;
         console.error('Error:', error);
     });
 }

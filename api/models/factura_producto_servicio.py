@@ -47,7 +47,6 @@ class Product_Service_Invoice():
                 return False
             # check if data[key] has the same type as schema[key]
             if type(data[key]) != Product_Service_Invoice.count_schema[key]:
-                print("es aca")
                 return False
         return True
 
@@ -174,7 +173,7 @@ class Product_Service_Invoice():
         try:
             product_list = Product_Service_Invoice.get_invoice_product_list(user_id)
         except Exception as e:
-            return e
+            raise e
         
         output = []
         productsObj = {}
@@ -206,7 +205,7 @@ class Product_Service_Invoice():
         try:
             service_list = Product_Service_Invoice.get_invoice_service_list(user_id)
         except Exception as e:
-            return e
+            raise e
         
         output = []
         servicesObj = {}
