@@ -160,7 +160,7 @@ class Product_Service_Invoice():
             if cur.rowcount < 1:
                 raise DBError("Error product invoice - row not found")
             for prod in product:
-                objProdServ = Product_Service_Invoice(serv)
+                objProdServ = Product_Service_Invoice(prod)
                 output.append(objProdServ.to_json())
                         
             return output
