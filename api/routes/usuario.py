@@ -28,10 +28,12 @@ def crate_user():
         return jsonify( {"message": e.args[0]} ), 400
 
 # READ
-@app.route('/users/<int:id>', methods = ['GET'] )
-def get_user_by_id(id):
+@app.route('/users/<int:user_id>', methods = ['GET'] )
+@token_required
+@user_resource
+def get_user_by_id(user_id):
     try:
-        user = User.get_user_by_id(id)
+        user = User.get_user_by_id(user_id)
         return jsonify( user ), 201
     except Exception as e:
         return jsonify( {"message": e.args[0]} ), 400
@@ -60,11 +62,12 @@ def update_user(user_id):
     
 
 # DELETE
-@app.route('/users/<int:id>', methods = ['DELETE'] )
+@app.route('/users/<int:user_id>', methods = ['DELETE'] )
 @token_required
-def remove_user(id):
+@user_resource
+def remove_user(user_id):
     try:
-        delete = User.delete_user(id)
+        delete = User.delete_user(user_id)
         return delete
     except Exception as e:
         return jsonify( {"message": e.args[0]} ), 400

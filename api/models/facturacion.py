@@ -90,7 +90,7 @@ class Invoice():
 
         ###### Creacion de los registros de productos y servicios
         cur.execute('SELECT LAST_INSERT_ID()')
-        res = cur.fetchall()
+        res = cur.fetchall() 
         id = res[0][0]
         
         invoice = (Invoice((id, data["user_id"], data["client_id"], data["user_cuil_cuit"], data["client_cuil_cuit"], date, total_iva, total_price,  True)).to_json())
@@ -109,19 +109,24 @@ class Invoice():
                 cur.execute('SELECT LAST_INSERT_ID()')
                 ps_id = cur.fetchone()
                 product_service_invoice = Product_Service_Invoice((ps_id[0], id, data["user_id"], data["client_id"], product_service["prd_serv"],None, product_service["ps_id"],  product_service["units_hours"], iva_sub_total, sub_total, True)).to_json()
+            
             elif product_service["prd_serv"] == "p":
                 cur.execute('INSERT INTO product_service_invoice (invoice_id, user_id, client_id, prd_serv, product_id, service_id, units_hours, sub_total_iva, sub_total, visibility) VALUES ( %s, %s, %s, %s, %s, NULL, %s, %s, %s, %s)',
                                 ( id, data["user_id"], data["client_id"], product_service["prd_serv"], product_service["ps_id"], product_service["units_hours"], iva_sub_total, sub_total, True))
                 mysql.connection.commit()
                 cur.execute('SELECT LAST_INSERT_ID()')
                 ps_id = cur.fetchone()
+
+                # ACTUALIZMOS EL STOCK
                 cur.execute('SELECT units_stored FROM product WHERE id = %s', (product_service["ps_id"],))
                 row = cur.fetchone()
                 stock = row[0]
                 reduce_stock = stock - product_service["units_hours"]
                 cur.execute('UPDATE product SET units_stored = %s WHERE id = %s', (reduce_stock, product_service["ps_id"]))
                 mysql.connection.commit()
+                
                 product_service_invoice = Product_Service_Invoice((ps_id[0], id, data["user_id"], data["client_id"], product_service["ps_id"], None, product_service["prd_serv"], product_service["units_hours"], iva_sub_total, sub_total, True)).to_json()
+            
             else:
                 raise DBError("Error creating invoice - no row inserted")
             
@@ -215,25 +220,39 @@ class Invoice():
     ##### RANKING FACTURA CLIENTE
     def ranking_clients(user_id):
         try:
+            # BUSCAMOS TODODS LAS FACTURAS POR CLIENTE DEL USUARIO
             invoices = Invoice.get_all_invoice_by_user_id(user_id)
         except Exception as e:
             raise e
+        # CREAMOS VARIABLES DE APOYO Y SALIDA
         output = []
         invoiceObj = {}
+
+
         for invoice in invoices:
+
+            # Actualiza las compras por cliente
             if invoiceObj.get(invoice["client_id"]):
                 invoiceObj[invoice["client_id"]]["total_buys"]+= 1
                 invoiceObj[invoice["client_id"]]["total_mount"]+= invoice["total_price"]
+
+            # Ingresa compra de cliente
             else:
                 invoiceObj[invoice["client_id"]] = {"total_buys": 1,
-                                                  "total_mount": invoice["total_price"]}
-        
+                                                   "total_mount": invoice["total_price"]}
+                
+
+        # CREAMOS OBJETOS CON LOS DATOS ENTEROS POR CLIENTE
         for key in invoiceObj.keys():
             objAux = {"ps_id": key,
                       "count": invoiceObj[key]["total_buys"],
                       "total_mount": invoiceObj[key]["total_mount"]}
+            
+            # Ingresamos en la salida
             output.append(objAux)
         
+
+        # Ordenamos los clientes por cantidad de compras
         for i in range(len(output) - 1):
             
             for j in range(len(output) - i):

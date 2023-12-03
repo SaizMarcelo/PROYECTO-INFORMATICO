@@ -201,6 +201,7 @@ class Product_Service_Invoice():
         
         return output
     
+    
     def count_service_ofered(user_id):
         try:
             service_list = Product_Service_Invoice.get_invoice_service_list(user_id)
@@ -209,6 +210,7 @@ class Product_Service_Invoice():
         
         output = []
         servicesObj = {}
+
         for service in service_list:
             if servicesObj.get(service["ps_id"]):
                 servicesObj[service["ps_id"]]["total_units_hours"]+= service["units_hours"]
@@ -233,6 +235,7 @@ class Product_Service_Invoice():
         
         return output
     
+    # Movimiento de stock
     def control_flow_product(user_id):
         cur = mysql.connection.cursor()
         output = []

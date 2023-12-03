@@ -116,7 +116,7 @@ class User():
     ### READ
     def get_user_by_id(id):
         cur = mysql.connection.cursor()
-        cur.execute('SELECT * FROM user WHERE id = %s', (id, ))
+        cur.execute('SELECT * FROM user WHERE id = %s  AND visibility = 1', (id, ))
         data = cur.fetchall()
         if cur.rowcount > 0:
             return User(data[0]).to_json()
@@ -126,9 +126,12 @@ class User():
         cur = mysql.connection.cursor()
         cur.execute('SELECT * FROM user')
         data = cur.fetchall()
+        users = []
         if cur.rowcount > 0:
-            return User(data[0]).to_json()
-        raise DBError("Error getting client by id - no row found")
+            for i in data:
+                users.append( User(i).to_json())
+            return users
+        raise DBError("Error getting users - no row found")
 
     ### UPDATE
     def update_user(data):

@@ -376,7 +376,8 @@ function cargarListaServiciosFactura(){
                     const resultado = `<div>SUBTOTAL SERVICIOS: ${subTotalServicios}</div>`;
                     contenedorDinamicoServicioFacturaResultado.innerHTML=resultado;
                     localStorage.setItem('totalFacturadoS', subTotalServicios);
-                    totalFactura();}
+                    totalFactura();
+                }
             }
         )
         .catch(error => {
@@ -644,4 +645,6 @@ function limpiarCompra(){
     document.getElementById("cargar_cliente").innerHTML = "";
     document.getElementById("ingreso_servicio").innerHTML = "";
     document.getElementById("ingreso_producto").innerHTML = "";
+    localStorage.setItem('totalFacturadoP', 0)
+    localStorage.setItem('totalFacturadoS', 0)
 }

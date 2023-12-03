@@ -42,7 +42,7 @@ function cargarDatosUsuario(){
     const id = localStorage.getItem('id');
     const token = localStorage.getItem('token');
 
-    // Creamos el objeto Request para crear el cliente: JSON
+    // Creamos el objeto Request para crear el usuario: JSON
     const requestOption = {
         method : 'GET',
         headers: {
@@ -85,13 +85,13 @@ function cargarDatosUsuario(){
 
 
 // UPDATE
-// Funcion PUT - Modificar Datos del Cliente:
+// Funcion PUT - Modificar Datos del Usuario:
 function modificarDatosUsuario(){
     // Obtenemos la ID del Usuario:
         const id = localStorage.getItem('id');
         const token = localStorage.getItem('token');
     
-    // Creamos el objeto Request para modificar los datos del cliente: JSON
+    // Creamos el objeto Request para modificar los datos del usuario: JSON
     const requestOption = {
         method: 'PUT',
         headers: {
@@ -132,7 +132,7 @@ function eliminarUsuario(){
     const id = localStorage.getItem('id');
     const token = localStorage.getItem('token');
 
-    // Creamos el objeto Request para crear el cliente: JSON
+    // Creamos el objeto Request para crear el usuario: JSON
     const requestOption = {
         method : 'DELETE',
         headers: {
@@ -145,8 +145,11 @@ function eliminarUsuario(){
     fetch(`http://127.0.0.1:4500/users/${id}`, requestOption)
     .then(
         resp  => {
-            cerrarSesion()
-            return resp.json()
+            if (resp.message){
+                document.getElementById("contenedorDinamico").innerHTML = `<span class="error">${resp.message}</span>`;
+            } else {
+            cerrarSesion();
+            return resp.json()}
         }
     )
     .catch(error => {
@@ -203,6 +206,7 @@ function comprobarCrearUsuario(){
     let cuil_cuit = validarCuilCuitCrearUsuario();
     let nombre_usuario = validarNombreDeUsuarioCrearUsuario();
     let contrasenia = validarContraseniaCrearUsuario();
+
     if(nombre && email && direccion && telefono && cuil_cuit && nombre_usuario && contrasenia){
         crearUsuario();
     }
@@ -307,6 +311,7 @@ function comprobarUsuario(){
     let cuil_cuit = validarCuilCuitUsuario();
     let nombre_usuario = validarNombreDeUsuarioUsuario();
     let contrasenia = validarContraseniaUsuario();
+
     if(nombre && email && direccion && telefono && cuil_cuit && nombre_usuario && contrasenia){
         modificarDatosUsuario();
     }
