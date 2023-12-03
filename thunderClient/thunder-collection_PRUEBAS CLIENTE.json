@@ -1,0 +1,234 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "PRUEBAS CLIENTE",
+    "dateExported": "2023-12-03T02:06:06.503Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "cda62a29-c067-4f58-a735-6f70858d9d46",
+            "colId": "b5a07469-b7e8-41d0-8dc0-125e67f49840",
+            "containerId": "",
+            "name": "GET ALL CLIENTS",
+            "url": "/users/1/client",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-11-16T22:03:45.717Z",
+            "modified": "2023-12-03T00:25:56.687Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "152cad4c-443c-4bc5-993a-1fd157bf82ce",
+            "colId": "b5a07469-b7e8-41d0-8dc0-125e67f49840",
+            "containerId": "",
+            "name": "GET ALL CLIENTS NOT AUTORIZED",
+            "url": "/users/2/client",
+            "method": "GET",
+            "sortNum": 15000,
+            "created": "2023-12-03T01:41:37.662Z",
+            "modified": "2023-12-03T01:41:46.447Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "eebaa882-ce06-4743-a7fa-a2eb19d32e2a",
+            "colId": "b5a07469-b7e8-41d0-8dc0-125e67f49840",
+            "containerId": "",
+            "name": "GET CLIENT BY ID",
+            "url": "/users/1/client/2",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-11-16T22:04:00.012Z",
+            "modified": "2023-12-03T00:53:08.491Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "b04be3dd-40af-4038-93b6-ac3322c72a0d",
+            "colId": "b5a07469-b7e8-41d0-8dc0-125e67f49840",
+            "containerId": "",
+            "name": "GET CLIENT BY ID NOT AUTORIZED",
+            "url": "/users/1/client/6",
+            "method": "GET",
+            "sortNum": 25000,
+            "created": "2023-12-03T01:43:58.617Z",
+            "modified": "2023-12-03T01:44:14.949Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "cb7f279f-8b4f-4ab3-af60-fe84e9bb7693",
+            "colId": "b5a07469-b7e8-41d0-8dc0-125e67f49840",
+            "containerId": "",
+            "name": "POST CLIENT",
+            "url": "/users/1/client",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-11-16T22:04:41.170Z",
+            "modified": "2023-12-03T00:53:02.259Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\"name\": \"nombre\",\n\"cuil_cuit\": \"2200330020\",\n\"email\": \"email@mail.com\", \n\"address\": \"direccion 123\", \n\"phone_number\": \"2020202\"}\n",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "c601086f-f2f6-403b-aa9a-87f4d42e56f3",
+            "colId": "b5a07469-b7e8-41d0-8dc0-125e67f49840",
+            "containerId": "",
+            "name": "POST CLIENT NOT AUTORIZED",
+            "url": "/users/2/client",
+            "method": "POST",
+            "sortNum": 35000,
+            "created": "2023-12-03T01:46:05.697Z",
+            "modified": "2023-12-03T01:46:28.334Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\"name\": \"nombre\",\n\"cuil_cuit\": \"2200330020\",\n\"email\": \"email@mail.com\", \n\"address\": \"direccion 123\", \n\"phone_number\": \"2020202\"}\n",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "822349ad-5733-46ab-8c40-fdb4613e1aa4",
+            "colId": "b5a07469-b7e8-41d0-8dc0-125e67f49840",
+            "containerId": "",
+            "name": "PUT CLIENT UPDATE",
+            "url": "/users/1/client/16",
+            "method": "PUT",
+            "sortNum": 40000,
+            "created": "2023-11-16T22:05:26.265Z",
+            "modified": "2023-12-03T01:48:46.999Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\"name\": \"mariano\",\n\"cuil_cuit\": \"2200330020\",\n\"email\": \"email@mail.com\", \n\"address\": \"direccion123\", \n\"phone_number\": \"202020202\"}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "3aff65b6-e685-4911-9e12-3a8e889ae378",
+            "colId": "b5a07469-b7e8-41d0-8dc0-125e67f49840",
+            "containerId": "",
+            "name": "PUT CLIENT UPDATE NOT AUTORIZED",
+            "url": "/users/2/client/16",
+            "method": "PUT",
+            "sortNum": 45000,
+            "created": "2023-12-03T01:48:12.695Z",
+            "modified": "2023-12-03T01:48:50.833Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\"name\": \"mariano\",\n\"cuil_cuit\": \"2200330020\",\n\"email\": \"email@mail.com\", \n\"address\": \"direccion123\", \n\"phone_number\": \"202020202\"}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "c64b5817-ebd9-44eb-9810-b34c7fb34cf1",
+            "colId": "b5a07469-b7e8-41d0-8dc0-125e67f49840",
+            "containerId": "",
+            "name": "DELETE CLIENT BY ID",
+            "url": "/users/1/client/16",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2023-11-16T22:06:18.505Z",
+            "modified": "2023-12-03T01:49:08.622Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "16153c39-b8c4-4d75-a58b-9f1927ac8d33",
+            "colId": "b5a07469-b7e8-41d0-8dc0-125e67f49840",
+            "containerId": "",
+            "name": "DELETE CLIENT BY ID NOT AUTORIZED",
+            "url": "/users/2/client/16",
+            "method": "DELETE",
+            "sortNum": 60000,
+            "created": "2023-12-03T01:49:14.095Z",
+            "modified": "2023-12-03T01:49:20.443Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        }
+    ],
+    "settings": {
+        "headers": [
+            {
+                "name": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZXhwIjoxNzAxNTczNzk1fQ.HHClk2q2jIGvVD_5l2gDWm1BkpLyxa0UuzzsN8smcT8"
+            },
+            {
+                "name": "user-id",
+                "value": "1"
+            }
+        ],
+        "options": {
+            "baseUrl": "http://127.0.0.1:4500"
+        }
+    }
+}

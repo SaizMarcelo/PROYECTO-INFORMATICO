@@ -1,0 +1,150 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "PRUEBAS USUARIO",
+    "dateExported": "2023-12-03T02:05:55.289Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "6abc01dd-5a27-484e-a45e-86fba91fc953",
+            "colId": "e6cec1c7-c884-4647-a6fe-99a99f219a3c",
+            "containerId": "",
+            "name": "POST LOGIN",
+            "url": "/login",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-11-15T21:34:39.483Z",
+            "modified": "2023-11-30T03:36:48.587Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "basic",
+                "basic": {
+                    "username": "admin",
+                    "password": "admin"
+                }
+            },
+            "tests": []
+        },
+        {
+            "_id": "b1372237-5829-4b84-8b17-aba9e826ea22",
+            "colId": "e6cec1c7-c884-4647-a6fe-99a99f219a3c",
+            "containerId": "",
+            "name": " GET ALL USERS",
+            "url": "/users",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-11-16T21:44:39.205Z",
+            "modified": "2023-11-22T01:29:35.621Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "8be37f7c-4522-4bce-a34f-49c21ad9a286",
+            "colId": "e6cec1c7-c884-4647-a6fe-99a99f219a3c",
+            "containerId": "",
+            "name": " GET USER BY ID",
+            "url": "/users/1",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-11-16T21:45:26.493Z",
+            "modified": "2023-12-02T23:53:04.826Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "0bd80cff-9f13-4dca-8592-867978089fc3",
+            "colId": "e6cec1c7-c884-4647-a6fe-99a99f219a3c",
+            "containerId": "",
+            "name": "DELETE USER BY ID",
+            "url": "/users/1",
+            "method": "DELETE",
+            "sortNum": 40000,
+            "created": "2023-11-16T21:45:48.237Z",
+            "modified": "2023-12-02T23:53:03.380Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "69c01916-38a3-4fc4-9f65-b93b20ec3cad",
+            "colId": "e6cec1c7-c884-4647-a6fe-99a99f219a3c",
+            "containerId": "",
+            "name": "POST NEW USER",
+            "url": "/signup",
+            "method": "POST",
+            "sortNum": 45000,
+            "created": "2023-11-16T21:47:42.403Z",
+            "modified": "2023-11-22T01:33:38.395Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"el\",\n  \"password\": \"1234\",\n  \"name\": \"el\",\n  \"cuil_cuit\": \"2020202020\",\n  \"email\": \"arasdfa@mail.com\",\n  \"address\": \"Direccion\",\n  \"phone_number\": \"123123\"\n}\n",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "0f790ff5-0e7d-4a52-8d31-05f00a7b6f1a",
+            "colId": "e6cec1c7-c884-4647-a6fe-99a99f219a3c",
+            "containerId": "",
+            "name": "PUT USER UPDATE BY ID",
+            "url": "/users/1",
+            "method": "PUT",
+            "sortNum": 50000,
+            "created": "2023-11-16T21:46:36.219Z",
+            "modified": "2023-12-02T23:53:56.113Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin\",\n  \"name\": \"Juancho\",\n  \"email\": \"arasdfa@mail.com\",\n  \"address\": \"Direccion\",\n  \"phone_number\": \"123123\",\n  \"cuil_cuit\": \"20202020\"\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ],
+    "settings": {
+        "headers": [
+            {
+                "name": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZXhwIjoxNzAxNTY3MjA5fQ.vAJmOV-ftbKl_nXcCKnLHTM2TSuecNmOa-e8MZtJ1Bk"
+            },
+            {
+                "name": "user-id",
+                "value": "1"
+            }
+        ],
+        "options": {
+            "baseUrl": "http://127.0.0.1:4500"
+        }
+    }
+}
