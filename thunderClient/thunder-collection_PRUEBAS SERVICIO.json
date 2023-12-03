@@ -1,0 +1,234 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "PRUEBAS SERVICIO",
+    "dateExported": "2023-12-03T02:07:24.390Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "2b02e403-83e8-4135-aaf0-0abd38c6c924",
+            "colId": "11e3fb62-1d4a-496c-9d68-49a831366d19",
+            "containerId": "",
+            "name": "GET ALL SERVICE",
+            "url": "/users/1/service",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-11-16T22:11:18.314Z",
+            "modified": "2023-12-03T00:54:21.749Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "2be98e81-9fe6-4378-aa79-54ae1e36fa19",
+            "colId": "11e3fb62-1d4a-496c-9d68-49a831366d19",
+            "containerId": "",
+            "name": "GET ALL SERVICE NOT AUTORIZED",
+            "url": "/users/2/service",
+            "method": "GET",
+            "sortNum": 15000,
+            "created": "2023-12-03T01:54:41.556Z",
+            "modified": "2023-12-03T01:55:55.333Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "fbc453ec-b61d-46b8-bae1-09331a71e0c5",
+            "colId": "11e3fb62-1d4a-496c-9d68-49a831366d19",
+            "containerId": "",
+            "name": "GET SERVICE BY ID",
+            "url": "/users/1/service/1",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-11-16T22:11:18.316Z",
+            "modified": "2023-12-03T00:54:28.044Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "bc11ddc3-e79e-44a7-b54a-70623f1ad3cd",
+            "colId": "11e3fb62-1d4a-496c-9d68-49a831366d19",
+            "containerId": "",
+            "name": "GET SERVICE BY ID NOT AUTORIZED",
+            "url": "/users/2/service/1",
+            "method": "GET",
+            "sortNum": 25000,
+            "created": "2023-12-03T01:56:01.563Z",
+            "modified": "2023-12-03T01:56:22.421Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "2848d267-c618-4f97-86ad-7fc949b5e3f8",
+            "colId": "11e3fb62-1d4a-496c-9d68-49a831366d19",
+            "containerId": "",
+            "name": "POST NEW SERVICE",
+            "url": "/users/1/service",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-11-16T22:11:18.317Z",
+            "modified": "2023-12-03T00:54:36.026Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"papa\",\n  \"hour_price\": 123,\n  \"iva\": 21,\n  \"description\": \"nuevo servicio\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "f8b9f3fd-bcde-4ed2-a99c-147895e30d54",
+            "colId": "11e3fb62-1d4a-496c-9d68-49a831366d19",
+            "containerId": "",
+            "name": "POST NEW SERVICE NOT AUTORIZED",
+            "url": "/users/2/service",
+            "method": "POST",
+            "sortNum": 35000,
+            "created": "2023-12-03T01:54:43.844Z",
+            "modified": "2023-12-03T01:56:45.287Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"papa\",\n  \"hour_price\": 123,\n  \"iva\": 21,\n  \"description\": \"nuevo servicio\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "6b2fb28a-b71e-43ad-8b29-0d7ebe2e837e",
+            "colId": "11e3fb62-1d4a-496c-9d68-49a831366d19",
+            "containerId": "",
+            "name": "PUT SERVICE UPDATE BY ID",
+            "url": "/users/1/service/6",
+            "method": "PUT",
+            "sortNum": 40000,
+            "created": "2023-11-16T22:11:18.318Z",
+            "modified": "2023-12-03T01:57:03.283Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"papas\",\n  \"hour_price\": 123,\n  \"iva\": 21,\n  \"description\": \"viejo servicio\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "93f2aa8f-465c-4582-8d96-8478ca01f393",
+            "colId": "11e3fb62-1d4a-496c-9d68-49a831366d19",
+            "containerId": "",
+            "name": "PUT SERVICE UPDATE BY ID NOT AUTORIZED",
+            "url": "/users/2/service/6",
+            "method": "PUT",
+            "sortNum": 45000,
+            "created": "2023-12-03T01:54:45.740Z",
+            "modified": "2023-12-03T01:57:10.852Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"papas\",\n  \"hour_price\": 123,\n  \"iva\": 21,\n  \"description\": \"viejo servicio\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "675ed741-b710-42a6-8e1f-4fbd2dd82600",
+            "colId": "11e3fb62-1d4a-496c-9d68-49a831366d19",
+            "containerId": "",
+            "name": "DELETE SERVICE BY ID",
+            "url": "/users/1/service/6",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2023-11-16T22:11:18.319Z",
+            "modified": "2023-12-03T01:57:23.478Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "0ce5ebae-a3ae-43cf-987a-3b46b1caa21f",
+            "colId": "11e3fb62-1d4a-496c-9d68-49a831366d19",
+            "containerId": "",
+            "name": "DELETE SERVICE BY ID NOT AUTORIZED",
+            "url": "/users/2/service/6",
+            "method": "DELETE",
+            "sortNum": 60000,
+            "created": "2023-12-03T01:54:48.508Z",
+            "modified": "2023-12-03T01:57:30.018Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        }
+    ],
+    "settings": {
+        "headers": [
+            {
+                "name": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZXhwIjoxNzAxNTczNzk1fQ.HHClk2q2jIGvVD_5l2gDWm1BkpLyxa0UuzzsN8smcT8"
+            },
+            {
+                "name": "user-id",
+                "value": "1"
+            }
+        ],
+        "options": {
+            "baseUrl": "http://127.0.0.1:4500"
+        }
+    }
+}

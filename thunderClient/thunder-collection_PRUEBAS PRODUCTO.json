@@ -1,0 +1,234 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "PRUEBAS PRODUCTO",
+    "dateExported": "2023-12-03T02:06:10.399Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "efc5fe08-94da-4d5b-9b68-f1618e494e72",
+            "colId": "9c1849d8-e888-4842-b37d-a68e9f2f1786",
+            "containerId": "",
+            "name": "GET ALL PRODUCTS",
+            "url": "/users/2/product",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-11-16T22:07:05.623Z",
+            "modified": "2023-12-03T01:50:35.917Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "0e304a67-8d5e-43b1-9d70-245694110b2f",
+            "colId": "9c1849d8-e888-4842-b37d-a68e9f2f1786",
+            "containerId": "",
+            "name": "GET ALL PRODUCTS NOT AUTORIZED",
+            "url": "/users/1/product",
+            "method": "GET",
+            "sortNum": 15000,
+            "created": "2023-12-03T01:50:21.670Z",
+            "modified": "2023-12-03T01:50:21.670Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "ab1568c8-acb4-4e18-8c4b-5fc6f4b0f80d",
+            "colId": "9c1849d8-e888-4842-b37d-a68e9f2f1786",
+            "containerId": "",
+            "name": "GET PRODUCT BY ID",
+            "url": "/users/1/product/1",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-11-16T22:07:21.610Z",
+            "modified": "2023-12-03T00:53:53.036Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "f784b486-9271-41ab-9abc-91ca67fb0ed2",
+            "colId": "9c1849d8-e888-4842-b37d-a68e9f2f1786",
+            "containerId": "",
+            "name": "GET PRODUCT BY ID NOT AUTORIZED",
+            "url": "/users/2/product/1",
+            "method": "GET",
+            "sortNum": 25000,
+            "created": "2023-12-03T01:51:05.894Z",
+            "modified": "2023-12-03T01:51:14.135Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "0f1c3ca0-cf6e-4a3e-9d3d-a91ac5da114a",
+            "colId": "9c1849d8-e888-4842-b37d-a68e9f2f1786",
+            "containerId": "",
+            "name": "POST NEW PRODUCT",
+            "url": "/users/1/product",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-11-16T22:07:50.153Z",
+            "modified": "2023-12-03T00:54:01.669Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n\"name\": \"cosa\", \n\"unitary_price\": 120, \n\"units_stored\": 1000, \n\"iva\": 21,\n\"description\": \"nuevo producto\"\n}  ",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "04252009-c256-42d8-90a7-ef46f196c4f3",
+            "colId": "9c1849d8-e888-4842-b37d-a68e9f2f1786",
+            "containerId": "",
+            "name": "POST NEW PRODUCT NOT AUTORIZED",
+            "url": "/users/2/product",
+            "method": "POST",
+            "sortNum": 35000,
+            "created": "2023-12-03T01:52:01.062Z",
+            "modified": "2023-12-03T01:52:24.080Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n\"name\": \"cosa\", \n\"unitary_price\": 120, \n\"units_stored\": 1000, \n\"iva\": 21,\n\"description\": \"nuevo producto\"\n}  ",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "5e89dd61-9f23-4951-a527-7df8f847a68b",
+            "colId": "9c1849d8-e888-4842-b37d-a68e9f2f1786",
+            "containerId": "",
+            "name": "PUT PRODUCT UPDATE BY ID",
+            "url": "/users/1/product/11",
+            "method": "PUT",
+            "sortNum": 40000,
+            "created": "2023-11-16T22:08:14.929Z",
+            "modified": "2023-12-03T01:52:43.826Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n\"name\": \"cosa\", \n\"unitary_price\": 120, \n\"units_stored\": 1000, \n\"iva\": 21,\n\"description\": \"viejo producto\"\n} ",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "344b1728-1a36-4350-a08d-50eb67cc1749",
+            "colId": "9c1849d8-e888-4842-b37d-a68e9f2f1786",
+            "containerId": "",
+            "name": "PUT PRODUCT UPDATE BY ID NOT AUTORIZED",
+            "url": "/users/2/product/11",
+            "method": "PUT",
+            "sortNum": 45000,
+            "created": "2023-12-03T01:53:01.573Z",
+            "modified": "2023-12-03T01:53:15.740Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n\"name\": \"cosa\", \n\"unitary_price\": 120, \n\"units_stored\": 1000, \n\"iva\": 21,\n\"description\": \"viejo producto\"\n} ",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "be9a354e-b71a-4325-8946-8927097eee78",
+            "colId": "9c1849d8-e888-4842-b37d-a68e9f2f1786",
+            "containerId": "",
+            "name": "DELETE PRODUCT BY ID",
+            "url": "/users/1/product/11",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2023-11-16T22:09:04.688Z",
+            "modified": "2023-12-03T01:53:30.158Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "27ffeab1-eaf6-4f25-a7e8-d3077f525572",
+            "colId": "9c1849d8-e888-4842-b37d-a68e9f2f1786",
+            "containerId": "",
+            "name": "DELETE PRODUCT BY ID NOT AUTORIZED",
+            "url": "/users/2/product/11",
+            "method": "DELETE",
+            "sortNum": 60000,
+            "created": "2023-12-03T01:53:34.573Z",
+            "modified": "2023-12-03T01:53:52.914Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        }
+    ],
+    "settings": {
+        "headers": [
+            {
+                "name": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZXhwIjoxNzAxNTczNzk1fQ.HHClk2q2jIGvVD_5l2gDWm1BkpLyxa0UuzzsN8smcT8"
+            },
+            {
+                "name": "user-id",
+                "value": "1"
+            }
+        ],
+        "options": {
+            "baseUrl": "http://127.0.0.1:4500"
+        }
+    }
+}
