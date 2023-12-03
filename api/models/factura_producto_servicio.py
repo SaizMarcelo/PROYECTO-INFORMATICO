@@ -22,7 +22,7 @@ class Product_Service_Invoice():
         "units_hours": int
     }
 
-    ## CHECK DATA SCHEMA ES UN COPY PASTE
+    ## CHECK DATA SCHEMA
     def check_data_schema(data):
         if data == None or type(data) != dict:
             return False
@@ -156,14 +156,13 @@ class Product_Service_Invoice():
             output = []
 
             cur.execute('SELECT * FROM product_service_invoice WHERE prd_serv = "p" AND user_id = %s AND visibility = 1', (user_id, ))
-            service = cur.fetchall()
+            product = cur.fetchall()
             if cur.rowcount < 1:
                 raise DBError("Error product invoice - row not found")
-            for serv in service:
+            for prod in product:
                 objProdServ = Product_Service_Invoice(serv)
                 output.append(objProdServ.to_json())
-            
-            
+                        
             return output
 
 

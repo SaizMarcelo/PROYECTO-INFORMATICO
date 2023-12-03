@@ -16,7 +16,7 @@ class User():
         "cuil_cuit": str
     }
 
-    ## CHECK DATA SCHEMA ES UN COPY PASTE
+    ## CHECK DATA SCHEMA
     def check_data_schema(data):
         if data == None or type(data) != dict:
             return False
