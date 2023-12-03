@@ -1,0 +1,300 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "PRUEBAS FACTURA",
+    "dateExported": "2023-12-03T02:06:15.383Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "f8d59149-f350-47ca-b005-8c798d68c380",
+            "colId": "34d421cc-4ef4-4cdb-a962-efee915632b7",
+            "containerId": "",
+            "name": "GET ALL INVOICE",
+            "url": "/users/1/invoice",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-11-16T22:12:51.877Z",
+            "modified": "2023-12-03T00:55:03.968Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "b37c1c0b-87a4-4da4-a186-31110aa5d46c",
+            "colId": "34d421cc-4ef4-4cdb-a962-efee915632b7",
+            "containerId": "",
+            "name": "GET ALL INVOICE NOT AUTORIZED",
+            "url": "/users/2/invoice",
+            "method": "GET",
+            "sortNum": 12500,
+            "created": "2023-12-03T01:58:37.795Z",
+            "modified": "2023-12-03T01:58:59.427Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "d06fb25b-6386-42fc-b895-a2b5a954e6fa",
+            "colId": "34d421cc-4ef4-4cdb-a962-efee915632b7",
+            "containerId": "",
+            "name": "GET CLIENT RANKING",
+            "url": "/users/1/invoice_ranking_client",
+            "method": "GET",
+            "sortNum": 15000,
+            "created": "2023-11-26T18:54:25.943Z",
+            "modified": "2023-12-03T00:55:09.475Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "1d4e1d46-0186-4b35-b9cc-4fc9d269010f",
+            "colId": "34d421cc-4ef4-4cdb-a962-efee915632b7",
+            "containerId": "",
+            "name": "GET CLIENT RANKING NOT AUTORIZED",
+            "url": "/users/2/invoice_ranking_client",
+            "method": "GET",
+            "sortNum": 15625,
+            "created": "2023-12-03T01:59:41.090Z",
+            "modified": "2023-12-03T01:59:59.822Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "860ee6aa-de25-47c8-964d-9deb1be24709",
+            "colId": "34d421cc-4ef4-4cdb-a962-efee915632b7",
+            "containerId": "",
+            "name": "GET SERVICE RANKING",
+            "url": "/users/1/invoice_ranking_service",
+            "method": "GET",
+            "sortNum": 16250,
+            "created": "2023-12-03T01:59:21.922Z",
+            "modified": "2023-12-03T02:00:11.968Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "db730a9c-7e42-4d4a-920d-a3539c3f2a85",
+            "colId": "34d421cc-4ef4-4cdb-a962-efee915632b7",
+            "containerId": "",
+            "name": "GET SERVICE RANKING NOT AUTORIZED",
+            "url": "/users/2/invoice_ranking_service",
+            "method": "GET",
+            "sortNum": 17500,
+            "created": "2023-12-03T01:59:19.315Z",
+            "modified": "2023-12-03T02:01:15.503Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "329119e0-2217-44fe-be4d-78e1a4711443",
+            "colId": "34d421cc-4ef4-4cdb-a962-efee915632b7",
+            "containerId": "",
+            "name": "GET PRODUCT RANKING",
+            "url": "/users/1/invoice_ranking_product",
+            "method": "GET",
+            "sortNum": 18750,
+            "created": "2023-12-03T02:01:50.546Z",
+            "modified": "2023-12-03T02:02:26.268Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "98b0e233-eafd-48e5-aac3-70c874aea334",
+            "colId": "34d421cc-4ef4-4cdb-a962-efee915632b7",
+            "containerId": "",
+            "name": "GET PRODUCT RANKING NOT AUTORIZED",
+            "url": "/users/2/invoice_ranking_product",
+            "method": "GET",
+            "sortNum": 19375,
+            "created": "2023-12-03T02:01:53.505Z",
+            "modified": "2023-12-03T02:02:38.430Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "1142003e-d042-4b2f-8e1b-4030d59891ee",
+            "colId": "34d421cc-4ef4-4cdb-a962-efee915632b7",
+            "containerId": "",
+            "name": "GET INVOICE BY ID",
+            "url": "/users/1/invoice/1",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-11-16T22:12:51.878Z",
+            "modified": "2023-12-03T01:58:14.627Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "b9c1b5f6-73fe-46cb-a0dd-628e37670e68",
+            "colId": "34d421cc-4ef4-4cdb-a962-efee915632b7",
+            "containerId": "",
+            "name": "GET INVOICE BY ID NOT AUTORIZED",
+            "url": "/users/2/invoice/1",
+            "method": "GET",
+            "sortNum": 25000,
+            "created": "2023-12-03T02:03:27.272Z",
+            "modified": "2023-12-03T02:03:40.096Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "6b649386-3f77-484e-9c10-166ff7c68c95",
+            "colId": "34d421cc-4ef4-4cdb-a962-efee915632b7",
+            "containerId": "",
+            "name": "POST NEW INVOICE",
+            "url": "/users/1/invoice",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-11-16T22:12:51.879Z",
+            "modified": "2023-12-03T00:55:19.277Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\"client_id\":1,\"user_cuil_cuit\":\"20400000002\",\"client_cuil_cuit\":\"20410000002\",\"products_services\":[{\"ps_id\":1,\"prd_serv\":\"s\",\"units_hours\":12},{\"ps_id\":1,\"prd_serv\":\"p\",\"units_hours\":12}]}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "fea8c277-1866-44a0-9813-625d1578a5b7",
+            "colId": "34d421cc-4ef4-4cdb-a962-efee915632b7",
+            "containerId": "",
+            "name": "POST NEW INVOICE NOT AUTORIZED",
+            "url": "/users/2/invoice",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2023-12-03T02:03:51.888Z",
+            "modified": "2023-12-03T02:04:12.489Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\"client_id\":1,\"user_cuil_cuit\":\"20400000002\",\"client_cuil_cuit\":\"20410000002\",\"products_services\":[{\"ps_id\":1,\"prd_serv\":\"s\",\"units_hours\":12},{\"ps_id\":1,\"prd_serv\":\"p\",\"units_hours\":12}]}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "330819b6-4b28-45bc-8828-1a728a4c6421",
+            "colId": "34d421cc-4ef4-4cdb-a962-efee915632b7",
+            "containerId": "",
+            "name": "DELETE INVOICE BY ID",
+            "url": "/users/1/invoice/4",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2023-11-16T22:12:51.881Z",
+            "modified": "2023-12-03T01:58:31.355Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "a022064d-4983-4859-bf1c-598e246187c8",
+            "colId": "34d421cc-4ef4-4cdb-a962-efee915632b7",
+            "containerId": "",
+            "name": "DELETE INVOICE BY ID NOT AUTORIZED",
+            "url": "/users/2/invoice/4",
+            "method": "DELETE",
+            "sortNum": 60000,
+            "created": "2023-12-03T02:04:26.783Z",
+            "modified": "2023-12-03T02:04:38.608Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "tests": []
+        }
+    ],
+    "settings": {
+        "headers": [
+            {
+                "name": "x-access-token",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZXhwIjoxNzAxNTczNzk1fQ.HHClk2q2jIGvVD_5l2gDWm1BkpLyxa0UuzzsN8smcT8"
+            },
+            {
+                "name": "user-id",
+                "value": "1"
+            }
+        ],
+        "options": {
+            "baseUrl": "http://127.0.0.1:4500"
+        }
+    }
+}
